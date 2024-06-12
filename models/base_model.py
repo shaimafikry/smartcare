@@ -21,4 +21,4 @@ class BaseModel():
             default:
             # nusres is the deafult
                 self.id = 'N' + id
-        start_date = date.time(today)
+        join_date = date.time(today)
