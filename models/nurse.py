@@ -1,10 +1,13 @@
-"""main module for base class
+#!/usr/bin/python3
+"""nurse profile
     """
 
-from models.base_model import BaseModel
+from base_model import BaseModel
 
 class Nurse(BaseModel):
     """nusre profile"""
+    def __init__(self):
+        super().__init__('nurse')
     name = ""
     phone = ""
     department = ""

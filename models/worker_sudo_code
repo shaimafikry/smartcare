@@ -4,17 +4,17 @@ class basemodel:
 	
 	constructor:
 	def __init__ (self, *args, *kwargs):
-     id = str(random)
-	swtich type:
-     case doctor:
-         id = 'P' + id
-     case manager:
-         id = 'M' + id
-     case resptionist:
-         id = 'R' + id
-     default: # nusres is the deafult
-		id = 'N' + id
-	start_date = date.time(today)
+        id = str(random)
+        swtich type:
+        case doctor:
+            id = 'P' + id
+        case manager:
+            id = 'M' + id
+        case resptionist:
+            id = 'R' + id
+        default: #nusres is the deafault
+            id = 'N' + id
+        self.start_date = date.time(today)
 
 
 # all worker inherts from basemodel

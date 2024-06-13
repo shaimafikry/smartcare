@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-"""receptionist profile
+"""dctor profile
     """
 
 from base_model import BaseModel
 
-class Receptionist(BaseModel):
-    """receptionist profile"""
+class Doctor(BaseModel):
+    """doctor profile"""
     def __init__(self):
-        super().__init__('receptionist')
+        super().__init__('doctor')
     name = ""
     phone = ""
     department = ""
