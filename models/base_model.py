@@ -8,17 +8,21 @@ from datetime import datetime
 
 class BaseModel():
     """ main class to generate id"""
-    def __init__(self):
-        id_length = 5
-        self.id = ''.join(random.choices(string.digits, k=id_length))
-        switch type:
-            case doctor:
-                self.id = 'P' + id
-            case manager:
+    __id = (10000)
+    def __init__(self, class_type=None, id=None):
+        if id is not None:
+            id = BaseModel.__id
+        else:
+            BaseModel.__id += 1
+            id = BaseModel.__id
+        id = str(id)
+        if class_type == 'doctor':
+                self.id = 'D' + id
+        elif class_type == 'manager':
                self.id = 'M' + id
-            case resptionist:
+        elif class_type == 'receptionist':
                 self.id = 'R' + id
-            default:
-            # nusres is the deafult
+        elif class_type == 'nurse':
                 self.id = 'N' + id
-        join_date = date.time(today)
+        else:
+            self.id = 'V' + id

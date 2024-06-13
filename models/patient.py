@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""main module for base class
+"""patient profile
     """
 import random
 import string
@@ -13,21 +13,21 @@ def generate_id(number):
     return unique_id
 
 class Patient:
-""" patient profile"""
-def __init__(self,*args,*kwargs):
-self.name = ""
-self.adress = ""
-self.phone = ""
-self.nat_id = ""
-self.id = generate_id(slef.nat_id)
-self.sex = ""
-self.age = ""
-self.history = ""
-self.treatment = ""
-self.complain = ""
-self.scans = ""
-self.labs= ""
-self.admission_date = date.time(now)
-self.discharge_date = ""
-self.update = ""
-self.vitals = ""
+    """ patient profile"""
+    def __init__(self):
+        self.name = ""
+        self.adress = ""
+        self.phone = ""
+        self.nat_id = ""
+        self.id = generate_id(self.nat_id)
+        self.sex = ""
+        self.age = ""
+        self.history = ""
+        self.treatment = ""
+        self.complain = ""
+        self.scans = ""
+        self.labs= ""
+        self.admission_date = datetime.time()
+        self.discharge_date = ""
+        self.update = ""
+        self.vitals = ""

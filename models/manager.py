@@ -1,10 +1,13 @@
-"""main module for base class
+#!/usr/bin/python3
+"""manager profile
     """
 
-from models.base_model import BaseModel
+from base_model import BaseModel
 
 class Manager(BaseModel):
     """manager profile"""
+    def __init__(self):
+        super().__init__('manager')
     name = ""
     phone = ""
     department = ""
