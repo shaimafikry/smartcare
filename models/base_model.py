@@ -2,27 +2,102 @@
 """main module for base class
     """
 
-import string
-import random
+import os
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class BaseModel():
     """ main class to generate id"""
-    __id = (10000)
-    def __init__(self, class_type=None, id=None):
-        if id is not None:
-            id = BaseModel.__id
-        else:
+    if os.getenv('HBNB_TYPE_STORAGE') == "db":
+        id = Column(String(60), nullable=False, primary_key=True)
+        join_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+        edit_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+
+    __id = 0
+    def __init__(self, class_type=None, *args, **kwargs):
+        if not kwargs:
             BaseModel.__id += 1
             id = BaseModel.__id
-        id = str(id)
-        if class_type == 'doctor':
-                self.id = 'D' + id
-        elif class_type == 'manager':
-               self.id = 'M' + id
-        elif class_type == 'receptionist':
-                self.id = 'R' + id
-        elif class_type == 'nurse':
-                self.id = 'N' + id
+            # zero fills to generate id with leading zeros
+            id = str(id).zfill(5)
+            if class_type == 'doctor':
+                    self.id = 'D' + id
+            elif class_type == 'manager':
+                self.id = 'M' + id
+            elif class_type == 'receptionist':
+                    self.id = 'R' + id
+            elif class_type == 'nurse':
+                    self.id = 'N' + id
+            else:
+                self.id = 'V' + id
+            # date of join
+            self.join_at = datetime.now()
+            # date of edit
+            self.edit_at = datetime.now()
+            from models import storage
+            storage.new(self)
         else:
-            self.id = 'V' + id
+            if kwargs.get('id') == None:
+                BaseModel.__id += 1
+                id = BaseModel.__id
+                # zero fills to generate id with leading zeros
+                id = str(id).zfill(5)
+                if class_type == 'doctor':
+                        self.id = 'D' + id
+                elif class_type == 'manager':
+                    self.id = 'M' + id
+                elif class_type == 'receptionist':
+                        self.id = 'R' + id
+                elif class_type == 'nurse':
+                        self.id = 'N' + id
+                else:
+                    self.id = 'V' + id
+            else:
+                self.id = kwargs['id']
+            # if kwargs.get('join_date') is None:
+            #     self.join_at = datetime.now()
+            # else:
+            kwargs['join_at'] = datetime.strptime(kwargs['join_at'],
+                                                     '%Y-%m-%dT%H:%M:%S.%f')
+            #should "edit at" ony be mdoified after reload?
+            # if kwargs.get('edit_at') is None:
+            #     self.edit_at = datetime.now()
+            # else:
+            kwargs['edit_at'] = datetime.strptime(kwargs['edit_at'],
+                                                     '%Y-%m-%dT%H:%M:%S.%f')
+            if kwargs.get('__class__') != None:
+                del kwargs['__class__']
+            self.__dict__.update(kwargs)
+            
+
+
+    def save (self):
+        """save to file_storage.__workers"""
+        from models import storage
+        self.edit_at = datetime.now()
+        storage.new(self)
+        storage.save()
+
+    def __str__(self):
+        """Returns a string representation of the instance"""
+        # <class 'models.doctor.Doctor'> => Doctor
+        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
+        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+
+    def to_dict(self):
+        """Convert instance into dict format and adding keys to it"""
+        dictionary = {}
+        dictionary.update(self.__dict__)
+        dictionary.update({'__class__':
+                       (str(type(self)).split('.')[-1]).split('\'')[0]})
+        dictionary['join_at'] = self.join_at.isoformat()
+        dictionary['edit_at'] = self.edit_at.isoformat()
+        return dictionary
+
+    def delete(self):
+        """delete the current instance from the storage"""
+        from models import storage
+        storage.delete(self)

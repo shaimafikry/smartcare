@@ -1,0 +1,1 @@
+{"BaseModel": {}, "Nurse": {}, "Doctor": {}, "Manager": {}, "Receptionist": {}, "Patient": {"1313726": {"nat_id": 29709151313726, "id": "1313726", "admission_at": "2024-06-22T22:10:44.529207", "updated_at": "2024-06-22T22:10:44.529211", "name": "My_First_Model", "my_number": 89, "__class__": "Patient"}}}
