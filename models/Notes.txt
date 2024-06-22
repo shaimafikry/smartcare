@@ -1,0 +1,24 @@
+
+id is auto genreated with leadin Zeros 
+all ids based on one basemodel so the last number is the total workers
+ex:  N00125 => we have 125 workers not jus nurses
+
+# save form {Nureses:[id:{},id:{}]
+			 Doctors:[id:{}, id{}]}
+# Notes to refresh memory while coding:
+file : __init__.py => what for?
+	 primarily marking a directory as a Python package and allowing for package initialization upon import
+	Package Initialization: When a package is imported, Python executes the code in __init__.py. This can include initializing package-level variables, importing submodules, or executing setup code needed for the package to function correctly
+
+
+what i done:
+* did the ids for workers
+* coded the file storage, base model and other workers class
+* json => doing
+* patient => waiting
+
+
+* code runas db:
+echo 'create Doctor name="max"' | HBNB_MYSQL_USER=root HBNB_MYSQL_PWD=password HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=smart_care HBNB_TYPE_STORAGE=db ./console.py
+* code run for test:
+echo 'create Doctor name="max"' | HBNB_MYSQL_USER=root HBNB_MYSQL_PWD=password HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=smart_care_test HBNB_TYPE_STORAGE=db ./console.py
