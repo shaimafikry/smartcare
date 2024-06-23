@@ -37,13 +37,13 @@ class FileStorage:
             # deep copy to prevent any modification to the orginal
             # why deep copy ? coz the dict is dict of dicts
             temp = copy.deepcopy(FileStorage.__objects)
-            print (temp)
+            # print (temp)
             for val in temp.values():
                 # print ("fisrt vale", val)
                 for k, v in val.items():
                     # print("before to dict to file object", v.admission_at)
                     val[k] = v.to_dict()
-                    print (temp)
+                    # print (temp)
             json.dump(temp, f)
 
         

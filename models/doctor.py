@@ -6,13 +6,13 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 import os
 
-if os.getenv('HBNB_TYPE_STORAGE') == "db":
+if os.getenv('TYPE_STORAGE') == "db":
     class Doctor(BaseModel, Base):
         """doctor profile"""
         __tablename__ = "doctor"
         name = Column(String(60), nullable=False, primary_key=True)
         phone = Column(String(60), nullable=False)
-        sepcialty = Column(String(60), nullable=False)
+        specialty = Column(String(60), nullable=False)
         department = Column(String(60), nullable=False)
 else:
     class Doctor(BaseModel):
