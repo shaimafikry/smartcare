@@ -11,7 +11,7 @@ Base = declarative_base()
 
 class BaseModel():
     """ main class to generate id"""
-    if os.getenv('HBNB_TYPE_STORAGE') == "db":
+    if os.getenv('TYPE_STORAGE') == "db":
         id = Column(String(60), nullable=False, primary_key=True)
         join_at = Column(DateTime, nullable=False, default=datetime.utcnow())
         edit_at = Column(DateTime, nullable=False, default=datetime.utcnow())

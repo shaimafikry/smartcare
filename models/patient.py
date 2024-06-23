@@ -6,9 +6,8 @@ import string
 from datetime import datetime
 import os
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
 from models.base_model import Base
-from models import storage
 
 def generate_id(number):
     unique_id = str(number)[7:]
@@ -16,7 +15,7 @@ def generate_id(number):
 
 
 
-if os.getenv('HBNB_TYPE_STORAGE') == "db":
+if os.getenv('TYPE_STORAGE') == "db":
     class Patient(Base):
         __tablename__ = "patient"
         id = Column(String(60), nullable=False, primary_key=True)
@@ -34,17 +33,17 @@ if os.getenv('HBNB_TYPE_STORAGE') == "db":
         complain =  Column(String(128), nullable=True)
         scans = Column(String(128), nullable=True)
         labs= Column(String(128), nullable=True)
-        heart_rate =  Column(String(128), nullable=True)
+        heart_rate =  Column(Integer, nullable=True)
         # temprature
-        temp = Column(String(128), nullable=True)
+        temp = Column(Float, nullable=True)
         # random blood sugar
-        rbs = Column(String(128), nullable=True)
+        rbs = Column(Integer, nullable=True)
         # oxygen saturation
-        oxygen_sat = Column(String(128), nullable=True)
+        oxygen_sat = Column(Integer, nullable=True)
         # blood pressure
         blood_pressure = Column(String(128), nullable=True)
         #respiratory rate
-        res_rate = Column(String(128), nullable=True)
+        res_rate = Column(Integer, nullable=True)
 else:
     class Patient:
         """ patient profile"""
@@ -80,21 +79,22 @@ else:
             complain =  ""
             scans = []
             labs= []
-            heart_rate =  ""
+            heart_rate =  0
             # temprature
-            temp = ""
+            temp = 0.0
             # random blood sugar
-            rbs = ""
+            rbs = 0
             # oxygen saturation
-            oxygen_sat = ""
+            oxygen_sat = 0
             # blood pressure
             blood_pressure = ""
             #respiratory rate
-            res_rate = ""
+            res_rate = 0
             discharge_at = datetime.now()
 
         def save (self):
             """save to file_storage.__workers"""
+            from models import storage
             storage.new(self)
             storage.save()
 
@@ -119,4 +119,5 @@ else:
 
         def delete(self):
             """delete the current instance from the storage"""
+            from models import storage
             storage.delete(self)

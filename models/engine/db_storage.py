@@ -17,19 +17,18 @@ from models.patient import Patient
 classes = { 'BaseModel': BaseModel, 'Doctor': Doctor, 'Nurse': Nurse,
             'Manager': Manager, 'Receptionist': Receptionist, 'Patient':Patient
                 }
-class DBStorage(Base):
+class DBStorage:
     """ the new engine"""
     __engine=None
     __session=None
     def __init__(self):
         """constructor of engine"""
-        user = os.getenv('HBNB_MYSQL_USER')
-        paswd = os.getenv('HBNB_MYSQL_PWD')
-        host = os.getenv('HBNB_MYSQL_HOST')
-        # db is hard coded
-        database = os.getenv('HBNB_MYSQL_DB')
+        user = os.getenv('MYSQL_USER')
+        paswd = os.getenv('MYSQL_PWD')
+        host = os.getenv('MYSQL_HOST')
+        database = os.getenv('MYSQL_DB')
         self.__engine = create_engine("mysql+mysqldb://"+user+':'+paswd+'@'+host+'/'+database, pool_pre_ping=True,)
-        if os.getenv('HBNB_ENV') == "test":
+        if os.getenv('CARE_ENV') == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -39,13 +38,13 @@ class DBStorage(Base):
         if cls:
             data = self.__session.query(cls).all()
             for i in data:
-                key = i.__class__.__name__ + '.'+ i.id
+                key = i.id
                 dict_ins[key] = i
         else:
-            for clss in classes:
-                data = self.__session.query(classes[clss]).all()
+            for clss in classes.keys():
+                data = self.__session.query(clss).all()
                 for i in data:
-                    key = i.__class__.__name__ + '.'+ i.id
+                    key = i.id
                     dict_ins[key] = i
         return dict_ins
 

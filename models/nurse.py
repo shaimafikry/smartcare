@@ -6,7 +6,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 import os
 
-if os.getenv('HBNB_TYPE_STORAGE') == "db":
+if os.getenv('TYPE_STORAGE') == "db":
     class Nurse(BaseModel, Base):
         """nusre profile"""
         __tablename__ = "nurse"

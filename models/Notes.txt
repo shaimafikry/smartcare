@@ -18,7 +18,14 @@ what i done:
 * patient => waiting
 
 
-* code runas db:
-echo 'create Doctor name="max"' | HBNB_MYSQL_USER=root HBNB_MYSQL_PWD=password HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=smart_care HBNB_TYPE_STORAGE=db ./console.py
-* code run for test:
-echo 'create Doctor name="max"' | HBNB_MYSQL_USER=root HBNB_MYSQL_PWD=password HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=smart_care_test HBNB_TYPE_STORAGE=db ./console.py
+* code run as db:
+
+ echo 'create Doctor name="shaimaa" phone="01061674178" specialty="icu" department="icu2"' | MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care TYPE_STORAGE=db ./console.py
+
+# code run for test:
+ echo 'create Doctor name="shaimaa" phone="01061674178" specialty="icu" department="icu2"' | MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care_test TYPE_STORAGE=db ./console.py
+
+
+MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care TYPE_STORAGE=db
+
+MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care_test TYPE_STORAGE=db
