@@ -85,34 +85,6 @@
             <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
         </div>
     </div>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            var username = document.getElementById("username").value.trim();
-            
-            if (username.startsWith("d")) {
-                window.location.href = "doctor.html";
-            }
-            else if (username.startsWith("m")) {
-
-                window.location.href = "manager.html";
-            }
-            else if (username.startsWith("r")) {
-                window.location.href = "reception.html";
-            }
-            else if (username.startsWith("n")) {
-
-                window.location.href = "nurse.html";
-            }
-            
-            else {
-
-                alert("Invalid ID. Please enter a valid ID starting with 'd', 'n', 'm', or 'r'.");
-            }
-        });
-    </script>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
