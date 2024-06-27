@@ -25,7 +25,6 @@ class FileStorage:
         # we call all() to add to the exisited data
         # not to start over
         cls_name = obj.to_dict()['__class__']
-        # print("before adding to file object", obj.admission_at)
         self.all(cls_name).update({obj.id: obj})
         # print(self.all())
 

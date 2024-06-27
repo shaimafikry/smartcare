@@ -20,12 +20,19 @@ what i done:
 
 * code run as db:
 
- echo 'create Doctor name="shaimaa" phone="01061674178" specialty="icu" department="icu2"' | MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care TYPE_STORAGE=db ./console.py
+ echo 'create Doctor name="shaimaa" phone="01061674178" specialty="icu" department="icu2"' | MYSQL_PWD=password MYSQL_DB=smart_care TYPE_STORAGE=db ./console.py
 
 # code run for test:
- echo 'create Doctor name="shaimaa" phone="01061674178" specialty="icu" department="icu2"' | MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care_test TYPE_STORAGE=db ./console.py
+ echo 'create Manager name="shaimaa" phone="01061674178" specialty="icu" department="icu2" password="test"' | MYSQL_PWD=password MYSQL_DB=smart_care_test TYPE_STORAGE=db ./console.py
 
 
 MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care TYPE_STORAGE=db
 
 MYSQL_USER=root MYSQL_PWD=password MYSQL_HOST=localhost MYSQL_DB=smart_care_test TYPE_STORAGE=db
+
+what i did 27/6:
+db storage:
+	- made the user and host => hard coded
+workers classes:
+	- removed the pimary key  option from name column
+	- added password column

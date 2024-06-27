@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Care - nurses</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 70px; /* Space for the fixed navbar */
+        }
+        .navbar-custom {
+            background-color: #fff;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        .navbar-brand img {
+            width: 150px; /* Logo width */
+        }
+        .navbar-toggler {
+            border: none;
+            background: none;
+            padding: 0;
+            margin: 0;
+        }
+        .navbar-toggler img {
+            width: 40px;
+            height: 40px;
+        }
+        .dropdown {
+            position: relative;
+            margin-right: 70px; /* Move the menu image 50px away from the right edge */
+        }
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 56px;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        .menu-content a {
+            display: block;
+            padding: 10px 20px;
+            color: black;
+            text-decoration: none;
+        }
+        .menu-content a:hover {
+            background-color: #f8f9fa;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0; /* Ensure the dropdown menu aligns with the right edge of the image */
+            display: none;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        .dropdown-menu a {
+            padding: 10px 20px;
+            color: black;
+            right: 10px;
+            display: flex;
+        }
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+        }
+        .dropdown-toggle {
+            color: black;
+            border: none;
+            background: none;
+        }
+        .dropdown-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+        .content {
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .modal-body textarea {
+            width: 100%;
+            height: 200px;
+        }
+        .form-group {
+            margin-top: 20px;
+        }
+        .submit-button {
+            margin-top: 150px;
+            text-align: center;
+        }
+        .modal-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .btn-custom {
+            padding: 20px 40px; /* Adjust padding to increase button size */
+            margin: 20px; /* Add margin for spacing */
+            font-size: 18px; /* Increase font size */
+            width: 100%; /* Make buttons full width */
+            margin-bottom: 30px; /* Bottom margin between buttons */
+        }
+        .custom-p {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            padding-left: 0;
+            text-align: left;
+            margin-bottom: 120px;
+        }
+        .modal-body textarea {
+            width: 100%;
+            height: 200px;
+        }
+        .btn-lg {
+            padding: 20px 40px;
+            font-size: 23px;
+            margin: 20px;
+        }
+        .modal-scroll {
+            max-height: 400px; /* يمكنك ضبط هذا حسب حاجتك */
+            overflow-y: auto;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" alt="Hospital Logo">
+        </a>
+        <form class="form-inline mx-auto">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+        <div class="dropdown ml-auto">
+            <button class="dropdown-toggle" type="button" id="menuToggle">
+                <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="menuToggle">
+                <a class="dropdown-item" href="#">Home</a>
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">All Patients</a>
+                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item" href="#">Sign Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container content">
+        <div class="form-group">
+            <div class="form-group">
+                <h4 class="custom-p">Saraa Talat D100078</h4>
+            </div>
+            
+        </div>
+
+        <!-- Buttons to trigger modals -->
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#pastHistoryModal">Past History</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#labsModal">Labs</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#screensModal">Screens</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mainComplainModal">Main Complain</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#diagnosisModal">Diagnosis</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#treatmentModal">Treatment</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#vitalsModal">Vitals</button>
+
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" class="btn btn-success submit-button">Submit</button>
+    </div>
+
+    <!-- Modals for each button -->
+    <div class="modal fade" id="pastHistoryModal" tabindex="-1" role="dialog" aria-labelledby="pastHistoryLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pastHistoryLabel">Past History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="pastHistoryText"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Labs -->
+<div class="modal fade" id="labsModal" tabindex="-1" role="dialog" aria-labelledby="labsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labsModalLabel">Labs Reports</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <!-- Add images or content related to Labs here -->
+                <img src="images/path_to_lab.png" alt="Lab Report 1" class="img-fluid mb-2">
+                <img src="images/path_to_lab.png" alt="Lab Report 2" class="img-fluid mb-2">
+                <img src="images/path_to_lab.png" alt="Lab Report 3" class="img-fluid mb-2">
+                <img src="images/path_to_lab.png" alt="Lab Report 4" class="img-fluid mb-2">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="screensModal" tabindex="-1" role="dialog" aria-labelledby="screensModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="screensModalLabel">Screens Reports</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <img src="images/path_to_screens.png" alt="Screen Report 1" class="img-fluid mb-2">
+                <img src="images/path_to_screens.png" alt="Screen Report 2" class="img-fluid mb-2">
+                <img src="images/path_to_screens.png" alt="Screen Report 3" class="img-fluid mb-2">
+                <img src="images/path_to_screens.png" alt="Screen Report 1" class="img-fluid mb-2">
+                <img src="images/path_to_screens.png" alt="Screen Report 2" class="img-fluid mb-2">
+                <img src="images/path_to_screens.png" alt="Screen Report 3" class="img-fluid mb-2">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="modal fade" id="mainComplainModal" tabindex="-1" role="dialog" aria-labelledby="mainComplainLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mainComplainLabel">Main Complain</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="mainComplainText"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="diagnosisModal" tabindex="-1" role="dialog" aria-labelledby="diagnosisLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="diagnosisLabel">Diagnosis</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="diagnosisText"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="treatmentModal" tabindex="-1" role="dialog" aria-labelledby="treatmentLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="treatmentLabel">Treatment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="treatmentText"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="vitalsModal" tabindex="-1" role="dialog" aria-labelledby="vitalsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vitalsModalLabel">Vitals Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="bpInput">BP</label>
+                        <input type="text" class="form-control" id="bpInput" placeholder="Enter BP">
+                    </div>
+                    <div class="form-group">
+                        <label for="hrInput">HR</label>
+                        <input type="text" class="form-control" id="hrInput" placeholder="Enter HR">
+                    </div>
+                    <div class="form-group">
+                        <label for="tempInput">T</label>
+                        <input type="text" class="form-control" id="tempInput" placeholder="Enter Temperature">
+                    </div>
+                    <div class="form-group">
+                        <label for="satInput">SAT</label>
+                        <input type="text" class="form-control" id="satInput" placeholder="Enter SAT">
+                    </div>
+                    <div class="form-group">
+                        <label for="rbsInput">RBS</label>
+                        <input type="text" class="form-control" id="rbsInput" placeholder="Enter RBS">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#menuToggle').click(function(event) {
+                event.stopPropagation(); // Prevent event bubbling to close dropdown
+                $('.dropdown-menu').toggle();
+            });
+
+            $(document).click(function(event) {
+                if (!$(event.target).closest('.dropdown').length) {
+                    $('.dropdown-menu').hide();
+                }
+            });
+
+            // Modal interactions for saving data
+            $('.save-changes').click(function() {
+                var modal = $(this).closest('.modal');
+                var textarea = modal.find('textarea').val();
+                alert('Data saved: ' + textarea);
+                modal.modal('hide');
+            });
+            $('#labsModal').on('show.bs.modal', function () {
+                // This code runs when the Labs modal is shown
+                console.log("Labs modal is displayed");
+            });
+    
+            $('#screensModal').on('show.bs.modal', function () {
+                // This code runs when the Screens modal is shown
+                console.log("Screens modal is displayed");
+            });
+        });
+    </script>
+</body>
+</html>
