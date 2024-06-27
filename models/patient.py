@@ -59,13 +59,7 @@ else:
                 # if kwargs.get('admission_date') is not None:
                 kwargs['admission_at'] = datetime.strptime(kwargs['admission_at'],
                                                         '%Y-%m-%dT%H:%M:%S.%f')
-                # else:
-                #     self.admission_at = datetime.now()
-                #should "edit at" ony be mdoified after reload?
-                # if kwargs.get('updated_at') is not None:
                 kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
-                # else:
-                #     kwargs['updated_at'] = datetime.now()
             if kwargs.get('__class__') != None:
                 del kwargs['__class__']
             self.__dict__.update(kwargs)
@@ -110,11 +104,11 @@ else:
             dictionary.update(self.__dict__)
             dictionary.update({'__class__':
                             (str(type(self)).split('.')[-1]).split('\'')[0]})
-            print(type(dictionary['admission_at']))
             dictionary['admission_at'] = self.admission_at.isoformat()
             dictionary['updated_at'] = self.updated_at.isoformat()
-            # if dictionary['discharg_at'] != None:
-            #     dictionary['discharge_at'] = self.discharge_at.isoformat()
+            # dictionary.get('discharge_at', None)
+            # if dictionary['discharge_at'] is not None:
+            #      dictionary['discharge_at'] = self.discharge_at.isoformat()
             return dictionary
 
         def delete(self):

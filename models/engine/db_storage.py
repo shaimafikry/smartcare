@@ -2,7 +2,7 @@
 """ creating a database using sql with python"""
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker , scoped_session
+from sqlalchemy.orm import sessionmaker , scoped_session, Session
 from models.base_model import  BaseModel, Base
 from models.nurse import Nurse
 from models.doctor import Doctor
@@ -23,9 +23,9 @@ class DBStorage:
     __session=None
     def __init__(self):
         """constructor of engine"""
-        user = os.getenv('MYSQL_USER')
+        user = "root"
         paswd = os.getenv('MYSQL_PWD')
-        host = os.getenv('MYSQL_HOST')
+        host = "localhost"
         database = os.getenv('MYSQL_DB')
         self.__engine = create_engine("mysql+mysqldb://"+user+':'+paswd+'@'+host+'/'+database, pool_pre_ping=True,)
         if os.getenv('CARE_ENV') == "test":

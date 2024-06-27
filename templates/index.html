@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            min-height: 100vh;
+        }
+        .login-container {
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 100px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            color: #000;
+            font-weight: bold;
+        }
+        .button {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .forgot-password {
+            display: block;
+            text-align: center;
+            color: #007bff;
+            margin-top: 10px;
+        }
+        .forgot-password:hover {
+            color: #0056b3;
+        }
+        .input-group-text img {
+            width: 20px;
+            height: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <form action="/login" method="post">
+                <div class="input-group input-with-icon username">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <img src="images/username.png" alt="Username">
+                        </span>
+                    </div>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="User ID" required>
+                    <label for="username" class="sr-only">Username</label>
+                </div>
+                <div class="input-group input-with-icon password">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <img src="images/password.png" alt="Password">
+                        </span>
+                    </div>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    <label for="password" class="sr-only">Password</label>
+                </div>
+                <div class="remember-me-container">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                </div>
+                <div class="login">
+                    <button type="submit" class="btn btn-primary button">Login</button>
+                </div>
+            </form>
+            <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
+        </div>
+    </div>
+<!--
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var username = document.getElementById("username").value.trim();
+            
+            if (username.startsWith("d")) {
+                window.location.href = "doctor.html";
+            }
+            else if (username.startsWith("m")) {
+
+                window.location.href = "manager.html";
+            }
+            else if (username.startsWith("r")) {
+                window.location.href = "reception.html";
+            }
+            else if (username.startsWith("n")) {
+
+                window.location.href = "nurse.html";
+            }
+            
+            else {
+
+                alert("Invalid ID. Please enter a valid ID starting with 'd', 'n', 'm', or 'r'.");
+            }
+        });
+    </script>
+-->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

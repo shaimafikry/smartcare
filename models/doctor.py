@@ -10,18 +10,26 @@ if os.getenv('TYPE_STORAGE') == "db":
     class Doctor(BaseModel, Base):
         """doctor profile"""
         __tablename__ = "doctor"
-        name = Column(String(60), nullable=False, primary_key=True)
+        name = Column(String(60), nullable=False)
         phone = Column(String(60), nullable=False)
         specialty = Column(String(60), nullable=False)
         department = Column(String(60), nullable=False)
+        password = Column(String(60), nullable=False)
+        def __init__(self, *args, **kwargs):
+            # Dynamically obtain the class name and pass it to the BaseModel constructor
+            class_type = type(self).__name__
+            super().__init__(class_type=class_type, *args, **kwargs)
+            # Additional initialization code...
 else:
     class Doctor(BaseModel):
         def __init__(self, *args, **kwargs):
-            super().__init__('doctor', *args, **kwargs)
+            class_type = type(self).__name__
+            super().__init__(class_type=class_type, *args, **kwargs)
             name = ""
             phone = ""
             department = ""
-            sepcialty = ""
+            specialty = ""
+            password = ""
 
 # self.name = kwargs.get("name", "")
 # self.phone = kwargs.get("phone", "")
