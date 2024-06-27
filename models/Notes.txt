@@ -36,3 +36,8 @@ db storage:
 workers classes:
 	- removed the pimary key  option from name column
 	- added password column
+
+started flask app.py
+run =>  MYSQL_PWD=password MYSQL_DB=smart_care_test TYPE_STORAGE=db python3 -m web_flask.app
+first route
+	/login
