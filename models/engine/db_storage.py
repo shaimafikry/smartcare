@@ -51,7 +51,10 @@ class DBStorage:
 
     def new(self, obj):
         """ add the object to the current database session (self.__session) """
-        # cls_name = obj.__class__.__name__
+        cls_name = obj.__class__.__name__
+        for i in self.__session.query(classes[cls_name]).all():
+            if obj.id == i.id:
+                obj.id = BaseModel.generate_id(cls_name)
         self.__session.add(obj)
 
 
