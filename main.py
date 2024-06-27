@@ -14,12 +14,6 @@ my_model.name = "My_First_Model"
 my_model.my_number = 89
 my_model.save()
 print(my_model)
-print("-- Create a 2 object --")
-my_model = Patient(29709151313726)
-my_model.name = "gbcvb"
-my_model.my_number = 89
-my_model.save()
-print(my_model)
 
 print("-- Create a 2 object --")
 my_model = Patient(29709151313565)
