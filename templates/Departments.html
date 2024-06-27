@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Care - doctor</title>
+    <title>Smart Care - departments</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -41,7 +41,7 @@
         }
         .dropdown {
             position: relative;
-            margin-right: 70px; /* Move the menu image 50px away from the right edge */
+            margin-right: 70px;
         }
         .menu-content {
             display: none;
@@ -69,7 +69,7 @@
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            right: 0; /* Ensure the dropdown menu aligns with the right edge of the image */
+            right: 0;
             display: none;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -103,25 +103,25 @@
         .section-btn {
             margin-left: 20px;
             margin: 10px 20px 10px 0;
-            padding: 15px 30px; /* Adjust padding for larger size */
-            font-size: 18px; /* Adjust font size */
-            width: 150px; /* Adjust width */
-            height: 50px; /* Adjust height */
+            padding: 15px 30px;
+            font-size: 18px;
+            width: 150px;
+            height: 50px;
             text-align: center;
-            transition: background-color 0.3s; /* Smooth transition */
+            transition: background-color 0.3s;
             display: inline-block;
         }
         
         .section-btn:hover {
-            background-color: #0129a1; /* Dark blue color on hover */
+            background-color: #0129a1;
         }
         .department-title {
-            color: #fbfdff; /* Blue color */
+            color: #fbfdff;
             background-color: #3d6dfe;
-            font-size: 35px; /* Font size */
-            margin-bottom: 15px; /* Space between title and buttons */
-            border: 5px solid #d3d7da; /* Border color and width */
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            font-size: 35px;
+            margin-bottom: 15px;
+            border: 5px solid #d3d7da;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             margin-top: 0%;
             padding: 10px;
@@ -142,24 +142,22 @@
             bottom: 0%;
             border: 8px solid #bdc3c7;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-            /*width: 400px; /* Adjust width as needed */
-            margin-top: 60px; /* Space between button and submenu */
             max-height: 400px;
-            overflow-y: auto; /* Enable scrolling if content overflows */
+            overflow-y: auto;
         }
         .section-btn {
-            margin: 30px 50px; /* Adjust the values as needed */
+            margin: 30px 50px;
         }
         
         
         
         .table {
-            margin-bottom: 20%; /* Remove default margin-bottom for better alignment */
+            margin-bottom: 20%;
         }
         
         .table th,
         .table td {
-            vertical-align: middle; /* Align text vertically in cells */
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -208,7 +206,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Placeholder rows, replace with dynamic content if needed -->
+                
                 <tr>
                     <td>ahmed</td>
                     <td>12345</td>
@@ -255,25 +253,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Toggle dropdown menu display on button click
             $('#menuToggle').click(function(event) {
-                event.stopPropagation(); // Prevent event bubbling to close dropdown
+                event.stopPropagation();
                 $('.dropdown-menu').toggle();
             });
         
-            // Close dropdown menu when clicking outside of it
             $(document).click(function(event) {
                 if (!$(event.target).closest('.dropdown').length) {
                     $('.dropdown-menu').hide();
                 }
             });
         
-            // Toggle submenu display on button click
             $('#emergencyBtn').click(function(event) {
-                event.stopPropagation(); // Prevent event bubbling to close dropdown
+                event.stopPropagation();
                 $('#emergencyMenu').toggle();
             });
-            // Function to position the submenu below the button
+            
             function positionSubmenu(btnId, menuId) {
                 var btnOffset = $(btnId).offset();
                 var btnHeight = $(btnId).outerHeight();
@@ -292,8 +287,7 @@
                     $('#emergencyMenu').hide();
                 }
             });
-        
-            // Change button color and show submenu on hover
+            
             $('.section-btn').hover(
                 function() {
                     $(this).addClass('btn-dark');
