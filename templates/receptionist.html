@@ -119,31 +119,38 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
+    <div class="container content">
+        <div class="form-group">
+            <div class="form-group">
+                <h4 class="custom-p">user.username  user.user_id</h4>
+            </div>
+            
+        </div>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
                 <button class="btn btn-primary new-patient-btn text-center">+ New Patient</button>
+                </div>
             </div>
         </div>
-    </div>
 
     <!-- New Patient Form -->
-    <div class="container mt-4" id="newPatientForm" style="display: none;">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form>
-                    <div class="form-group">
-                        <label for="patientName">Name</label>
-                        <input type="text" class="form-control" id="patientName" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label for="patientSex">Sex</label>
-                        <select class="form-control" id="patientSex">
+        <div class="container mt-4" id="newPatientForm" style="display: none;">
+           <div class="row justify-content-center">
+               <div class="col-md-6">
+                  <form>
+                      <div class="form-group">
+                          <label for="patientName">Name</label>
+                          <input type="text" class="form-control" id="patientName" placeholder="Enter name">
+                       </div>
+                         <div class="form-group">
+                          <label for="patientSex">Sex</label>
+                          <select class="form-control" id="patientSex">
                             <option>Male</option>
                             <option>Female</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
+                          </select>
+                         </div>
+                       <div class="form-group">
                         <label for="patientDepartment">Department</label>
                         <input type="text" class="form-control" id="patientDepartment" placeholder="Enter department">
                     </div>
@@ -160,7 +167,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
