@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-control[readonly] {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            padding-left: 0;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 470px;
+            text-align: center;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-4"> Details</h2>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="patientName" value="Ali ali" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="patientId" value="D100078" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="patientPhone" value="+20123456789" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="patientDepartment" value="Cardiology" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="patientSpeciality" value="Heart Surgery" readonly>
+            </div>
+        </div>
+        <div class="buttons">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal">Edit</button>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="editPatientName">Name:</label>
+                            <input type="text" class="form-control" id="editPatientName" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPatientId">ID:</label>
+                            <input type="text" class="form-control" id="editPatientId" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPatientPhone">Phone Number:</label>
+                            <input type="text" class="form-control" id="editPatientPhone" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPatientDepartment">Department:</label>
+                            <input type="text" class="form-control" id="editPatientDepartment" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPatientSpeciality">Speciality:</label>
+                            <input type="text" class="form-control" id="editPatientSpeciality" value="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Populate the edit modal with current patient details
+            $('#editModal').on('show.bs.modal', function () {
+                $('#editPatientName').val($('#patientName').val());
+                $('#editPatientId').val($('#patientId').val());
+                $('#editPatientPhone').val($('#patientPhone').val());
+                $('#editPatientDepartment').val($('#patientDepartment').val());
+                $('#editPatientSpeciality').val($('#patientSpeciality').val());
+            });
+
+            // Save changes from the modal to the main form
+            $('#saveChanges').click(function() {
+                $('#patientName').val($('#editPatientName').val());
+                $('#patientId').val($('#editPatientId').val());
+                $('#patientPhone').val($('#editPatientPhone').val());
+                $('#patientDepartment').val($('#editPatientDepartment').val());
+                $('#patientSpeciality').val($('#editPatientSpeciality').val());
+                $('#editModal').modal('hide');
+            });
+        });
+    </script>
+</body>
+</html>

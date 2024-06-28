@@ -10,7 +10,7 @@ class FileStorage:
     """to store data into json files"""
     # all workers together
     __file = "data.json"
-    __objects = {'BaseModel':{}, 'Nurse':{}, 'Doctor':{}, 'Manager':{}, 'Receptionist': {}, 'Patient': {}}
+    __objects = {'Nurse':{}, 'Doctor':{}, 'Manager':{}, 'Receptionist': {}, 'Patient': {}}
 
     def all (self, cls=None):
         """return all workers"""
@@ -22,11 +22,8 @@ class FileStorage:
         
     def new (self, obj):
         """save to object dict"""
-        # we call all() to add to the exisited data
-        # not to start over
         cls_name = obj.to_dict()['__class__']
         self.all(cls_name).update({obj.id: obj})
-        # print(self.all())
 
 
 
@@ -38,11 +35,11 @@ class FileStorage:
             temp = copy.deepcopy(FileStorage.__objects)
             # print (temp)
             for val in temp.values():
-                # print ("fisrt vale", val)
+            # print ("fisrt vale", val)
                 for k, v in val.items():
-                    # print("before to dict to file object", v.admission_at)
+                # print("before to dict to file object", v.admission_at)
                     val[k] = v.to_dict()
-                    # print (temp)
+            # print (temp)
             json.dump(temp, f)
 
         

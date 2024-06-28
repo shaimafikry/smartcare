@@ -14,7 +14,7 @@ from models.patient import Patient
 # script that prints the State object with the name
 # passed as argument from the database hbtn_0e_6_usa
 #classes that holds vlues
-classes = { 'BaseModel': BaseModel, 'Doctor': Doctor, 'Nurse': Nurse,
+classes = {'Doctor': Doctor, 'Nurse': Nurse,
             'Manager': Manager, 'Receptionist': Receptionist, 'Patient':Patient
                 }
 class DBStorage:
@@ -31,17 +31,18 @@ class DBStorage:
         if os.getenv('CARE_ENV') == "test":
             Base.metadata.drop_all(self.__engine)
 
-    def all(self, cls=None):
+    def all(self, clss=None):
         """get all data on the current session"""
         # in the query i put the name not the value
         dict_ins = {}
-        if cls:
-            data = self.__session.query(cls).all()
+        if clss:
+            print(clss)
+            data = self.__session.query(clss).all()
             for i in data:
                 key = i.id
                 dict_ins[key] = i
         else:
-            for clss in classes.keys():
+            for clss in classes.values():
                 data = self.__session.query(clss).all()
                 for i in data:
                     key = i.id
