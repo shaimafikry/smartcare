@@ -57,9 +57,8 @@ else:
                 self.id = kwargs['id']
                 self.nat_id = kwargs['nat_id']
                 # if kwargs.get('admission_date') is not None:
-                kwargs['admission_at'] = datetime.strptime(kwargs['admission_at'],
-                                                        '%Y-%m-%dT%H:%M:%S.%f')
-                kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                kwargs['admission_at'] = datetime.fromisoformat(kwargs.get('admission_at'))
+                kwargs['updated_at'] = datetime.fromisoformat(kwargs.get('updated_at'))
             if kwargs.get('__class__') != None:
                 del kwargs['__class__']
             self.__dict__.update(kwargs)
@@ -95,21 +94,24 @@ else:
         def __str__(self):
             """Returns a string representation of the instance"""
             # <class 'models.doctor.Doctor'> => Doctor
-            cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-            return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+            #cls = (str(type(self)).split('.')[-1]).split('\'')[0]
+            return '[{}] ({}) {}'.format(self.__class__.__name__, self.id, self.__dict__)
 
         def to_dict(self):
             """Convert instance into dict format and adding keys to it"""
-            dictionary = {}
-            dictionary.update(self.__dict__)
-            dictionary.update({'__class__':
-                            (str(type(self)).split('.')[-1]).split('\'')[0]})
-            dictionary['admission_at'] = self.admission_at.isoformat()
-            dictionary['updated_at'] = self.updated_at.isoformat()
+            # dictionary = {}
+            # dictionary.update(self.__dict__)
+            # dictionary.update({'__class__':
+            #                 (str(type(self)).split('.')[-1]).split('\'')[0]})
+
+            new_dict = self.__dict__.copy()
+            new_dict['__class__'] = self.__class__.__name__
+            new_dict['join_at'] = self.join_at.isoformat()
+            new_dict['edit_at'] = self.edit_at.isoformat()
+            return new_dict
             # dictionary.get('discharge_at', None)
             # if dictionary['discharge_at'] is not None:
             #      dictionary['discharge_at'] = self.discharge_at.isoformat()
-            return dictionary
 
         def delete(self):
             """delete the current instance from the storage"""
