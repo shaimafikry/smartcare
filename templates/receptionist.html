@@ -79,7 +79,6 @@
         .dropdown-menu a {
             padding: 10px 20px;
             color: black;
-            right: 10px;
             display: flex;
         }
         .dropdown-menu a:hover {
@@ -93,6 +92,19 @@
         .dropdown-toggle img {
             width: 30px;
             height: 30px;
+        }
+        .custom-p {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .username {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            width: 100%;
         }
     </style>
 </head>
@@ -119,55 +131,51 @@
     </nav>
 
     <!-- Main Content -->
+    <div class="username">user.username user.user_id</div>
     <div class="container content">
-        <div class="form-group">
-            <div class="form-group">
-                <h4 class="custom-p">user.username  user.user_id</h4>
-            </div>
-            
-        </div>
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
-                <button class="btn btn-primary new-patient-btn text-center">+ New Patient</button>
+                    <button class="btn btn-primary new-patient-btn">+ New Patient</button>
                 </div>
             </div>
         </div>
 
-    <!-- New Patient Form -->
+        <!-- New Patient Form -->
         <div class="container mt-4" id="newPatientForm" style="display: none;">
-           <div class="row justify-content-center">
-               <div class="col-md-6">
-                  <form>
-                      <div class="form-group">
-                          <label for="patientName">Name</label>
-                          <input type="text" class="form-control" id="patientName" placeholder="Enter name">
-                       </div>
-                         <div class="form-group">
-                          <label for="patientSex">Sex</label>
-                          <select class="form-control" id="patientSex">
-                            <option>Male</option>
-                            <option>Female</option>
-                          </select>
-                         </div>
-                       <div class="form-group">
-                        <label for="patientDepartment">Department</label>
-                        <input type="text" class="form-control" id="patientDepartment" placeholder="Enter department">
-                    </div>
-                    <div class="form-group">
-                        <label for="patientID">National ID</label>
-                        <input type="text" class="form-control" id="patientID" placeholder="Enter National ID">
-                    </div>
-                    <div class="form-group">
-                        <label for="patientAddress">Address</label>
-                        <input type="text" class="form-control" id="patientAddress" placeholder="Enter address">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form>
+                        <div class="form-group">
+                            <label for="patientName">Name</label>
+                            <input type="text" class="form-control" id="patientName" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="patientSex">Sex</label>
+                            <select class="form-control" id="patientSex">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientDepartment">Department</label>
+                            <input type="text" class="form-control" id="patientDepartment" placeholder="Enter department">
+                        </div>
+                        <div class="form-group">
+                            <label for="patientID">National ID</label>
+                            <input type="text" class="form-control" id="patientID" placeholder="Enter National ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="patientAddress">Address</label>
+                            <input type="text" class="form-control" id="patientAddress" placeholder="Enter address">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
