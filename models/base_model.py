@@ -48,10 +48,8 @@ class BaseModel():
             storage.new(self)
         else:
             self.id = kwargs.get('id', BaseModel.generate_id(class_type))
-            kwargs['join_at'] = datetime.strptime(kwargs['join_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['edit_at'] = datetime.strptime(kwargs['edit_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
+            kwargs['join_at'] = datetime.fromisoformat(kwargs.get('join_at'))
+            kwargs['edit_at'] = datetime.fromisoformat(kwargs.get('edit_at'))
             if kwargs.get('__class__') != None:
                 del kwargs['__class__']
             self.__dict__.update(kwargs)
@@ -68,18 +66,16 @@ class BaseModel():
     def __str__(self):
         """Returns a string representation of the instance"""
         # <class 'models.doctor.Doctor'> => Doctor
-        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        # cls = (str(type(self)).split('.')[-1]).split('\'')[0]
+        return '[{}] ({}) {}'.format(self.__class__.__name__, self.id, self.__dict__)
 
     def to_dict(self):
         """Convert instance into dict format and adding keys to it"""
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                       (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['join_at'] = self.join_at.isoformat()
-        dictionary['edit_at'] = self.edit_at.isoformat()
-        return dictionary
+        new_dict = self.__dict__.copy()
+        new_dict['__class__'] = self.__class__.__name__
+        new_dict['join_at'] = self.join_at.isoformat()
+        new_dict['edit_at'] = self.edit_at.isoformat()
+        return new_dict
 
     def delete(self):
         """delete the current instance from the storage"""
