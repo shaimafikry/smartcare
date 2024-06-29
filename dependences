@@ -1,0 +1,7 @@
+flask app
+python3
+json
+sqlalchemy
+sql
+python library dotenv
+Flask Flask-SQLAlchemy

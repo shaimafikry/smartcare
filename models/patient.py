@@ -31,6 +31,7 @@ if os.getenv('TYPE_STORAGE') == "db":
         history = Column(String(128), nullable=True)
         treatment = Column(String(128), nullable=True)
         complain =  Column(String(128), nullable=True)
+        diagnosis =  Column(String(128), nullable=True)
         scans = Column(String(128), nullable=True)
         labs= Column(String(128), nullable=True)
         heart_rate =  Column(Integer, nullable=True)
@@ -70,6 +71,7 @@ else:
             history = ""
             treatment = ""
             complain =  ""
+            diagnosis = ""
             scans = []
             labs= []
             heart_rate =  0
