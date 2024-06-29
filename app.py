@@ -7,14 +7,17 @@ from models.doctor import Doctor
 from models.nurse import Nurse
 from models.receptionist import Receptionist
 import os
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+import secrets
 
 app = Flask(__name__)
 # how to get the key ?
 # python -c "import secrets; print(secrets.token_hex(16))"
 # export FLASK_SECRET_KEY= (key_generated)
 # it ends after every seesion => when close the vs
-app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+# app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+
+app.secret_key = secrets.token_hex(16)
 
 classes = {'M': 'Manager', 'N': 'Nurse', 'R': 'Receptionist', 'D': 'Doctor'}
 @app.route('/', strict_slashes=False, methods=['GET', 'POST'])
@@ -43,23 +46,52 @@ def show_the_login_form():
     return render_template('index.html')
 
 # manager
-@app.route('/dashboard/manager')
+@app.route('/dashboard/manager', methods=['GET', 'POST'])
 def manager_dashboard():
     # in case of edit
-    # if request.method('POST'):
-    #     pass
-    user_id = session.get('user_id')
-    user = storage.all('Manager')[user_id]
-    user = user.to_dict()
-    nurse_data= {key: nurse.to_dict() for key, nurse in storage.all('Nurse').items()}
-    patient_data= {key: nurse.to_dict() for key, nurse in storage.all('Patient').items()}
-    doctor_data= {key: nurse.to_dict() for key, nurse in storage.all('Doctor').items()}
-    receptionist_data= {key: nurse.to_dict() for key, nurse in storage.all('Receptionist').items()}
-    manager_data= {key: nurse.to_dict() for key, nurse in storage.all('Manager').items()}
-    return render_template('manager.html', name=user['name'],
-                           nurse=nurse_data, doctor=doctor_data,
-                           manager=manager_data, receptionist=receptionist_data,
-                           patient=patient_data)
+    if request.method == 'POST':
+        user_type = request.form.get('userType')
+        name = request.form.get('userName')
+        user_password = request.form.get('userPassword')
+        phone = request.form.get('userPhone')
+        specialty = request.form.get('userSpecialty')
+        department = request.form.get('userDepartment')
+
+        if user_type == 'Nurses':
+            new_nurse = Nurse(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
+            new_nurse.save()
+            flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
+            return redirect(url_for('/dashboard/manager'))
+        elif user_type == 'Doctors':
+            new_doctor = Doctor(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
+            new_doctor.save()
+            return redirect(url_for('/dashboard/manager'))
+        elif user_type == 'Managers':
+            new_manager = Manager(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
+            new_manager.save()
+            flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
+            return redirect(url_for('/dashboard/manager'))
+        elif user_type == 'Receptionists':
+            new_receptionist = Receptionist(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
+            new_receptionist.save()
+            flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
+            return redirect(url_for('/dashboard/manager'))
+        else:
+            return redirect(url_for('/dashboard/manager'))
+        
+    else:
+        user_id = session.get('user_id')
+        user = storage.all('Manager')[user_id]
+        user = user.to_dict()
+        nurse_data= {key: nurse.to_dict() for key, nurse in storage.all('Nurse').items()}
+        patient_data= {key: nurse.to_dict() for key, nurse in storage.all('Patient').items()}
+        doctor_data= {key: nurse.to_dict() for key, nurse in storage.all('Doctor').items()}
+        receptionist_data= {key: nurse.to_dict() for key, nurse in storage.all('Receptionist').items()}
+        manager_data= {key: nurse.to_dict() for key, nurse in storage.all('Manager').items()}
+        return render_template('manager.html', name=user['name'],
+                            nurse=nurse_data, doctor=doctor_data,
+                            manager=manager_data, receptionist=receptionist_data,
+                            patient=patient_data)
 
 # nurse
 @app.route('/dashboard/nurse')
@@ -148,6 +180,7 @@ def patient():
     for k, v in users.items():
         users[k] = v.to_dict()
     return users
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
