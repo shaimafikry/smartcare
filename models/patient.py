@@ -83,8 +83,7 @@ else:
             blood_pressure = ""
             #respiratory rate
             res_rate = 0
-            discharge_at = datetime.now()
-
+            discharge_at = ""
         def save (self):
             """save to file_storage.__workers"""
             from models import storage
@@ -106,13 +105,11 @@ else:
 
             new_dict = self.__dict__.copy()
             new_dict['__class__'] = self.__class__.__name__
-            new_dict['join_at'] = self.join_at.isoformat()
-            new_dict['edit_at'] = self.edit_at.isoformat()
+            new_dict['admission_at'] = self.admission_at.isoformat()
+            new_dict['updated_at'] = self.updated_at.isoformat()
+            if new_dict.get('discharge_at'):
+                new_dict['discharge_at'] = self.discharge_at.isoformat()
             return new_dict
-            # dictionary.get('discharge_at', None)
-            # if dictionary['discharge_at'] is not None:
-            #      dictionary['discharge_at'] = self.discharge_at.isoformat()
-
         def delete(self):
             """delete the current instance from the storage"""
             from models import storage

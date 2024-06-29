@@ -180,18 +180,18 @@
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="#">Home</a>
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="{{ url_for('manager_dashboard') }}">Home</a>
+                <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
                 <a class="dropdown-item" href="#">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="#">Sign Out</a>
+                <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
             </div>
         </div>
     </nav>
     <div class="container content">
         <div class="form-group">
             <div class="form-group">
-                <h4 class="custom-p">user.username  user.user_id</h4>
+                <h4 class="custom-p">{{ name }}</h4>
             </div>
             
         </div>
@@ -251,25 +251,39 @@
                         <h5 class="card-title nurses-toggle">Nurses</h5>
                     </div>
                     <div id="nursesList" class="nurses-list">
-                        
-                        <a href="#" class="list-group-item list-group-item-action">Nurse 1</a>
-                        <a href="#" class="list-group-item list-group-item-action">Nurse 2</a>
-                        <a href="#" class="list-group-item list-group-item-action">Nurse 3</a>
+                        {% for i in nurse.values()%}
+                        <a href="#" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                         {% endfor %}
                     </div>
                 </div>
                 <div class="card card-custom">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Physicians</h5>
+                        <h5 class="card-title">Doctors</h5>
+                    </div>
+                    <div id="doctorsList" class="doctors-list">
+                        {% for i in doctor.values()%}
+                        <a href="#" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                         {% endfor %}
                     </div>
                 </div>
                 <div class="card card-custom">
                     <div class="card-body text-center">
                         <h5 class="card-title">Managers</h5>
                     </div>
+                    <div id="managersList" class="managers-list">
+                        {% for i in manager.values()%}
+                        <a href="#" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                         {% endfor %}
+                    </div>
                 </div>
                 <div class="card card-custom">
                     <div class="card-body text-center">
                         <h5 class="card-title">Receptionist</h5>
+                    </div>
+                    <div id="receptionistsList" class="receptionists-list">
+                        {% for i in receptionist.values()%}
+                        <a href="#" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                         {% endfor %}
                     </div>
                 </div>
                 <div class="card card-custom">
@@ -277,9 +291,9 @@
                         <h5 class="card-title patients-toggle">Patients</h5>
                     </div>
                     <div id="patientsList" class="patients-list">
-                        <a href="#" class="list-group-item list-group-item-action">Name 1 - ID 1</a>
-                        <a href="#" class="list-group-item list-group-item-action">Name 2 - ID 2</a>
-                        <a href="#" class="list-group-item list-group-item-action">Name 3 - ID 3</a>
+                        {% for i in patient.values()%}
+                        <a href="#" class="list-group-item list-group-item-action"> {{i.name}} {{i.id}}</a>
+                         {% endfor %}
                     </div>
                 </div>
             </div>
@@ -303,6 +317,21 @@
                 event.stopPropagation();
                 $('#nursesList').toggle();
             });
+
+            $('.doctors-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#doctorsList').toggle();
+            });
+
+            $('.managers-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#managersList').toggle();
+            });
+
+            $('.receptionists-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#receptionistsList').toggle();
+            });
         
             $('.patients-toggle').click(function(event) {
                 event.stopPropagation();
@@ -310,9 +339,12 @@
             });
         
             $(document).click(function(event) {
-                if (!$(event.target).closest('#menuToggle, .dropdown-menu, #nursesList, #patientsList').length) {
+                if (!$(event.target).closest('#menuToggle, .dropdown-menu, #nursesList, #doctorsList, #managersList, #receptionistsList, #patientsList').length) {
                     $('.dropdown-menu').hide();
                     $('#nursesList').hide();
+                    $('#doctorsList').hide();
+                    $('#managersList').hide();
+                    $('#receptionistsList').hide();
                     $('#patientsList').hide();
                 }
             });
