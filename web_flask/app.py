@@ -61,24 +61,21 @@ def manager_dashboard():
             new_nurse = Nurse(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
             new_nurse.save()
             flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
-            return redirect(url_for('/dashboard/manager'))
-        elif user_type == 'Doctors':
+
+        if user_type == 'Doctors':
             new_doctor = Doctor(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
             new_doctor.save()
-            return redirect(url_for('/dashboard/manager'))
-        elif user_type == 'Managers':
+
+        if user_type == 'Managers':
             new_manager = Manager(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
             new_manager.save()
             flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
-            return redirect(url_for('/dashboard/manager'))
-        elif user_type == 'Receptionists':
+
+        if user_type == 'Receptionists':
             new_receptionist = Receptionist(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
             new_receptionist.save()
             flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
-            return redirect(url_for('/dashboard/manager'))
-        else:
-            return redirect(url_for('/dashboard/manager'))
-        
+
     else:
         user_id = session.get('user_id')
         user = storage.all('Manager')[user_id]
@@ -88,7 +85,8 @@ def manager_dashboard():
         doctor_data= {key: nurse.to_dict() for key, nurse in storage.all('Doctor').items()}
         receptionist_data= {key: nurse.to_dict() for key, nurse in storage.all('Receptionist').items()}
         manager_data= {key: nurse.to_dict() for key, nurse in storage.all('Manager').items()}
-        return render_template('manager.html', name=user['name'],
+
+    return render_template('manager.html', name=user['name'],
                             nurse=nurse_data, doctor=doctor_data,
                             manager=manager_data, receptionist=receptionist_data,
                             patient=patient_data)
@@ -126,6 +124,28 @@ def profile():
     user = user.to_dict()
     return render_template('profile.html', user=user )
 
+
+# rout for specific user or patient
+@app.route('/dashboard/<cl_s>/<user_id>', methods=['GET', 'POST'])
+def individual(cl_s, user_id):
+    if request.method== 'GET':
+        user = storage.all(cl_s)[user_id]
+        user = user.to_dict()
+        return render_template('profile.html', user=user)
+
+@app.route('/dashboard/patient/<user_id>', methods=['GET', 'POST'])
+def patient_profile(user_id):
+    if request.method== 'GET':
+        user = storage.all('Patient')[user_id]
+        user = user.to_dict()
+        return render_template('saved-patient.html', pt=user)
+    else:
+        user_id = session.get('user_id')
+        if user_id[0] == 'D':
+            render_template('doctor.html')
+        if user_id[0] == 'N':
+            render_template('nurse.html')
+
 @app.route('/sign_out')
 def sign_out():
     # Clear the session
@@ -133,9 +153,9 @@ def sign_out():
     # Redirect to the login page or home page
     return redirect(url_for('login')) 
 
-@app.route('/test')
-def test():
-    return render_template('specific-user.html')
+# @app.route('/test')
+# def test():
+#     return render_template('specific-user.html')
 
 @app.teardown_appcontext
 def close_db(exception=None):
@@ -175,7 +195,7 @@ def user_receptionist():
         users[k] = v.to_dict()
     return users
 @app.route('/api/patient')
-def patient():
+def patients():
     users = storage.all('Patient')
     for k, v in users.items():
         users[k] = v.to_dict()

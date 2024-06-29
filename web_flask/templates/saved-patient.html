@@ -149,24 +149,24 @@
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="#">Home</a>
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">All Patients</a>
+                <a class="dropdown-item" href="{{ url_for('manager_dashboard') }}">Home</a>
+                <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
+                <a class="dropdown-item" href="{{ url_for('patients') }}">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="#">Sign Out</a>
+                <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
             </div>
         </div>
     </nav>
 
     <div class="container content">
         <div class="form-group">
-            <h4 class="custom-p">user.username  user.user_id</h4>
+            <h4 class="custom-p">{{pt.name}} {{pt.id}}</h4>
         </div>
 
         <!-- Past History Section -->
         <div class="section">
             <div class="section-title">Past History</div>
-            <div class="section-content" id="pastHistoryText">[display Past History here]</div>
+            <div type="text" class="section-content" id="pastHistoryText">{{pt.history}}</div>
         </div>
 
     <div class="section">
@@ -205,30 +205,32 @@
 
     <div class="section">
             <div class="section-title">Main Complain</div>
-            <div class="section-content" id="mainComplainText">[Display Main Complain Here]</div>
+            <div class="section-content" id="mainComplainText">{{pt.complain}}</div>
     </div>
 
         <!-- Diagnosis Section -->
     <div class="section">
             <div class="section-title">Diagnosis</div>
-            <div class="section-content" id="diagnosisText">[Display Diagnosis Here]</div>
+            <div class="section-content" id="diagnosisText">{{pt.diagnosis}}</div>
     </div>
 
         <!-- Treatment Section -->
     <div class="section">
             <div class="section-title">Treatment</div>
-            <div class="section-content" id="treatmentText">[Display Treatment Here]</div>
+            <div class="section-content" id="treatmentText">{{pt.treatment}}</div>
     </div>
 
         <!-- Vitals Section -->
     <div class="section">
             <div class="section-title">Vitals Information</div>
             <div class="bold-black">
-                <div>BP : <span  id="bpText" class="no-bold">[Display BP Here]</span></div>
-                <div>HR : <span  id="hrText" class="no-bold">[Display HR Here]</span></div>
-                <div>T  : <span  id="tempText" class="no-bold">[Display Temperature Here]</span></div>
-                <div>SAT : <span id="satText" class="no-bold">[Display SAT Here]</span></div>
-                <div>RBS : <span id="rbsText" class="no-bold">[Display RBS Here]</span></div>
+                <div>BP : <span  id="bpText" class="no-bold">{{pt.blood_pressure}}</span></div>
+                <div>HR : <span  id="hrText" class="no-bold">{{pt.heart_rate}}</span></div>
+                <div>T  : <span  id="tempText" class="no-bold">{{pt.temp}}</span></div>
+                <div>SAT : <span id="satText" class="no-bold">{{pt.oxygen_sat}}</span></div>
+                <div>RBS : <span id="rbsText" class="no-bold">{{pt.rbs}}</span></div>
+                <div>RESP : <span id="res_ratText" class="no-bold">{{pt.res_rate}}</span></div>
+
             </div>
         </div>
     </div>
