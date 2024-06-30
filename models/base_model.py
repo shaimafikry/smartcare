@@ -41,15 +41,19 @@ class BaseModel():
         if not kwargs:
             self.id = BaseModel.generate_id(class_type)
             # date of join
-            self.join_at = datetime.now()
+            # self.join_at = datetime.now()
             # date of edit
-            self.edit_at = datetime.now()
+            # self.edit_at = datetime.now()
             from models import storage
             storage.new(self)
         else:
             self.id = kwargs.get('id', BaseModel.generate_id(class_type))
-            kwargs['join_at'] = datetime.fromisoformat(kwargs.get('join_at'))
-            kwargs['edit_at'] = datetime.fromisoformat(kwargs.get('edit_at'))
+            # self.join_at =kwargs.get('join_at', datetime.now())
+            # if type( kwargs['join_at']) == str:
+            #     kwargs['join_at'] = datetime.fromisoformat(kwargs.get('join_at'))
+            # self.edit_at =kwargs.get ('edit_at',  datetime.now())
+            # if type( kwargs['join_at']) == str:
+            #     kwargs['edit_at'] = datetime.fromisoformat(kwargs.get('edit_at'))
             if kwargs.get('__class__') != None:
                 del kwargs['__class__']
             self.__dict__.update(kwargs)
@@ -58,7 +62,7 @@ class BaseModel():
     def save (self):
         """save to file_storage.__workers"""
         from models import storage
-        self.edit_at = datetime.now()
+        # self.edit_at = datetime.now()
         storage.new(self)
         storage.save()
 
@@ -73,8 +77,10 @@ class BaseModel():
         """Convert instance into dict format and adding keys to it"""
         new_dict = self.__dict__.copy()
         new_dict['__class__'] = self.__class__.__name__
-        new_dict['join_at'] = self.join_at.isoformat()
-        new_dict['edit_at'] = self.edit_at.isoformat()
+        # if type( new_dict['join_at']) != str:
+        #     new_dict['join_at'] = self.join_at.isoformat()
+        # if type( new_dict['edit_at']) != str:
+        #     new_dict['edit_at'] = self.edit_at.isoformat()
         return new_dict
 
     def delete(self):

@@ -14,16 +14,29 @@ class FileStorage:
 
     def all (self, cls=None):
         """return all workers"""
+        temp = copy.deepcopy(FileStorage.__objects)
+        for val in temp.values():
+            for k, v in val.items():
+                val[k] = v.to_dict()
         if cls == None:
-            return FileStorage.__objects
-        else:
-            return FileStorage.__objects[cls]
+            return temp
+        else:            
+            return temp[cls]
 
-        
+    def get (self, id):
+        """return specific workers"""
+        classes = {'M': 'Manager', 'D': 'Doctor',
+                   'N': 'Nurse', 'R': 'Receptionist', 'P': 'Patient'}
+        clss = classes[id[0]]
+        dict_object = FileStorage.__objects[clss].get(id, None)
+        if dict_object is not None:
+            dict_object.to_dict()
+        return dict_object
+
     def new (self, obj):
         """save to object dict"""
         cls_name = obj.to_dict()['__class__']
-        self.all(cls_name).update({obj.id: obj})
+        FileStorage.__objects[cls_name].update({obj.id: obj})
 
 
 
@@ -68,7 +81,7 @@ class FileStorage:
                 individuals = json.load(f)
                 for job, employees in individuals.items():
                     for id, dct in employees.items():
-                        self.all(job)[id] = classes[job](**dct)
+                        FileStorage.__objects[job][id] = classes[job](**dct)
         except FileNotFoundError:
             pass
 

@@ -11,7 +11,7 @@ from models.base_model import Base
 
 def generate_id(number):
     unique_id = str(number)[7:]
-    return unique_id
+    return 'P' + unique_id
 
 
 
