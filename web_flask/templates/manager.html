@@ -207,14 +207,14 @@
         <div class="row" id="newUserFormRow">
             <div class="col-md-12">
                 <div id="newUserForm" class="form-container d-none">
-                    <form>
-                        <div class="form-group"  method="POST" >
+                    <form method="POST" action="/dashboard/manager">
+                        <div class="form-group" >
                             <label for="userType">User Type</label>
                             <select class="form-control" id="userType" name="userType">
-                                <option>Nurses</option>
-                                <option>Managers</option>
-                                <option>Receptionists</option>
-                                <option>Doctors</option>
+                                <option value="Nurses">Nurses</option>
+                                <option value="Managers">Managers</option>
+                                <option value="Receptionists">Receptionists</option>
+                                <option value="Doctors">Doctors</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -357,6 +357,7 @@
                 event.stopPropagation();
             });
         });
+        
         
     </script>
 </body>

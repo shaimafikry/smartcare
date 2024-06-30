@@ -13,43 +13,55 @@ for obj_id in all_objs.keys():
     print(obj)
 
 print("-- Create a 1 object --")
-my_model = Patient(29709151313726)
-my_model.name = "My_First_Model"
-my_model.save()
-print(my_model)
+pt = Patient(29709151313726)
+pt.name = "MOSTADA"
+pt.complain = " abdominal pain"
+pt.address = "egypt"
+pt.save()
+print(pt)
 
 print("-- Create a 2 object --")
-my_model = Patient(29709151313565)
-my_model.name = "My_First_Model"
-my_model.my_number = 89
-my_model.complain = "abdominal pain"
-my_model.save()
-print(my_model)
+pt = Patient(29709151313565)
+pt.name = "akram"
+pt.complain = " back pain"
+pt.address = "egypt"
+pt.save()
+print(pt)
 
 print("-- Create a 3 object --")
-my_model = Manager()
-my_model.name = "My_First_Model"
-my_model.password = "test"
-my_model.save()
-print(my_model)
+model = Manager()
+model.name = "hosam"
+model.password = "test"
+model.save()
+print(model)
+
 print("-- Create a 4 object --")
-my_model = Manager()
-my_model.name = "My_First_Model"
-my_model.password = "test"
-my_model.save()
-print(my_model)
-my_model = Doctor()
-my_model.name = "My_First_Model"
-my_model.password = "test"
-my_model.save()
-print(my_model)
-my_model = Nurse()
-my_model.name = "My_First_Model"
-my_model.password = "test"
-my_model.save()
-print(my_model)
-my_model = Receptionist()
-my_model.name = "My_First_Model"
-my_model.password = "test"
-my_model.save()
-print(my_model)
+model = Doctor()
+model.name = "shaimaa"
+model.password = "test"
+model.save()
+print(model)
+
+model = Doctor()
+model.name = "hosam"
+model.password = "test"
+model.phone = "54688"
+model.save()
+print(model)
+
+model = Nurse()
+model.name = "teaa"
+model.password = "test"
+model.phone = "54688"
+model.save()
+print(model)
+
+model = Receptionist()
+model.name = "moaz"
+model.password = "test"
+model.phone = "54688"
+model.save()
+print(model)
+
+user = storage.get('R00041')
+print ("get", user)

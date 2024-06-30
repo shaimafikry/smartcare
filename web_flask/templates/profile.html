@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Details</title>
+    <title>User Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -42,19 +42,22 @@
         <h2 class="mb-4"> Details</h2>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="patientName" value="{{ user.name}}" readonly>
+                <input type="text" class="form-control" id="userName" value="{{ user.name}}" readonly>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="patientId" value="{{user.id}}" readonly>
+                <input type="text" class="form-control" id="userId" value="{{user.id}}" readonly>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="patientPhone" value="{{ user.phone}}" readonly>
+                <input type="text" class="form-control" id="userPhone" value="{{ user.phone}}" readonly>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="patientDepartment" value="{{ user.department}}" readonly>
+                <input type="text" class="form-control" id="userDepartment" value="{{ user.department}}" readonly>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="patientSpeciality" value="{{ user.speciality}}" readonly>
+                <input type="text" class="form-control" id="userSpeciality" value="{{ user.speciality}}" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="userPassword" value="{{ user.password}}" readonly>
             </div>
         </div>
         <div class="buttons">
@@ -73,32 +76,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm">
+                    <form id="editForm", action="/dashboard/profile" method='POST'>
                         <div class="form-group">
-                            <label for="editPatientName">Name:</label>
-                            <input type="text" class="form-control" id="editPatientName" value="">
+                            <label for="editUserName">Name:</label>
+                            <input type="text" class="form-control" id="editUserName" value="{{ user.name}}">
                         </div>
                         <div class="form-group">
-                            <label for="editPatientId">ID:</label>
-                            <input type="text" class="form-control" id="editPatientId" value="">
+                            <label for="editUserPassword">Password:</label>
+                            <input type="text" class="form-control" id="editUserPassword" value="{{ user.password}}">
                         </div>
                         <div class="form-group">
-                            <label for="editPatientPhone">Phone Number:</label>
-                            <input type="text" class="form-control" id="editPatientPhone" value="">
+                            <label for="editUserPhone">Phone Number:</label>
+                            <input type="text" class="form-control" id="editUserPhone" value="{{ user.phone}}">
                         </div>
                         <div class="form-group">
-                            <label for="editPatientDepartment">Department:</label>
-                            <input type="text" class="form-control" id="editPatientDepartment" value="">
+                            <label for="editUserDepartment">Department:</label>
+                            <input type="text" class="form-control" id="editUserDepartment" value="{{ user.department}}">
                         </div>
                         <div class="form-group">
-                            <label for="editPatientSpeciality">Speciality:</label>
-                            <input type="text" class="form-control" id="editPatientSpeciality" value="">
+                            <label for="editUserSpeciality">Speciality:</label>
+                            <input type="text" class="form-control" id="editUsertSpeciality" value="{{ user.speciality}}">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="saveChanges">Save changes</button>
                 </div>
             </div>
         </div>
@@ -111,21 +114,22 @@
         $(document).ready(function() {
             // Populate the edit modal with current patient details
             $('#editModal').on('show.bs.modal', function () {
-                $('#editPatientName').val($('#patientName').val());
-                $('#editPatientId').val($('#patientId').val());
-                $('#editPatientPhone').val($('#patientPhone').val());
-                $('#editPatientDepartment').val($('#patientDepartment').val());
-                $('#editPatientSpeciality').val($('#patientSpeciality').val());
+                $('#editUsertName').val($('#userName').val());
+                $('#editUserPassword').val($('#userPassword').val());
+                $('#editUserPhone').val($('#userPhone').val());
+                $('#editUsertDepartment').val($('#userDepartment').val());
+                $('#editUserSpeciality').val($('#userSpeciality').val());
             });
 
             // Save changes from the modal to the main form
             $('#saveChanges').click(function() {
-                $('#patientName').val($('#editPatientName').val());
-                $('#patientId').val($('#editPatientId').val());
-                $('#patientPhone').val($('#editPatientPhone').val());
-                $('#patientDepartment').val($('#editPatientDepartment').val());
-                $('#patientSpeciality').val($('#editPatientSpeciality').val());
+                $('#userName').val($('#editUserName').val());
+                $('#userPassword').val($('#editUserPassword').val());
+                $('#userPhone').val($('#editUserPhone').val());
+                $('#userDepartment').val($('#editUserDepartment').val());
+                $('#userSpeciality').val($('#editUserSpeciality').val());
                 $('#editModal').modal('hide');
+                $('#editForm')[0].submit();
             });
         });
     </script>
