@@ -93,8 +93,8 @@ def manager_dashboard():
 # nurse
 @app.route('/dashboard/nurse')
 def nurse_dashboard():
-    user_id = session.get('user_id')
-    user = storage.get(user_id)
+    usr_id = session.get('user_id')
+    user = storage.get(usr_id)
     return render_template('nurse.html', name=user.name)
 
  # doctor
@@ -111,7 +111,7 @@ def receptionist_dashboard():
     return render_template('receptionist.html', name=user.name)
 
 # profile
-@app.route('/dashboard/profile', methods=['GET', 'PUT'])
+@app.route('/dashboard/profile/<user_id>', methods=['GET', 'PUT'])
 def profile():
     # opens profile page of the user
     # on the sign in session not in general
@@ -120,16 +120,17 @@ def profile():
     if request.method == 'POST':
         user_update = request.get_json()
         usr.update(user_update)
-    return redirect(url_for('individual'))
+    return redirect(url_for('profile', user_id=session.get('user_id')))
 
 
-# rout for specific user or patient
-# from manager pov
-@app.route('/dashboard/<user_id>', methods=['GET', 'POST'])
-def individual(user_id):
-    user_id = session.get(user_id)
-    user = storage.get(user_id)
-    return render_template('profile.html', user=user)
+
+# # rout for specific user or patient
+# # from manager pov
+# @app.route('/dashboard/<user_id>', methods=['GET', 'POST'])
+# def individual(user_id):
+#     user_id = session.get(user_id)
+#     user = storage.get(user_id)
+#     return render_template('profile.html', user=user)
 
 @app.route('/dashboard/patient/<pt_id>', methods=['GET', 'POST'])
 def patient_profile(pt_id):
