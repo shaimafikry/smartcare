@@ -210,6 +210,9 @@
             border-color: #007bff;
             outline: none;
         }
+        .username { 
+            font-weight: bold; 
+        }
     </style>
 </head>
 <body>
@@ -351,67 +354,65 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
     <script>
-            $(document).ready(function() {
-                // Toggle the new user form
-                $('#showNewUserForm').click(function() {
-                    $('#newUserForm').toggleClass('d-none');
-                });
-    
-                $('#submitNewUser').click(function() {
-                    $('#newUserForm').addClass('d-none');
-                });
-    
-                // Toggle lists for each category
-                $('.nurses-toggle').click(function(event) {
-                    event.stopPropagation();
-                    $('#nursesList').toggle();
-                });
-    
-                $('.doctors-toggle').click(function(event) {
-                    event.stopPropagation();
-                    $('#doctorsList').toggle();
-                });
-    
-                $('.managers-toggle').click(function(event) {
-                    event.stopPropagation();
-                    $('#managersList').toggle();
-                });
-    
-                $('.receptionists-toggle').click(function(event) {
-                    event.stopPropagation();
-                    $('#receptionistsList').toggle();
-                });
-    
-                $('.patients-toggle').click(function(event) {
-                    event.stopPropagation();
-                    $('#patientsList').toggle();
-                });
-    
-                // Hide dropdown and lists when clicking outside
-                $(document).click(function(event) {
-                    if (!$(event.target).closest('#menuToggle, .dropdown-menu, #nursesList, #doctorsList, #managersList, #receptionistsList, #patientsList').length) {
-                        $('.dropdown-menu').hide();
-                        $('#nursesList').hide();
-                        $('#doctorsList').hide();
-                        $('#managersList').hide();
-                        $('#receptionistsList').hide();
-                        $('#patientsList').hide();
-                    }
-                });
-    
-                // Toggle dropdown menu
-                $('#menuToggle').click(function(event) {
-                    event.stopPropagation();
-                    $('.dropdown-menu').toggle();
-                });
-    
-                // Prevent dropdown menu from closing when clicking inside
-                $('.dropdown-menu').click(function(event) {
-                    event.stopPropagation();
-                });
+        $(document).ready(function() {
+            // Toggle the new user form
+            $('#showNewUserForm').click(function() {
+                $('#newUserForm').toggleClass('d-none');
             });
         
-    
+            $('#submitNewUser').click(function() {
+                $('#newUserForm').addClass('d-none');
+            });
+        
+            // Toggle lists for each category
+            $('.nurses-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#nursesList').toggle();
+            });
+        
+            $('.doctors-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#doctorsList').toggle();
+            });
+        
+            $('.managers-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#managersList').toggle();
+            });
+        
+            $('.receptionists-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#receptionistsList').toggle();
+            });
+        
+            $('.patients-toggle').click(function(event) {
+                event.stopPropagation();
+                $('#patientsList').toggle();
+            });
+        
+            // Hide dropdown and lists when clicking outside
+            $(document).click(function(event) {
+                if (!$(event.target).closest('#menuToggle, .dropdown-menu, #nursesList, #doctorsList, #managersList, #receptionistsList, #patientsList').length) {
+                    $('.dropdown-menu').hide();
+                    $('#nursesList').hide();
+                    $('#doctorsList').hide();
+                    $('#managersList').hide();
+                    $('#receptionistsList').hide();
+                    $('#patientsList').hide();
+                }
+            });
+        
+            // Toggle dropdown menu
+            $('#menuToggle').click(function(event) {
+                event.stopPropagation();
+                $('.dropdown-menu').toggle();
+            });
+        
+            // Prevent dropdown menu from closing when clicking inside
+            $('.dropdown-menu').click(function(event) {
+                event.stopPropagation();
+            });
+        });
     </script>
 </body>
 </html>
