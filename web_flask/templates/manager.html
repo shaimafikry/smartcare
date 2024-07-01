@@ -306,7 +306,7 @@
                 </div>
                 <div class="card card-custom">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Doctors</h5>
+                        <h5 class="card-title doctors-toggle">Doctors</h5>
                     </div>
                     <div id="doctorsList" class="doctors-list">
                         {% for i in doctor.values()%}
@@ -316,7 +316,7 @@
                 </div>
                 <div class="card card-custom">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Managers</h5>
+                        <h5 class="card-title managers-toggle">Managers</h5>
                     </div>
                     <div id="managersList" class="managers-list">
                         {% for i in manager.values()%}
@@ -326,7 +326,7 @@
                 </div>
                 <div class="card card-custom">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Receptionist</h5>
+                        <h5 class="card-title receptionists-toggle">Receptionists</h5>
                     </div>
                     <div id="receptionistsList" class="receptionists-list">
                         {% for i in receptionist.values()%}
@@ -334,6 +334,7 @@
                          {% endfor %}
                     </div>
                 </div>
+                
                 <div class="card card-custom">
                     <div class="card-body text-center">
                         <h5 class="card-title patients-toggle">Patients</h5>
