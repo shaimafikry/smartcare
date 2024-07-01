@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Care - nurses</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -134,6 +135,47 @@
         .no-bold {
             font-weight: normal;
         }
+        .input-group .form-control {
+            border-right: 0;
+            border-color: #ced4da;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+        
+        .input-group .input-group-append .btn {
+            border-left: 0;
+            border-color: #ced4da;
+            border-radius: 0 0.25rem 0.25rem 0;
+            background-color: white;
+        }
+        
+        .input-group:hover .form-control,
+        .input-group:hover .search-btn,
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+            z-index: 1;
+        }
+        
+        .input-group .form-control:focus,
+        .input-group .search-btn:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        
+        .search-btn {
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+        
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+        }
+        
+        .input-group .form-control:focus + .input-group-append .btn,
+        .input-group-append .btn:focus {
+            border-color: #007bff;
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -142,8 +184,16 @@
             <img src="images/logo.png" alt="Hospital Logo">
         </a>
         <form class="form-inline mx-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn search-btn" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </form>
+        <div class="username"> {{ name }}</div>
         <div class="dropdown ml-auto">
             <button class="dropdown-toggle" type="button" id="menuToggle">
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
@@ -157,34 +207,29 @@
             </div>
         </div>
     </nav>
-
-    <div class="container content">
-        <div class="form-group">
-            <h4 class="custom-p">{{pt.name}} {{pt.id}}</h4>
-        </div>
-
         <!-- Past History Section -->
+    <div class="container content">
         <div class="section">
             <div class="section-title">Past History</div>
             <div type="text" class="section-content" id="pastHistoryText">{{pt.history}}</div>
         </div>
 
-    <div class="section">
-        <div class="section-title">Labs Reports</div>
-        <div class="section-content scrollable">
-            <img src="images/path_to_lab.png" alt="Lab Report 1">
-            <img src="images/path_to_lab.png" alt="Lab Report 2">
+        <div class="section">
+           <div class="section-title">Labs Reports</div>
+           <div class="section-content scrollable">
+              <img src="images/path_to_lab.png" alt="Lab Report 1">
+              <img src="images/path_to_lab.png" alt="Lab Report 2">
+           </div>
         </div>
-    </div>
 
     <!-- Screens Section -->
-    <div class="section">
-        <div class="section-title">Screens Reports</div>
-        <div class="section-content scrollable">
+        <div class="section">
+          <div class="section-title">Screens Reports</div>
+          <div class="section-content scrollable">
             <img src="images/path_to_screens.png" alt="Screen Report 1">
             <img src="images/path_to_screens.png" alt="Screen Report 2">  
+          </div>
         </div>
-    </div>
 
         <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -238,6 +283,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#menuToggle').click(function(event) {

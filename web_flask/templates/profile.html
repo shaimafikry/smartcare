@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -34,6 +35,47 @@
             margin: 30px 470px;
             text-align: center;
             position: relative;
+        }
+        .input-group .form-control {
+            border-right: 0;
+            border-color: #ced4da;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+        
+        .input-group .input-group-append .btn {
+            border-left: 0;
+            border-color: #ced4da;
+            border-radius: 0 0.25rem 0.25rem 0;
+            background-color: white;
+        }
+        
+        .input-group:hover .form-control,
+        .input-group:hover .search-btn,
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+            z-index: 1;
+        }
+        
+        .input-group .form-control:focus,
+        .input-group .search-btn:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        
+        .search-btn {
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+        
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+        }
+        
+        .input-group .form-control:focus + .input-group-append .btn,
+        .input-group-append .btn:focus {
+            border-color: #007bff;
+            outline: none;
         }
     </style>
 </head>

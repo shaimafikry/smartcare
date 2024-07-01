@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Care - departments</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -120,9 +121,8 @@
             background-color: #3d6dfe;
             font-size: 35px;
             margin-bottom: 33px;
-            border: 5px solid #d3d7da;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
+            
+            border-radius: 10px;
             margin-top: 5%;
             padding: 10px;
             width: 10%; 
@@ -131,8 +131,21 @@
 
         }
 
+        /* Modal styles */
+        .modal-content {
+         border-radius: 0.5rem;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+         border: 1px solid #ced4da;
+        }
+        .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
         
-        
+        .modal-body {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
         .submenu {
             display: none;
             position: absolute;
@@ -156,6 +169,48 @@
         .table td {
             vertical-align: middle;
         }
+        .input-group .form-control {
+            border-right: 0;
+            border-color: #ced4da;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+        
+        .input-group .input-group-append .btn {
+            border-left: 0;
+            border-color: #ced4da;
+            border-radius: 0 0.25rem 0.25rem 0;
+            background-color: white;
+        }
+        
+        .input-group:hover .form-control,
+        .input-group:hover .search-btn,
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+            z-index: 1;
+        }
+        
+        .input-group .form-control:focus,
+        .input-group .search-btn:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        
+        .search-btn {
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+        
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+        }
+        
+        .input-group .form-control:focus + .input-group-append .btn,
+        .input-group-append .btn:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        
     </style>
 </head>
 <body>
@@ -164,8 +219,16 @@
             <img src="images/logo.png" alt="Hospital Logo">
         </a>
         <form class="form-inline mx-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn search-btn" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </form>
+        <div class="username"> {{ name }}</div>
         <div class="dropdown ml-auto">
             <button class="dropdown-toggle" type="button" id="menuToggle">
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
@@ -191,56 +254,67 @@
         </div>
     </div>
     
-    <div id="emergencyMenu" class="submenu">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>ID</th>
-                    <th>Age</th>
-                    <th>Sex</th>
-                    <th>Date of Admission</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <tr>
-                    <td>ahmed</td>
-                    <td>12345</td>
-                    <td>30</td>
-                    <td>Male</td>
-                    <td>2024-06-18</td>
-                </tr>
-                <tr>
-                    <td>ali</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>male</td>
-                    <td>2024-06-17</td>
-                </tr>
-                <tr>
-                    <td>amal</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>Female</td>
-                    <td>2024-06-17</td>
-                </tr>
-                <tr>
-                    <td>amal</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>Female</td>
-                    <td>2024-06-17</td>
-                </tr>
-                <tr>
-                    <td>amal</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>Female</td>
-                    <td>2024-06-17</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="modal fade" id="emergencyModal" tabindex="-1" aria-labelledby="emergencyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emergencyModalLabel">Emergency Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Age</th>
+                                <th>Sex</th>
+                                <th>Date of Admission</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ahmed</td>
+                                <td>12345</td>
+                                <td>30</td>
+                                <td>Male</td>
+                                <td>2024-06-18</td>
+                            </tr>
+                            <tr>
+                                <td>ali</td>
+                                <td>54321</td>
+                                <td>25</td>
+                                <td>male</td>
+                                <td>2024-06-17</td>
+                            </tr>
+                            <tr>
+                                <td>amal</td>
+                                <td>54321</td>
+                                <td>25</td>
+                                <td>Female</td>
+                                <td>2024-06-17</td>
+                            </tr>
+                            <tr>
+                                <td>amal</td>
+                                <td>54321</td>
+                                <td>25</td>
+                                <td>Female</td>
+                                <td>2024-06-17</td>
+                            </tr>
+                            <tr>
+                                <td>amal</td>
+                                <td>54321</td>
+                                <td>25</td>
+                                <td>Female</td>
+                                <td>2024-06-17</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -248,6 +322,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#menuToggle').click(function(event) {
@@ -261,11 +337,33 @@
                 }
             });
         
-            $('#emergencyBtn').click(function(event) {
-                event.stopPropagation();
-                $('#emergencyMenu').toggle();
+            $('#emergencyBtn').click(function() {
+                $('#emergencyModal').modal('show');
             });
-            
+        
+            // Close the modal when clicking outside of it
+            $(document).click(function(event) {
+                if (!$(event.target).closest('#emergencyModal .modal-content, #emergencyBtn').length) {
+                    $('#emergencyModal').modal('hide');
+                }
+            });
+        
+            // Ensure that clicking on the modal content doesn't close the modal
+            $('#emergencyModal').click(function(event) {
+                event.stopPropagation();
+            });
+        
+            // Optional: Add a patient row to the table
+            function addPatientRow(name, id, age, sex, date) {
+                var newRow = `<tr>
+                    <td>${name}</td>
+                    <td>${id}</td>
+                    <td>${age}</td>
+                    <td>${sex}</td>
+                    <td>${date}</td>
+                </tr>`;
+                $('#emergencyModal tbody').append(newRow);
+            }
             function positionSubmenu(btnId, menuId) {
                 var btnOffset = $(btnId).offset();
                 var btnHeight = $(btnId).outerHeight();
@@ -277,13 +375,6 @@
                 
                 });
             }
-        
-            // Close submenu when clicking outside of it
-            $(document).click(function(event) {
-                if (!$(event.target).closest('#emergencyBtn').length && !$(event.target).closest('#emergencyMenu').length) {
-                    $('#emergencyMenu').hide();
-                }
-            });
             
             $('.section-btn').hover(
                 function() {
