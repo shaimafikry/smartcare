@@ -113,11 +113,10 @@
             cursor: pointer;
         }
         
-        .nurses-list, .patients-list {
+        .nurses-list, .patients-list, .doctors-list, .managers-list, .receptionists-list {
             position: absolute;
             top: 50%;
             left: 105%;
-            bottom: 10px;
             transform: translateY(-50%);
             display: none;
             background-color: #fff;
@@ -125,16 +124,20 @@
             border-radius: 10px;
             z-index: 1000;
         }
-        .nurses-list a, .patients-list a {
+
+        .nurses-list a, .patients-list a, .doctors-list a, .managers-list a, .receptionists-list a {
             display: block;
             padding: 10px 20px;
             color: black;
             text-decoration: none;
         }
-        .nurses-list a:hover, .patients-list a:hover {
+
+        .nurses-list a:hover, .patients-list a:hover, .doctors-list a:hover, .managers-list a:hover, .receptionists-list a:hover {
             background-color: #f8f9fa;
-            
-    
+        }
+
+        .list-container {
+            position: relative;
         }
         .btn-submit {
             background-color: blue;
@@ -189,13 +192,6 @@
         </div>
     </nav>
     <div class="container content">
-        <div class="form-group">
-            <div class="form-group">
-                <h4 class="custom-p">{{ name }}</h4>
-            </div>
-            
-        </div>
-
         <div class="container">
            <div class="row">
              <div class="col-md-12 text-left">
@@ -303,62 +299,67 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#showNewUserForm').click(function() {
-                $('#newUserForm').toggleClass('d-none');
+            $(document).ready(function() {
+                // Toggle the new user form
+                $('#showNewUserForm').click(function() {
+                    $('#newUserForm').toggleClass('d-none');
+                });
+    
+                $('#submitNewUser').click(function() {
+                    $('#newUserForm').addClass('d-none');
+                });
+    
+                // Toggle lists for each category
+                $('.nurses-toggle').click(function(event) {
+                    event.stopPropagation();
+                    $('#nursesList').toggle();
+                });
+    
+                $('.doctors-toggle').click(function(event) {
+                    event.stopPropagation();
+                    $('#doctorsList').toggle();
+                });
+    
+                $('.managers-toggle').click(function(event) {
+                    event.stopPropagation();
+                    $('#managersList').toggle();
+                });
+    
+                $('.receptionists-toggle').click(function(event) {
+                    event.stopPropagation();
+                    $('#receptionistsList').toggle();
+                });
+    
+                $('.patients-toggle').click(function(event) {
+                    event.stopPropagation();
+                    $('#patientsList').toggle();
+                });
+    
+                // Hide dropdown and lists when clicking outside
+                $(document).click(function(event) {
+                    if (!$(event.target).closest('#menuToggle, .dropdown-menu, #nursesList, #doctorsList, #managersList, #receptionistsList, #patientsList').length) {
+                        $('.dropdown-menu').hide();
+                        $('#nursesList').hide();
+                        $('#doctorsList').hide();
+                        $('#managersList').hide();
+                        $('#receptionistsList').hide();
+                        $('#patientsList').hide();
+                    }
+                });
+    
+                // Toggle dropdown menu
+                $('#menuToggle').click(function(event) {
+                    event.stopPropagation();
+                    $('.dropdown-menu').toggle();
+                });
+    
+                // Prevent dropdown menu from closing when clicking inside
+                $('.dropdown-menu').click(function(event) {
+                    event.stopPropagation();
+                });
             });
         
-            $('#submitNewUser').click(function() {
-                $('#newUserForm').addClass('d-none');
-            });
-        
-            $('.nurses-toggle').click(function(event) {
-                event.stopPropagation();
-                $('#nursesList').toggle();
-            });
-
-            $('.doctors-toggle').click(function(event) {
-                event.stopPropagation();
-                $('#doctorsList').toggle();
-            });
-
-            $('.managers-toggle').click(function(event) {
-                event.stopPropagation();
-                $('#managersList').toggle();
-            });
-
-            $('.receptionists-toggle').click(function(event) {
-                event.stopPropagation();
-                $('#receptionistsList').toggle();
-            });
-        
-            $('.patients-toggle').click(function(event) {
-                event.stopPropagation();
-                $('#patientsList').toggle();
-            });
-        
-            $(document).click(function(event) {
-                if (!$(event.target).closest('#menuToggle, .dropdown-menu, #nursesList, #doctorsList, #managersList, #receptionistsList, #patientsList').length) {
-                    $('.dropdown-menu').hide();
-                    $('#nursesList').hide();
-                    $('#doctorsList').hide();
-                    $('#managersList').hide();
-                    $('#receptionistsList').hide();
-                    $('#patientsList').hide();
-                }
-            });
-        
-            $('#menuToggle').click(function(event) {
-                event.stopPropagation();
-                $('.dropdown-menu').toggle();
-            });
-        
-            $('.dropdown-menu').click(function(event) {
-                event.stopPropagation();
-            });
-        });
-        
-        
+    
     </script>
 </body>
 </html>
