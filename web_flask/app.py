@@ -6,8 +6,10 @@ from models.manager import Manager
 from models.doctor import Doctor
 from models.nurse import Nurse
 from models.receptionist import Receptionist
+from models.patient import Patient
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+import json
 import secrets
 
 app = Flask(__name__)
@@ -15,11 +17,13 @@ app = Flask(__name__)
 # python -c "import secrets; print(secrets.token_hex(16))"
 # export FLASK_SECRET_KEY= (key_generated)
 # it ends after every seesion => when close the vs
-# app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 
-app.secret_key = secrets.token_hex(16)
+# app.secret_key = secrets.token_hex(16)
 
 classes = {'M': 'Manager', 'N': 'Nurse', 'R': 'Receptionist', 'D': 'Doctor', 'P': 'Patient'}
+clas_create = {'M': Manager, 'N': Nurse, 'R': Receptionist, 'D': Doctor, 'P': Patient}
+
 @app.route('/', strict_slashes=False, methods=['GET', 'POST'])
 @app.route('/login', strict_slashes=False, methods=['GET', 'POST'])
 def login():
@@ -33,14 +37,16 @@ def do_the_login():
         usr_id = request.form.get('username')
         psswd = request.form.get('password')
         if usr_id and psswd:
-            user = storage.get(usr_id)
+            user = storage.get_obj(usr_id)
             if user is not None:
-                if user.password == psswd:
+                if user['password'] == psswd:
                     session['user_id'] = usr_id
-                    # to get the class name
-                    # to go directly to the other rout
-                    cls_name = classes[usr_id[0]]
-                    return redirect(url_for(f'{cls_name.lower()}_dashboard'))
+                    cls_name = (classes[usr_id[0]]).lower()
+                    print(usr_id)
+                    if usr_id[0] == 'D' or usr_id[0] == 'N':
+                        return redirect(url_for('dashboard'))
+                    else:
+                        return redirect(url_for(f'{cls_name}_dashboard'))
         return render_template('index.html')
 
 def show_the_login_form():
@@ -51,7 +57,7 @@ def show_the_login_form():
 def manager_dashboard():
     # in case of edit
     user_id = session.get('user_id')
-    user = storage.get(user_id)
+    user = storage.get_obj(user_id)
     if request.method == 'POST':
         user_type = request.form.get('userType')
         name = request.form.get('userName')
@@ -84,65 +90,123 @@ def manager_dashboard():
     doctor_data=  storage.all('Doctor')
     receptionist_data= storage.all('Receptionist')
     manager_data= storage.all('Manager')
-
-    return render_template('manager.html', name=user.name,
+    print(storage.all())
+    return render_template('manager.html', name=user['name'],
                                 nurse=nurse_data, doctor=doctor_data,
                                 manager=manager_data, receptionist=receptionist_data,
                                 patient=patient_data)
 
 # nurse
-@app.route('/dashboard/nurse')
-def nurse_dashboard():
-    usr_id = session.get('user_id')
-    user = storage.get(usr_id)
-    return render_template('nurse.html', name=user.name)
-
- # doctor
-@app.route('/dashboard/doctor')
-def doctor_dashboard():
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    all_patients = storage.all('Patient')
+    # print(all_patients)
+    active_pt = {}
+    for k, v in all_patients.items():
+        if v.get('discharge_at') == None:
+            active_pt[k] = v
+    # print("=>",active_pt)
     user_id = session.get('user_id')
-    user = storage.get(user_id)
-    return render_template('doctor.html', name=user.name)
+    cl = (classes[user_id[0]]).lower()
+    return render_template('departments.html', patients=active_pt, cl=cl)
+
+# doctor
+@app.route('/dashboard/doctor/<pt_id>', methods=['GET', 'POST'])
+def doctor_dashboard(pt_id):
+    user_id = session.get('user_id')
+    user = storage.get_obj(user_id)
+    patient = storage.get_obj(pt_id)
+    if request.method == 'POST':
+        return (url_for('dashboard'))
+    return render_template('doctor.html', name=user['name'], patient=patient)
+
+
+@app.route('/dashboard/nurse/<pt_id>', methods=['GET', 'POST'])
+def nurse_dashboard(pt_id):
+    user_id = session.get('user_id')
+    user = storage.get_obj(user_id)
+    patient = storage.get_obj(pt_id)
+    return render_template('nurse.html', name=user['name'], patient=patient)
+
+
+
 # receptionist
-@app.route('/dashboard/receptionist')
+@app.route('/dashboard/receptionist',methods=['POST', 'GET'])
 def receptionist_dashboard():
     user_id = session.get('user_id')
-    user = storage.get(user_id)
-    return render_template('receptionist.html', name=user.name)
+    user = storage.get_obj(user_id)
+    if request.method == 'POST':
+        data = {
+            'name':request.form.get('pt_name'),
+            'nat_id':request.form.get('pt_nat_id'),
+            'adress':request.form.get('pt_adress'),
+            'age':request.form.get('pt_age'),
+            'department':request.form.get('pt_department'),
+            'sex':request.form.get('pt_sex')
+        }
+        new_pt = Patient(**data)
+        new_pt.save()
+    return render_template('receptionist.html', name=user['name'])
 
 # profile
-@app.route('/dashboard/profile/<user_id>', methods=['GET', 'PUT'])
+@app.route('/dashboard/profile', methods=['GET', 'POST'])
 def profile():
     # opens profile page of the user
     # on the sign in session not in general
     user_id = session.get('user_id')
-    usr = storage.get(user_id)
+    usr = storage.get_obj(user_id)
     if request.method == 'POST':
-        user_update = request.get_json()
-        usr.update(user_update)
-    return redirect(url_for('profile', user_id=session.get('user_id')))
+        data = {
+            'password':request.form.get('userPassword'),
+        }
+        storage.update_obj(user_id, data)
+        usr = storage.get_obj(user_id)
+        return render_template('profile.html', user=usr)
+    return render_template('profile.html', user=usr)
 
 
+# rout for specific user or patient
+# from manager pov
+@app.route('/dashboard/<cl_s>/<user_id>', methods=['GET', 'POST'])
+def individual(cl_s, user_id):
+    show_user = storage.get_obj(user_id)
+    if request.method == 'POST':
+        if request.form.get('action') == 'delete':
+            print(storage.all(cl_s))
+            storage.delete_obj(user_id)
+            print(storage.all(cl_s))
+            # Redirect or return a response indicating success
+            return redirect(url_for('manager_dashboard'))
+        else:
+            data = {
+                'name':request.form.get('userName'),
+                'password':request.form.get('userPassword'),
+                'phone':request.form.get('userPhone'),
+                'speciality':request.form.get('userSpeciality'),
+                'department':request.form.get('userDepartment')
+            }
+            storage.update_obj(user_id, data)
+            show_user = storage.get_obj(user_id)
+        
+    return render_template('edit-user.html', user=show_user, cl_s=cl_s, user_id=user_id)
 
-# # rout for specific user or patient
-# # from manager pov
-# @app.route('/dashboard/<user_id>', methods=['GET', 'POST'])
-# def individual(user_id):
-#     user_id = session.get(user_id)
-#     user = storage.get(user_id)
-#     return render_template('profile.html', user=user)
 
-@app.route('/dashboard/patient/<pt_id>', methods=['GET', 'POST'])
-def patient_profile(pt_id):
-    if request.method== 'GET':
-        user = storage.get(pt_id)
-        return render_template('saved-patient.html', pt=user)
-    else:
-        user_id = session.get('user_id')
-        if user_id[0] == 'D':
-            render_template('doctor.html')
-        if user_id[0] == 'N':
-            render_template('nurse.html')
+# # pt active no sicharge date
+# @app.route('/dashboard/active/patient/<pt_id>', methods=['GET', 'POST'])
+# def active_patient_profile(pt_id):
+#     patient = storage.get_obj(pt_id)
+#     user_id = session.get('user_id')
+#     user = storage.get_obj(user_id)
+#     if user_id[0] == 'D':
+#         render_template('doctor.html', name=user['name'], patient=patient)
+#     render_template('nurse.html')
+
+# pt have a dischagre date
+@app.route('/dashboard/saved/patient/<pt_id>', methods=['GET', 'POST'])
+def saved_patient_profile(pt_id):
+        patient = storage.get_obj(pt_id)
+        return render_template('saved-patient.html', pt=patient)
+
 
 @app.route('/sign_out')
 def sign_out():
@@ -151,9 +215,10 @@ def sign_out():
     # Redirect to the login page or home page
     return redirect(url_for('login')) 
 
-# @app.route('/test')
-# def test():
-#     return render_template('specific-user.html')
+# @app.route('/forgot_password', methods=['POST'])
+# def forget_password():
+#     return render_template('forget password.html')
+
 
 @app.teardown_appcontext
 def close_db(exception=None):

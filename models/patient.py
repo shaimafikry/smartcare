@@ -55,11 +55,20 @@ else:
                 self.admission_at = datetime.now()
                 self.updated_at = datetime.now()
             else:
-                self.id = kwargs['id']
                 self.nat_id = kwargs['nat_id']
-                # if kwargs.get('admission_date') is not None:
-                kwargs['admission_at'] = datetime.fromisoformat(kwargs.get('admission_at'))
-                kwargs['updated_at'] = datetime.fromisoformat(kwargs.get('updated_at'))
+                self.id = kwargs.get('id',generate_id(self.nat_id))
+                if 'admission_at' in kwargs and isinstance(kwargs['admission_at'], str):
+                    self.admission_at = datetime.fromisoformat(kwargs['admission_at'])
+                elif 'admission_at' in kwargs:
+                    self.admission_at = datetime.now()
+                else:
+                    self.admission_at = datetime.now()
+                if 'updated_at' in kwargs and isinstance(kwargs['updated_at'], str):
+                    self.updated_at = datetime.fromisoformat(kwargs['updated_at'])
+                elif 'updated_at' in kwargs:
+                    self.updated_at = datetime.now()
+                else:
+                    self.updated_at = datetime.now()
             if kwargs.get('__class__') != None:
                 del kwargs['__class__']
             self.__dict__.update(kwargs)
@@ -100,17 +109,12 @@ else:
 
         def to_dict(self):
             """Convert instance into dict format and adding keys to it"""
-            # dictionary = {}
-            # dictionary.update(self.__dict__)
-            # dictionary.update({'__class__':
-            #                 (str(type(self)).split('.')[-1]).split('\'')[0]})
-
             new_dict = self.__dict__.copy()
             new_dict['__class__'] = self.__class__.__name__
-            new_dict['admission_at'] = self.admission_at.isoformat()
-            new_dict['updated_at'] = self.updated_at.isoformat()
-            if new_dict.get('discharge_at'):
-                new_dict['discharge_at'] = self.discharge_at.isoformat()
+            if  isinstance(new_dict['admission_at'], datetime):
+                new_dict['admission_at'] = self.admission_at.isoformat()
+            if isinstance(new_dict['updated_at'], datetime):
+                new_dict['updated_at'] = self.updated_at.isoformat()
             return new_dict
         def delete(self):
             """delete the current instance from the storage"""
