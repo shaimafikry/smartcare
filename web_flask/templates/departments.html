@@ -171,11 +171,11 @@
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="#">Home</a>
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">All Patients</a>
+                <a class="dropdown-item" href="{{ url_for('dashboard') }}">Home</a>
+                <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
+                <a class="dropdown-item" href="{{ url_for('patients') }}">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="#">Sign Out</a>
+                <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
             </div>
         </div>
     </nav>
@@ -203,42 +203,15 @@
                 </tr>
             </thead>
             <tbody>
-                
+                {% for i in patients.values() %}
                 <tr>
-                    <td>ahmed</td>
-                    <td>12345</td>
-                    <td>30</td>
-                    <td>Male</td>
-                    <td>2024-06-18</td>
+                    <td><a href="{{ url_for(cl ~ '_dashboard', pt_id=i.id) }}">{{i.name}}</a></td>
+                    <td>{{i.id}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.sex}}</td>
+                    <td>{{i.admission_at}}</td>
                 </tr>
-                <tr>
-                    <td>ali</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>male</td>
-                    <td>2024-06-17</td>
-                </tr>
-                <tr>
-                    <td>amal</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>Female</td>
-                    <td>2024-06-17</td>
-                </tr>
-                <tr>
-                    <td>amal</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>Female</td>
-                    <td>2024-06-17</td>
-                </tr>
-                <tr>
-                    <td>amal</td>
-                    <td>54321</td>
-                    <td>25</td>
-                    <td>Female</td>
-                    <td>2024-06-17</td>
-                </tr>
+               {% endfor %}
             </tbody>
         </table>
     </div>

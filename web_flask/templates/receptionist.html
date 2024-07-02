@@ -123,7 +123,7 @@
             <div class="dropdown-menu" aria-labelledby="menuToggle">
                 <a class="dropdown-item" href="{{ url_for('receptionist_dashboard') }}">Home</a>
                 <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
-                <a class="dropdown-item" href="#">All Patients</a>
+                <a class="dropdown-item" href="{{ url_for('patients') }}">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
                 <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
             </div>
@@ -145,29 +145,33 @@
         <div class="container mt-4" id="newPatientForm" style="display: none;">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form>
+                    <form method="POST" action="/dashboard/receptionist">
                         <div class="form-group">
                             <label for="patientName">Name</label>
-                            <input type="text" class="form-control" id="patientName" placeholder="Enter name">
+                            <input type="text" class="form-control" id="patientName" name="pt_name" placeholder="Enter name">
                         </div>
                         <div class="form-group">
                             <label for="patientSex">Sex</label>
-                            <select class="form-control" id="patientSex">
+                            <select class="form-control" id="patientSex" name="pt_sex">
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="patientDepartment">Age</label>
+                            <input type="text" class="form-control" id="patientAge" name="pt_age" placeholder="Enter Age">
+                        </div>
+                        <div class="form-group">
                             <label for="patientDepartment">Department</label>
-                            <input type="text" class="form-control" id="patientDepartment" placeholder="Enter department">
+                            <input type="text" class="form-control" id="patientDepartment" name="pt_department" placeholder="Enter Department">
                         </div>
                         <div class="form-group">
                             <label for="patientID">National ID</label>
-                            <input type="text" class="form-control" id="patientID" placeholder="Enter National ID">
+                            <input type="text" class="form-control" id="patientID" name="pt_nat_id" placeholder="Enter National ID">
                         </div>
                         <div class="form-group">
                             <label for="patientAddress">Address</label>
-                            <input type="text" class="form-control" id="patientAddress" placeholder="Enter address">
+                            <input type="text" class="form-control" id="patientAddress" name="pt_adress" placeholder="Enter address">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
