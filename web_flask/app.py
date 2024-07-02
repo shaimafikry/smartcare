@@ -15,9 +15,9 @@ app = Flask(__name__)
 # python -c "import secrets; print(secrets.token_hex(16))"
 # export FLASK_SECRET_KEY= (key_generated)
 # it ends after every seesion => when close the vs
-# app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 
-app.secret_key = secrets.token_hex(16)
+# app.secret_key = secrets.token_hex(16)
 
 classes = {'M': 'Manager', 'N': 'Nurse', 'R': 'Receptionist', 'D': 'Doctor', 'P': 'Patient'}
 @app.route('/', strict_slashes=False, methods=['GET', 'POST'])
