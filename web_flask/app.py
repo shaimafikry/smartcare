@@ -17,9 +17,9 @@ app = Flask(__name__)
 # python -c "import secrets; print(secrets.token_hex(16))"
 # export FLASK_SECRET_KEY= (key_generated)
 # it ends after every seesion => when close the vs
-# app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 
-app.secret_key = secrets.token_hex(16)
+# app.secret_key = secrets.token_hex(16)
 
 classes = {'M': 'Manager', 'N': 'Nurse', 'R': 'Receptionist', 'D': 'Doctor', 'P': 'Patient'}
 clas_create = {'M': Manager, 'N': Nurse, 'R': Receptionist, 'D': Doctor, 'P': Patient}
@@ -157,13 +157,8 @@ def profile():
     usr = storage.get_obj(user_id)
     if request.method == 'POST':
         data = {
-            'name':request.form.get('userName'),
             'password':request.form.get('userPassword'),
-            'phone':request.form.get('userPhone'),
-            'speciality':request.form.get('userSpeciality'),
-            'department':request.form.get('userDepartment')
         }
-        user_update = clas_create[user_id[0]](**data)
         storage.update_obj(user_id, data)
         usr = storage.get_obj(user_id)
         return render_template('profile.html', user=usr)

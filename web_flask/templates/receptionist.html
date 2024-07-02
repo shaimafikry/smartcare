@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Care - Reception</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -99,12 +100,49 @@
             text-align: center;
             margin-top: 10px;
         }
-        .username {
-            margin-top: 10px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            width: 100%;
+        .username { 
+            font-weight: bold; 
+        }
+        .input-group .form-control {
+            border-right: 0;
+            border-color: #ced4da;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+        
+        .input-group .input-group-append .btn {
+            border-left: 0;
+            border-color: #ced4da;
+            border-radius: 0 0.25rem 0.25rem 0;
+            background-color: white;
+        }
+        
+        .input-group:hover .form-control,
+        .input-group:hover .search-btn,
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+            z-index: 1;
+        }
+        
+        .input-group .form-control:focus,
+        .input-group .search-btn:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        
+        .search-btn {
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+        
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+        }
+        
+        .input-group .form-control:focus + .input-group-append .btn,
+        .input-group-append .btn:focus {
+            border-color: #007bff;
+            outline: none;
         }
     </style>
 </head>
@@ -114,8 +152,16 @@
             <img src="images/logo.png" alt="Hospital Logo">
         </a>
         <form class="form-inline mx-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn search-btn" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </form>
+        <div class="username"> {{ name }}</div>
         <div class="dropdown ml-auto">
             <button class="dropdown-toggle" type="button" id="menuToggle">
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
@@ -131,7 +177,6 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="username"> {{ name }}</div>
     <div class="container content">
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -183,6 +228,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#menuToggle').click(function() {
