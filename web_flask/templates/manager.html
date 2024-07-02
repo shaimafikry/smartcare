@@ -342,7 +342,7 @@
                     </div>
                     <div id="patientsList" class="patients-list">
                         {% for i in patient.values()%}
-                        <a href="{{ url_for('patient_profile', user_id=i.id)}}" class="list-group-item list-group-item-action"> {{i.name}} {{i.id}}</a>
+                        <a href="{{ url_for('saved_patient_profile', pt_id=i.id)}}" class="list-group-item list-group-item-action"> {{i.name}} {{i.id}}</a>
                          {% endfor %}
                     </div>
                 </div>

@@ -175,7 +175,7 @@
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="{{ url_for('nurse_dashboard') }}">Home</a>
+                <a class="dropdown-item" href="{{ url_for('dashboard') }}">Home</a>
                 <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
                 <a class="dropdown-item" href="{{ url_for('patients') }}">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
@@ -224,11 +224,11 @@
                     <form id="editForm", action="/dashboard/profile" method='POST'>
                         <div class="form-group">
                             <label for="editUserPassword">Password</label>
-                            <input type="text" class="form-control" id="editUserPassword" placeholder="Enter password" value="{{ user.password}}">
+                            <input type="text" class="form-control" id="editUserPassword" name="userPassword" placeholder="Enter password" value="{{ user.password}}">
                         </div>
                         <div class="form-group">
                             <label for="editUserpassword">confirm password</label>
-                            <input type="text" class="form-control" id="editUserpassword" placeholder="confirm password" value="{{ user.password}}">
+                            <input type="text" class="form-control" id="editUserpassword" placeholder="confirm password" name="userPassword" value="{{ user.password}}">
                         </div>
                     </form>
                 </div>

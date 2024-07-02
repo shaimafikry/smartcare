@@ -6,53 +6,55 @@
 
 import json, os
 import copy
+
+
 class FileStorage:
     """to store data into json files"""
     # all workers together
     __file = "data.json"
     __objects = {'Nurse':{}, 'Doctor':{}, 'Manager':{}, 'Receptionist': {}, 'Patient': {}}
-
+   
     def all (self, cls=None):
         """return all workers"""
-        temp = copy.deepcopy(FileStorage.__objects)
-        for val in temp.values():
-            for k, v in val.items():
-                val[k] = v.to_dict()
         if cls == None:
-            return temp
+            return FileStorage.__objects
         else:            
-            return temp[cls]
+            return FileStorage.__objects[cls]
+    
+    def update_obj (self,id, data):
+        """update specific object with dict"""
+        classes = {'M': 'Manager', 'D': 'Doctor',
+                   'N': 'Nurse', 'R': 'Receptionist', 'P': 'Patient'}
+        self.all(classes[id[0]])[id].update(data)
+        self.save()
 
-    def get (self, id):
+    def get_obj (self, id):
         """return specific workers"""
         classes = {'M': 'Manager', 'D': 'Doctor',
                    'N': 'Nurse', 'R': 'Receptionist', 'P': 'Patient'}
-        clss = classes[id[0]]
-        dict_object = FileStorage.__objects[clss].get(id, None)
-        if dict_object is not None:
-            dict_object.to_dict()
+        clss = classes.get(id[0])
+        dict_object = FileStorage.__objects[clss].get(id)
         return dict_object
+    
+    def delete_obj (self, id):
+        """delete specific workers"""
+        classes = {'M': 'Manager', 'D': 'Doctor',
+                   'N': 'Nurse', 'R': 'Receptionist', 'P': 'Patient'}
+        let = id[0]
+        clss = classes.get(let)
+        FileStorage.__objects[clss].pop(id, None)
+        self.save()
 
     def new (self, obj):
         """save to object dict"""
-        cls_name = obj.to_dict()['__class__']
-        FileStorage.__objects[cls_name].update({obj.id: obj})
-
-
+        n_obj = obj.to_dict()
+        cls_name = n_obj['__class__']
+        FileStorage.__objects[cls_name].update({obj.id: n_obj})
 
     def save (self):
         """ save to a file in json"""
         with open(FileStorage.__file, 'w') as f:
-            # deep copy to prevent any modification to the orginal
-            # why deep copy ? coz the dict is dict of dicts
             temp = copy.deepcopy(FileStorage.__objects)
-            # print (temp)
-            for val in temp.values():
-            # print ("fisrt vale", val)
-                for k, v in val.items():
-                # print("before to dict to file object", v.admission_at)
-                    val[k] = v.to_dict()
-            # print (temp)
             json.dump(temp, f)
 
         
@@ -81,7 +83,7 @@ class FileStorage:
                 individuals = json.load(f)
                 for job, employees in individuals.items():
                     for id, dct in employees.items():
-                        FileStorage.__objects[job][id] = classes[job](**dct)
+                        FileStorage.__objects[job][id] = (classes[job](**dct)).to_dict()
         except FileNotFoundError:
             pass
 
