@@ -79,23 +79,23 @@
                     <form id="editForm", action="/dashboard/profile" method='POST'>
                         <div class="form-group">
                             <label for="editUserName">Name:</label>
-                            <input type="text" class="form-control" id="editUserName" value="{{ user.name}}">
+                            <input type="text" class="form-control" id="editUserName" name="userName" value="{{ user.name}}">
                         </div>
                         <div class="form-group">
                             <label for="editUserPassword">Password:</label>
-                            <input type="text" class="form-control" id="editUserPassword" value="{{ user.password}}">
+                            <input type="text" class="form-control" id="editUserPassword" name="userPassword" value="{{ user.password}}">
                         </div>
                         <div class="form-group">
                             <label for="editUserPhone">Phone Number:</label>
-                            <input type="text" class="form-control" id="editUserPhone" value="{{ user.phone}}">
+                            <input type="text" class="form-control" id="editUserPhone"  name="userPhone" value="{{ user.phone}}">
                         </div>
                         <div class="form-group">
                             <label for="editUserDepartment">Department:</label>
-                            <input type="text" class="form-control" id="editUserDepartment" value="{{ user.department}}">
+                            <input type="text" class="form-control" id="editUserDepartment" name="userDepartment" value="{{ user.department}}">
                         </div>
                         <div class="form-group">
                             <label for="editUserSpeciality">Speciality:</label>
-                            <input type="text" class="form-control" id="editUsertSpeciality" value="{{ user.speciality}}">
+                            <input type="text" class="form-control" id="editUsertSpeciality" name="userSpeciality" value="{{ user.speciality}}">
                         </div>
                     </form>
                 </div>
@@ -130,6 +130,35 @@
                 $('#userSpeciality').val($('#editUserSpeciality').val());
                 $('#editModal').modal('hide');
                 $('#editForm')[0].submit();
+            //
+          /*  $('#saveChanges').click(function() {
+                var formData = new FormData();
+                formData.append('name', $('#editUserName').val());
+                formData.append('password', $('#editUserPassword').val());
+                formData.append('phone', $('#editUserPhone').val());
+                formData.append('department', $('#editUserDepartment').val());
+                formData.append('speciality', $('#editUserSpeciality').val());
+        
+                $.ajax({
+                    url: '/dashboard/profile',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        $('#userName').val(response.name);
+                        $('#userId').val(response.id);
+                        $('#userPassword').val(response.password);
+                        $('#userPhone').val(response.phone);
+                        $('#userDepartment').val(response.department);
+                        $('#userSpeciality').val(response.speciality);
+                
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error(textStatus, errorThrown);
+                    }
+                });*/
+            //
             });
         });
     </script>
