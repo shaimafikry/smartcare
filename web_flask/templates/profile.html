@@ -264,27 +264,9 @@
             // Save changes from the modal to the main form
             $('#saveChanges').click(function() {
                 $('#userPassword').val($('#editUserPassword').val());
-                $('#editModal').modal('hide');
-                $('#editForm')[0].submit();
+                $('#editForm').submit(); // Submit the form
             });
-            //document.addEventListener("DOMContentLoaded", function() {
-                //var inputField = document.getElementById("editUserPassword");
-            
-                // Show placeholder on focus
-                inputField.addEventListener("focus", function() {
-                    inputField.placeholder = "Enter password";
-                });
-            
-                // Hide placeholder on blur if there's a value
-                inputField.addEventListener("blur", function() {
-                    if (inputField.value !== "") {
-                        inputField.placeholder = "";
-                    }
-                });
-            
-                // Trigger blur event on page load to check if input already has value
-                inputField.dispatchEvent(new Event('blur'));
-            });
+        });
     </script>
-</body>
+  </body>
 </html>
