@@ -117,7 +117,8 @@ def doctor_dashboard(pt_id):
     user = storage.get_obj(user_id)
     patient = storage.get_obj(pt_id)
     if request.method == 'POST':
-        return (url_for('dashboard'))
+        data = request.json
+        storage.update_obj(pt_id, data)
     return render_template('doctor.html', name=user['name'], patient=patient)
 
 
