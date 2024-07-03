@@ -209,7 +209,7 @@ def manager(id):
 
 
     return render_template(
-        "manager.html", id=id, name=host_manager.username,
+        "cpd_manager.html", id=id, name=host_manager.username,
           nurses=nurses, doctors=doctors, receptionists=receptionists, managers=managers,
           success_massage=success_massage, error_massage=error_massage)
 
