@@ -180,18 +180,19 @@
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="{{ url_for('manager') }}">Home</a>
-                <a class="dropdown-item" href="{{ url_for('nurse') }}">Profile</a>
-                <a class="dropdown-item" href="{{ url_for('patients') }}">All Patients</a>
+                <a class="dropdown-item" href="#">Home</a> 
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
+                <a class="dropdown-item" href="#">Sign Out</a>
             </div>
         </div>
     </nav>
     <div class="container content">
         <div class="form-group">
             <div class="form-group">
-                <h4 class="custom-p">{{ name }}</h4>
+                <h4 class="custom-p"> Welcome {{ name }}</h4>
+                <h1 class="custom-p" style='text-align: center'>{{success_massage}} {{error_massage}}</h1>
             </div>
             
         </div>
@@ -207,37 +208,37 @@
         <div class="row" id="newUserFormRow">
             <div class="col-md-12">
                 <div id="newUserForm" class="form-container d-none">
-                    <form method="POST" action="/dashboard/manager">
+                    <form method="POST" action="{{ url_for('manager', id=id) }}">
                         <div class="form-group" >
-                            <label for="userType">User Type</label>
-                            <select class="form-control" id="userType" name="userType">
-                                <option value="Nurses">Nurses</option>
-                                <option value="Managers">Managers</option>
-                                <option value="Receptionists">Receptionists</option>
-                                <option value="Doctors">Doctors</option>
+                            <label for="user Role">User Role</label>
+                            <select class="form-control" id="userType" name="role">
+                                <option value="nurse">Nurse</option>
+                                <option value="manager">Manager</option>
+                                <option value="receptionist">Receptionist</option>
+                                <option value="doctor">Doctor</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="userName">Name</label>
-                            <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter name">
+                            <input type="text" class="form-control" id="userName" name="username" placeholder="Enter name">
                         </div>
                         <div class="form-group">
                             <label for="userId">Password</label>
-                            <input type="text" class="form-control" id="userId" name="userPassword" placeholder="Enter ID">
+                            <input type="text" class="form-control" id="userId" name="password" placeholder="Enter Password">
                         </div>
                         <div class="form-group">
                             <label for="userPhone">Phone</label>
-                            <input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="Enter phone number">
+                            <input type="text" class="form-control" id="userPhone" name="phone" placeholder="Enter phone number">
                         </div>
                         <div class="form-group">
                             <label for="userSpecialty">Specialty</label>
-                            <input type="text" class="form-control" id="userSpecialty" name="userSpecialty" placeholder="Enter specialty">
+                            <input type="text" class="form-control" id="userSpecialty" name="specialty" placeholder="Enter specialty">
                         </div>
                         <div class="form-group">
                             <label for="userDepartment">Department</label>
-                            <input type="text" class="form-control" id="userDepartment" name="userDepartment" placeholder="Enter department">
+                            <input type="text" class="form-control" id="userDepartment" name="department" placeholder="Enter department">
                         </div>
-                        <button type="submit" class="btn btn-submit" id="submitNewUser">Submit</button>
+                        <button type="submit" class="btn btn-submit" id="submitNewUser"> Create User</button>
                     </form>
                 </div>
             </div>
@@ -250,8 +251,8 @@
                         <h5 class="card-title nurses-toggle">Nurses</h5>
                     </div>
                     <div id="nursesList" class="nurses-list">
-                        {% for i in nurse.values()%}
-                        <a href="{{ url_for('individual', cl_s='Nurse', user_id=i.id)}}" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                        {% for i in nurses%}
+                        <a  class="list-group-item list-group-item-action"> {{i.username}} </a>
                          {% endfor %}
                     </div>
                 </div>
@@ -260,8 +261,8 @@
                         <h5 class="card-title">Doctors</h5>
                     </div>
                     <div id="doctorsList" class="doctors-list">
-                        {% for i in doctor.values()%}
-                        <a href="{{ url_for('individual', cl_s='Doctor', user_id=i.id)}}" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                        {% for i in doctors%}
+                        <a class="list-group-item list-group-item-action"> {{i.username}} </a>
                          {% endfor %}
                     </div>
                 </div>
@@ -270,8 +271,8 @@
                         <h5 class="card-title">Managers</h5>
                     </div>
                     <div id="managersList" class="managers-list">
-                        {% for i in manager.values()%}
-                        <a href="{{ url_for('individual', cl_s='Manager', user_id=i.id)}}" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                        {% for i in managers%}
+                        <a  class="list-group-item list-group-item-action"> {{i.username}} </a>
                          {% endfor %}
                     </div>
                 </div>
@@ -279,20 +280,20 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Receptionist</h5>
                     </div>
-                    <div id="receptionistsList" class="receptionists-list">
-                        {% for i in receptionist.values()%}
-                        <a href="{{ url_for('individual', cl_s='Receptionist', user_id=i.id)}}" class="list-group-item list-group-item-action"> {{i.name}} </a>
+                    <!-- <div id="receptionistsList" class="receptionists-list">
+                        {% for i in receptionists%}
+                        <a  class="list-group-item list-group-item-action"> {{i.name}} </a>
                          {% endfor %}
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card card-custom">
                     <div class="card-body text-center">
                         <h5 class="card-title patients-toggle">Patients</h5>
                     </div>
                     <div id="patientsList" class="patients-list">
-                        {% for i in patient%}
-                        <a href="{{ url_for('patient_profile', user_id=i.id)}}" class="list-group-item list-group-item-action"> {{i.name}} {{i.id}}</a>
-                         {% endfor %}
+                        <!-- {% for i in patients%}
+                        <a  class="list-group-item list-group-item-action"> {{i.name}} {{i.id}}</a>
+                         {% endfor %} -->
                     </div>
                 </div>
             </div>
@@ -358,7 +359,31 @@
             });
         });
         
-        
+        ////////////////////////////  Ajax
+        // function createUser() {
+        //     const formData = {
+        //         role: $('#role').val(),
+        //         username: $('#username').val(),
+        //         password: $('#password').val(),
+        //         department: $('#department').val(),
+        //         specialty: $('#specialty').val(),
+        //         phone: $('#phone').val()
+        //     };
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/manager/{{ current_user.id }}',
+        //         data: JSON.stringify(formData),
+        //         contentType: 'application/json; charset=utf-8',
+        //         success: function(response) {
+        //             $('#response').html('<p>' + response.success + '</p>');
+        //         },
+        //         error: function(response) {
+        //             $('#response').html('<p>' + response.responseJSON.error + '</p>');
+        //         }
+        //     });
+        // }
+        ///////////////
     </script>
 </body>
 </html>
