@@ -115,16 +115,19 @@
         }
         
         .nurses-list, .patients-list, .doctors-list, .managers-list, .receptionists-list {
-            position: absolute;
-            top: 50%;
-            left: 105%;
-            transform: translateY(-50%);
+            position: fixed;
+            bottom: 220px;
+            left: 60%;
+            transform: translateX(-50%);
             display: none;
-            background-color: #fff;
+            background-color: #BDC7D3;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 1000;
+            width: 400px;
+            height: 300px;
         }
+        
 
         .nurses-list a, .patients-list a, .doctors-list a, .managers-list a, .receptionists-list a {
             display: block;
