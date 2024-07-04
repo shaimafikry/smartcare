@@ -45,6 +45,8 @@ if os.getenv('TYPE_STORAGE') == "db":
         blood_pressure = Column(String(128), nullable=True)
         #respiratory rate
         res_rate = Column(Integer, nullable=True)
+        discharge_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+        discharge_notes= Column(String(128), nullable=True)
 else:
     class Patient:
         """ patient profile"""
@@ -92,9 +94,10 @@ else:
             oxygen_sat = 0
             # blood pressure
             blood_pressure = ""
-            #respiratory rate
+            #respiratory rat
             res_rate = 0
             discharge_at = ""
+            discharge_notes= ""
         def save (self):
             """save to file_storage.__workers"""
             from models import storage

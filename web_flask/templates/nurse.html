@@ -183,11 +183,11 @@
         <a class="navbar-brand" href="#">
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Hospital Logo">
         </a>
-        <form class="form-inline mx-auto">
+        <form class="form-inline mx-auto" method='POST' action="/search">
             <div class="input-group">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control" type="search" placeholder="Search" name="search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn search-btn" type="button">
+                    <button class="btn search-btn" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -209,7 +209,7 @@
     </nav>
 
     
-
+    <form method="POST" action="/dashboard">
         <!-- Buttons to trigger modals -->
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#pastHistoryModal">Past History</button>
@@ -221,9 +221,8 @@
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#vitalsModal">Vitals</button>
 
         </div>
-
         <!-- Submit Button -->
-        <button type="button" class="btn btn-success submit-button">Submit</button>
+            <button type="submit" class="btn btn-success submit-button">Submit</button>
     </div>
 
     <!-- Modals for each button -->
@@ -237,7 +236,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="pastHistoryText"></textarea>
+                    <textarea id="pastHistoryText" name="history">{{pt.history}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -304,7 +303,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="mainComplainText"></textarea>
+                    <textarea id="mainComplainText" name="complain">{{pt.complain}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -324,7 +323,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="diagnosisText"></textarea>
+                    <textarea id="diagnosisText" name="diagnosis">{{pt.diagnosis}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -344,7 +343,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="treatmentText"></textarea>
+                    <textarea id="treatmentText" name="treatment">{{pt.treatment}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -366,23 +365,23 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="bpInput">BP</label>
-                        <input type="text" class="form-control" id="bpInput" placeholder="Enter BP">
+                        <input type="text" class="form-control" id="bpInput" placeholder="Enter BP" name="bp" value="{{pt.blood_pressure}}">
                     </div>
                     <div class="form-group">
                         <label for="hrInput">HR</label>
-                        <input type="text" class="form-control" id="hrInput" placeholder="Enter HR">
+                        <input type="text" class="form-control" id="hrInput" placeholder="Enter HR" name ="hr" value="{{pt.heart_rate}}">
                     </div>
                     <div class="form-group">
                         <label for="tempInput">T</label>
-                        <input type="text" class="form-control" id="tempInput" placeholder="Enter Temperature">
+                        <input type="text" class="form-control" id="tempInput" placeholder="Enter Temperature" name="temp" value="{{pt.temp}}">
                     </div>
                     <div class="form-group">
                         <label for="satInput">SAT</label>
-                        <input type="text" class="form-control" id="satInput" placeholder="Enter SAT">
+                        <input type="text" class="form-control" id="satInput" placeholder="Enter SAT" name="sat" value="{{pt.oxygen_sat}}">
                     </div>
                     <div class="form-group">
                         <label for="rbsInput">RBS</label>
-                        <input type="text" class="form-control" id="rbsInput" placeholder="Enter RBS">
+                        <input type="text" class="form-control" id="rbsInput" placeholder="Enter RBS" name="rbs" value="{{pt.rbs}}">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -392,6 +391,7 @@
             </div>
         </div>
     </div>
+</form>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
