@@ -70,7 +70,6 @@ def manager_dashboard():
         if user_type == 'Nurses':
             new_nurse = Nurse(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
             new_nurse.save()
-            flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
 
         if user_type == 'Doctors':
             new_doctor = Doctor(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
@@ -79,12 +78,10 @@ def manager_dashboard():
         if user_type == 'Managers':
             new_manager = Manager(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
             new_manager.save()
-            flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
 
         if user_type == 'Receptionists':
             new_receptionist = Receptionist(name=name, password=user_password, phone=phone, specialty=specialty, department=department)
             new_receptionist.save()
-            flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
 
     all_patients = storage.all('Patient')
     discharged_pt = {}
@@ -123,9 +120,22 @@ def doctor_dashboard(pt_id):
     user = storage.get_obj(user_id)
     patient = storage.get_obj(pt_id)
     if request.method == 'POST':
-        data = request.json
+        data = {
+            'history': request.form.get('history', patient.get('history')),
+            'complain': request.form.get('complain', patient.get('complain')),
+            'diagnosis': request.form.get('diagnosis', patient.get('diagnosis')),
+            'treatment': request.form.get('treatment', patient.get('treatment')),
+            'blood_pressure': request.form.get('bp', patient.get('blood_pressure')),
+            'heart_rate': request.form.get('hr', patient.get('heart_rate')),
+            'temp': request.form.get('temp', patient.get('temp')),
+            'oxygen_sat': request.form.get('sat', patient.get('oxygen_sat')),
+            'rbs': request.form.get('rbs', patient.get('rbs')),
+            'dischareg_at': request.form.get('dischargeDate',patient.get('dischargeDate')),
+            'dischareg_note': request.form.get('dischargeNotes',patient.get('dischargeNotes'))
+        }
+        print(data)
         storage.update_obj(pt_id, data)
-    return render_template('doctor.html', name=user['name'], patient=patient)
+    return render_template('doctor.html', name=user['name'], pt=patient)
 
 
 @app.route('/dashboard/nurse/<pt_id>', methods=['GET', 'POST'])
@@ -133,21 +143,20 @@ def nurse_dashboard(pt_id):
     user_id = session.get('user_id')
     user = storage.get_obj(user_id)
     patient = storage.get_obj(pt_id)
-    if request.method == 'GET':
-        patient = storage.get_obj(pt_id)
-        history = request.form.get('history')
-        complain = request.form.get('complain')
-        diagnosis = request.form.get('diagnosis')
-        treatment = request.form.get('treatment')
-        bp = request.form.get('bp')
-        hr = request.form.get('hr')
-        temp = request.form.get('temp')
-        sat = request.form.get('sat')
-        rbs = request.form.get('rbs')
-        print(history)
-        dat = request.form
-        print (dat)
-        storage.update_obj(pt_id, history)
+    if request.method == 'POST':
+        data = {
+            'history': request.form.get('history', patient.get('history')),
+            'complain': request.form.get('complain', patient.get('complain')),
+            'diagnosis': request.form.get('diagnosis', patient.get('diagnosis')),
+            'treatment': request.form.get('treatment', patient.get('treatment')),
+            'blood_pressure': request.form.get('bp', patient.get('blood_pressure')),
+            'heart_rate': request.form.get('hr', patient.get('heart_rate')),
+            'temp': request.form.get('temp', patient.get('temp')),
+            'oxygen_sat': request.form.get('sat', patient.get('oxygen_sat')),
+            'rbs': request.form.get('rbs', patient.get('rbs'))
+        }
+        print(data)
+        storage.update_obj(pt_id, data)
     return render_template('nurse.html', name=user['name'], pt=patient)
 
 
