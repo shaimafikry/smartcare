@@ -224,13 +224,16 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-success submit-button">Submit</button>
+        <form method="POST" action="/dashboard">
+            <button type="submit" class="btn btn-success submit-button" name="submit">Submit</button>
+        </form>
     </div>
 
     <!-- Modals for each button -->
     <div class="modal fade" id="pastHistoryModal" tabindex="-1" role="dialog" aria-labelledby="pastHistoryLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="pastHistoryLabel">Past History</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -238,13 +241,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="pastHistoryText"></textarea>
+                    <textarea id="pastHistoryText" name="history">{{pt.history}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary save-changes">Save changes</button>
+                    <button type="submit" class="btn btn-primary save-changes" name="save_changes">Save changes</button>
                 </div>
-            </div>
+            </form>
+          </div>
         </div>
     </div>
 
@@ -295,8 +299,9 @@
     <div class="modal fade" id="mainComplainModal" tabindex="-1" role="dialog" aria-labelledby="mainComplainLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form method="POST">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="mainComplainLabel">Main Complain</h5>
+                    <h5 class="modal-title" id="mainComplainLabel" name="complain">{{pt.complain}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -308,6 +313,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary save-changes">Save changes</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -316,6 +322,7 @@
     <div class="modal fade" id="dischargedateModal" tabindex="-1" role="dialog" aria-labelledby="dischargedateModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <form method="POST">
                <div class="modal-header">
                    <h5 class="modal-title" id="dischargedateModalLabel">Discharge Date</h5>
                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -323,7 +330,7 @@
                    </button>
             </div>
             <div class="modal-body">
-                <form id="dischargeForm">
+                <form id="dischargeForm" method="POST">
                     <div class="form-group">
                         <label for="dischargeDate">Select Discharge Date:</label>
                         <input type="date" class="form-control" id="dischargeDate" name="dischargeDate" required>
@@ -338,6 +345,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" id="saveDischargeDate">Save Date</button>
             </div>
+             </form>
           </div>
        </div>
     </div>
@@ -347,6 +355,7 @@
     <div class="modal fade" id="diagnosisModal" tabindex="-1" role="dialog" aria-labelledby="diagnosisLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <form method="POST" action="/dashboard/nurse/{{pt.id}}">
                 <div class="modal-header">
                     <h5 class="modal-title" id="diagnosisLabel">Diagnosis</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -354,12 +363,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="diagnosisText"></textarea>
+                    <textarea id="diagnosisText" name="diagnosis">{{pt.diagnosis}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary save-changes">Save changes</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -367,6 +377,7 @@
     <div class="modal fade" id="treatmentModal" tabindex="-1" role="dialog" aria-labelledby="treatmentLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="treatmentLabel">Treatment</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -380,6 +391,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary save-changes">Save changes</button>
                 </div>
+            </form> 
             </div>
         </div>
     </div>
@@ -396,29 +408,30 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="bpInput">BP</label>
-                        <input type="text" class="form-control" id="bpInput" placeholder="Enter BP">
+                        <input type="text" class="form-control" id="bpInput" placeholder="Enter BP" name="bp" value="{{pt.blood_pressure}}">
                     </div>
                     <div class="form-group">
                         <label for="hrInput">HR</label>
-                        <input type="text" class="form-control" id="hrInput" placeholder="Enter HR">
+                        <input type="text" class="form-control" id="hrInput" placeholder="Enter HR" name ="hr" value="{{pt.heart_rate}}">
                     </div>
                     <div class="form-group">
                         <label for="tempInput">T</label>
-                        <input type="text" class="form-control" id="tempInput" placeholder="Enter Temperature">
+                        <input type="text" class="form-control" id="tempInput" placeholder="Enter Temperature" name="temp" value="{{pt.temp}}">
                     </div>
                     <div class="form-group">
                         <label for="satInput">SAT</label>
-                        <input type="text" class="form-control" id="satInput" placeholder="Enter SAT">
+                        <input type="text" class="form-control" id="satInput" placeholder="Enter SAT" name="sat" value="{{pt.oxygen_sat}}">
                     </div>
                     <div class="form-group">
                         <label for="rbsInput">RBS</label>
-                        <input type="text" class="form-control" id="rbsInput" placeholder="Enter RBS">
+                        <input type="text" class="form-control" id="rbsInput" placeholder="Enter RBS" name="rbs" value="{{pt.rbs}}">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+              </form>
             </div>
         </div>
     </div>
