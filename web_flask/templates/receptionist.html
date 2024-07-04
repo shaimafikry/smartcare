@@ -64,8 +64,13 @@
             background-color: #f8f9fa;
         }
         .new-patient-btn {
-            margin-top: 40px;
-            margin-left: 5px;
+            margin-top: 10px;
+            margin-left: 0px;
+            width: 60%;
+            height: 80%;
+            margin-bottom: 5px;
+            text-align: center;
+            font-size: 22px;
         }
         .dropdown-menu {
             position: absolute;
@@ -144,6 +149,10 @@
             border-color: #007bff;
             outline: none;
         }
+        .container{
+            margin-bottom: 15px;
+            position: right;
+        }
     </style>
 </head>
 <body>
@@ -180,7 +189,7 @@
     <div class="container content">
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="col-md-6 text-center">
+                <div class="col-md-6 text-center" style="display: flex; justify-content: flex-start;">
                     <button class="btn btn-primary new-patient-btn">+ New Patient</button>
                 </div>
             </div>
@@ -208,7 +217,12 @@
                         </div>
                         <div class="form-group">
                             <label for="patientDepartment">Department</label>
-                            <input type="text" class="form-control" id="patientDepartment" name="pt_department" placeholder="Enter Department">
+                            <select class="form-control" id="patientDepartment" name="pt_department">
+                                <option>Emergency</option>
+                                <option>Bones</option>
+                                <option>Nursery</option>
+                                <option>Brain</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="patientID">National ID</label>

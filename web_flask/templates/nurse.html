@@ -418,6 +418,23 @@
                 alert('Data saved: ' + textarea);
                 modal.modal('hide');
             });
+            // Specific handling for the Vitals modal
+            var vitalsModalSaveButton = document.querySelector('#vitalsModal .btn-primary');
+            vitalsModalSaveButton.addEventListener('click', function() {
+                var modal = vitalsModalSaveButton.closest('.modal');
+                var inputs = modal.querySelectorAll('input');
+                var vitalsData = {};
+        
+                inputs.forEach(function(input) {
+                    vitalsData[input.id] = input.value;
+                });
+        
+                // Save the vitals data (you can replace this with actual save logic)
+                console.log('Vitals data saved:', vitalsData);
+        
+                // Close the modal
+                $(modal).modal('hide');
+            });
             $('#labsModal').on('show.bs.modal', function () {
                 // This code runs when the Labs modal is shown
                 console.log("Labs modal is displayed");

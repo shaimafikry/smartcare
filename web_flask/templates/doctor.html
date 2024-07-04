@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Care - Doctors</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -426,59 +427,80 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Toggle dropdown menu
-            $('#menuToggle').click(function(event) {
-                event.stopPropagation(); // Prevent event bubbling to close dropdown
-                $('.dropdown-menu').toggle();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle the dropdown menu toggle
+            var menuToggle = document.getElementById('menuToggle');
+            var dropdownMenu = document.querySelector('.dropdown-menu');
+        
+            menuToggle.addEventListener('click', function() {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
             });
-    
-            // Close dropdown if clicking outside of it
-            $(document).click(function(event) {
-                if (!$(event.target).closest('.dropdown').length) {
-                    $('.dropdown-menu').hide();
+        
+            // Handle closing the dropdown menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!menuToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = 'none';
                 }
             });
-    
-            // Handle save changes for modals
-            $('.save-changes').click(function() {
-                var modal = $(this).closest('.modal');
-                var textareaContent = modal.find('textarea').val();
-                var formAction = modal.find('form').attr('action'); // Get the form action URL
-                var formData = {
-                    content: textareaContent
-                };
-    
-            // Handle modal show events
-            $('#labsModal').on('show.bs.modal', function () {
-                console.log("Labs modal is displayed");
+        
+            // Handle saving changes in modals
+            var saveButtons = document.querySelectorAll('.save-changes');
+        
+            saveButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var modal = button.closest('.modal');
+                    var textarea = modal.querySelector('textarea');
+                    var data = textarea ? textarea.value : null;
+        
+                    // Save the data (you can replace this with actual save logic)
+                    if (data) {
+                        console.log('Data saved:', data);
+                    }
+        
+                    // Close the modal
+                    $(modal).modal('hide');
+                });
             });
-    
-            $('#screensModal').on('show.bs.modal', function () {
-                console.log("Screens modal is displayed");
+        
+            // Specific handling for the Vitals modal
+            var vitalsModalSaveButton = document.querySelector('#vitalsModal .btn-primary');
+            vitalsModalSaveButton.addEventListener('click', function() {
+                var modal = vitalsModalSaveButton.closest('.modal');
+                var inputs = modal.querySelectorAll('input');
+                var vitalsData = {};
+        
+                inputs.forEach(function(input) {
+                    vitalsData[input.id] = input.value;
+                });
+        
+                // Save the vitals data (you can replace this with actual save logic)
+                console.log('Vitals data saved:', vitalsData);
+        
+                // Close the modal
+                $(modal).modal('hide');
             });
-    
-            // Initialize datepicker for date input fields
-            $('#datePicker').datepicker({
-                format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true,
-                endDate: new Date() // Optional: to restrict future dates
+        
+            // Specific handling for the Discharge modal
+            var dischargeSaveButton = document.getElementById('saveDischargeDate');
+            dischargeSaveButton.addEventListener('click', function() {
+                var modal = dischargeSaveButton.closest('.modal');
+                var dischargeDate = document.getElementById('dischargeDate').value;
+                var dischargeNotes = document.getElementById('dischargeNotes').value;
+        
+                // Save the discharge data (you can replace this with actual save logic)
+                console.log('Discharge Date:', dischargeDate);
+                console.log('Discharge Notes:', dischargeNotes);
+        
+                // Close the modal
+                $(modal).modal('hide');
             });
-
-    
-            // Handle close modal when clicking outside
-            $(document).mouseup(function(e) {
-                var modal = $('.modal');
-                if (!modal.is(e.target) && modal.has(e.target).length === 0) {
-                    modal.modal('hide');
-                }
-            });
-        });
+            // Redirect to department.html when the submit button is clicked
+            var submitButton = document.querySelector('.submit-button');
+            submitButton.addEventListener('click', function() {
+                   window.location.href = 'department.html';
     });
+        });
+        
     </script>
-    
-            
-    
 </body>
 </html>
