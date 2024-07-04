@@ -186,11 +186,11 @@
         <a class="navbar-brand" href="#">
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Hospital Logo">
         </a>
-        <form class="form-inline mx-auto">
+        <form class="form-inline mx-auto" method='POST' action="/search">
             <div class="input-group">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control" type="search" placeholder="Search" name="search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn search-btn" type="button">
+                    <button class="btn search-btn" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -287,6 +287,17 @@
         </div>
     </div>
 
+        <!-- Discharge Section -->
+<!--
+    <div class="section">
+        <div class="section-title">Discharge Date</div>
+        <div class="section-content" id="dischargeText">{{pt.discharge_at}}</div>
+    </div>
+    <div class="section">
+        <div class="section-title">Discharge Notes</div>
+        <div class="section-content" id="dischargeNoteText">{{pt.discharge_notes}}</div>
+    </div> 
+-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

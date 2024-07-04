@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """This module use flask"""
 from models import storage
-from models import *
 from models.manager import Manager
 from models.doctor import Doctor
 from models.nurse import Nurse
 from models.receptionist import Receptionist
 from models.patient import Patient
 import os
+from flask import abort
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import json
 import secrets
@@ -17,8 +17,9 @@ app = Flask(__name__)
 # python -c "import secrets; print(secrets.token_hex(16))"
 # export FLASK_SECRET_KEY= (key_generated)
 # it ends after every seesion => when close the vs
-app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 
+# app.config['SESSION_COOKIE_SECURE'] = True  # Only set this to True in production over HTTPS
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=24)
 app.secret_key = secrets.token_hex(16)
 
 classes = {'M': 'Manager', 'N': 'Nurse', 'R': 'Receptionist', 'D': 'Doctor', 'P': 'Patient'}
@@ -42,7 +43,7 @@ def do_the_login():
                 if user['password'] == psswd:
                     session['user_id'] = usr_id
                     cls_name = (classes[usr_id[0]]).lower()
-                    print(usr_id)
+                    # print(usr_id)
                     if usr_id[0] == 'D' or usr_id[0] == 'N':
                         return redirect(url_for('dashboard'))
                     else:
@@ -85,18 +86,23 @@ def manager_dashboard():
             new_receptionist.save()
             flash(f'User {name} (ID: {new_nurse.id}) added successfully', 'success')
 
-    nurse_data= storage.all('Nurse')
-    patient_data= storage.all('Patient')
+    all_patients = storage.all('Patient')
+    discharged_pt = {}
+    for k, v in all_patients.items():
+        if v.get('discharge_at') != None:
+            discharged_pt[k] = v
+    print("=>",discharged_pt)
     doctor_data=  storage.all('Doctor')
+    nurse_data= storage.all('Nurse')
     receptionist_data= storage.all('Receptionist')
     manager_data= storage.all('Manager')
-    print(storage.all())
+    # print(storage.all())
     return render_template('manager.html', name=user['name'],
                                 nurse=nurse_data, doctor=doctor_data,
                                 manager=manager_data, receptionist=receptionist_data,
-                                patient=patient_data)
+                                patient=discharged_pt)
 
-# nurse
+# dashboard
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     all_patients = storage.all('Patient')
@@ -127,9 +133,36 @@ def nurse_dashboard(pt_id):
     user_id = session.get('user_id')
     user = storage.get_obj(user_id)
     patient = storage.get_obj(pt_id)
-    return render_template('nurse.html', name=user['name'], patient=patient)
+    if request.method == 'GET':
+        patient = storage.get_obj(pt_id)
+        history = request.form.get('history')
+        complain = request.form.get('complain')
+        diagnosis = request.form.get('diagnosis')
+        treatment = request.form.get('treatment')
+        bp = request.form.get('bp')
+        hr = request.form.get('hr')
+        temp = request.form.get('temp')
+        sat = request.form.get('sat')
+        rbs = request.form.get('rbs')
+        print(history)
+        dat = request.form
+        print (dat)
+        storage.update_obj(pt_id, history)
+    return render_template('nurse.html', name=user['name'], pt=patient)
 
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        pat_id = request.form.get("search")
+    elif request.method == 'GET':
+        pat_id = request.args.get("search")
+    
+    # # Check if pat_id is None
+    # if pat_id is None:
+    #     # Optionally, redirect to an error page or show a message
+    #     return redirect(url_for('error_page'))
+    return redirect(url_for('saved_patient_profile', pt_id=pat_id))
 
 # receptionist
 @app.route('/dashboard/receptionist',methods=['POST', 'GET'])
@@ -156,14 +189,20 @@ def profile():
     # on the sign in session not in general
     user_id = session.get('user_id')
     usr = storage.get_obj(user_id)
+    if user_id[0] == 'D' or user_id[0] == 'N':
+        home = url_for('dashboard')
+    elif user_id[0] == 'M':
+        home = url_for('manager_dashboard')
+    else:
+        home = url_for('receptionist_dashboard')
     if request.method == 'POST':
         data = {
             'password':request.form.get('userPassword'),
         }
         storage.update_obj(user_id, data)
         usr = storage.get_obj(user_id)
-        return render_template('profile.html', user=usr)
-    return render_template('profile.html', user=usr)
+        return render_template('profile.html', user=usr, home=home)
+    return render_template('profile.html', user=usr, home=home)
 
 
 # rout for specific user or patient
@@ -191,16 +230,6 @@ def individual(cl_s, user_id):
         
     return render_template('edit-user.html', user=show_user, cl_s=cl_s, user_id=user_id)
 
-
-# # pt active no sicharge date
-# @app.route('/dashboard/active/patient/<pt_id>', methods=['GET', 'POST'])
-# def active_patient_profile(pt_id):
-#     patient = storage.get_obj(pt_id)
-#     user_id = session.get('user_id')
-#     user = storage.get_obj(user_id)
-#     if user_id[0] == 'D':
-#         render_template('doctor.html', name=user['name'], patient=patient)
-#     render_template('nurse.html')
 
 # pt have a dischagre date
 @app.route('/dashboard/saved/patient/<pt_id>', methods=['GET', 'POST'])
