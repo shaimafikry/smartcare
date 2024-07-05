@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 
 import os
-from flask import Flask, render_template, request, url_for, redirect, flash, jsonify
+from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy import and_
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -120,12 +121,16 @@ class Nurse(db.Model):
 class Patient(db.Model):
     __tablename__ = "patients"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    name = db.Column(db.String(50), unique=True, nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    sex = db.Column(db.String(50), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    address = db.Column(db.String(50),  nullable=False)
+    national_id = db.Column(db.String(50), unique=True, nullable=False)
     department = db.Column(db.String(50), nullable=False)
     room = db.Column(db.Integer, nullable=False)
-    bio = db.Column(db.String(150), nullable=False)
-    doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete='CASCADE'), nullable=False)
-    nurse_id = db.Column(db.Integer, db.ForeignKey('nurses.id', ondelete='CASCADE'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    # doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete='CASCADE'), nullable=False)
+    # nurse_id = db.Column(db.Integer, db.ForeignKey('nurses.id', ondelete='CASCADE'), nullable=False)
 
     def __init__(self, name="", department="", bio="", room=0, doctor_id=0, nurse_id=0):
         self.name = name
@@ -135,8 +140,11 @@ class Patient(db.Model):
         self.doctor_id = doctor_id
         self.nurse_id = nurse_id
 
+
+
     def __repr__(self):
         return f'<Patient {self.name}>'
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -217,7 +225,7 @@ def manager(id):
 @login_required
 def doctor(id):
     doctor = User.query.get_or_404(id)
-    return render_template("doctor.html", doctor=doctor)
+    return render_template("doctor.html", name=doctor.username)
 
 @app.route('/nurse/<int:id>', strict_slashes=False)
 @login_required
@@ -228,6 +236,18 @@ def nurse(id):
 @app.route('/receptionist/<int:id>', strict_slashes=False)
 @login_required
 def receptionist(id):
+    if request.method == 'POST':
+        name = request.form['name']
+        department = request.form['department']
+        bio = request.form['bio']
+        room = request.form['room']
+        
+
+
+
+
+
+
     receptionist = User.query.get_or_404(id)
     return render_template("receptionist.html", receptionist=receptionist)
 

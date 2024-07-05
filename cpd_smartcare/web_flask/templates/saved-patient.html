@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Care - nurses</title>
+    <title>Smart Care - Saved Patient</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -127,12 +128,56 @@
             padding: 10px;
             background-color: #fff;
         }
-.bold-black {
+        .bold-black {
             font-weight: bold;
             color: #000;
         }
         .no-bold {
             font-weight: normal;
+        }
+        .input-group .form-control {
+            border-right: 0;
+            border-color: #ced4da;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+        
+        .input-group .input-group-append .btn {
+            border-left: 0;
+            border-color: #ced4da;
+            border-radius: 0 0.25rem 0.25rem 0;
+            background-color: white;
+        }
+        
+        .input-group:hover .form-control,
+        .input-group:hover .search-btn,
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+            z-index: 1;
+        }
+        
+        .input-group .form-control:focus,
+        .input-group .search-btn:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .username { 
+            font-weight: bold; 
+        }
+        
+        .search-btn {
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+        
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+        }
+        
+        .input-group .form-control:focus + .input-group-append .btn,
+        .input-group-append .btn:focus {
+            border-color: #007bff;
+            outline: none;
         }
     </style>
 </head>
@@ -142,49 +187,52 @@
             <img src="images/logo.png" alt="Hospital Logo">
         </a>
         <form class="form-inline mx-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn search-btn" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </form>
+        <div class="username"> {{ name }}</div>
         <div class="dropdown ml-auto">
             <button class="dropdown-toggle" type="button" id="menuToggle">
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="{{ url_for('manager_dashboard') }}">Home</a>
-                <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
-                <a class="dropdown-item" href="{{ url_for('patients') }}">All Patients</a>
+                <a class="dropdown-item" href="#">Home</a>
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
+                <a class="dropdown-item" href="#">Sign Out</a>
             </div>
         </div>
     </nav>
-
-    <div class="container content">
-        <div class="form-group">
-            <h4 class="custom-p">{{pt.name}} {{pt.id}}</h4>
-        </div>
-
         <!-- Past History Section -->
+    <div class="container content">
         <div class="section">
             <div class="section-title">Past History</div>
-            <div type="text" class="section-content" id="pastHistoryText">{{pt.history}}</div>
+            <div type="text" class="section-content" id="pastHistoryText">{{history}}</div>
         </div>
 
-    <div class="section">
-        <div class="section-title">Labs Reports</div>
-        <div class="section-content scrollable">
-            <img src="images/path_to_lab.png" alt="Lab Report 1">
-            <img src="images/path_to_lab.png" alt="Lab Report 2">
-        </div>
-    </div>
+        <!-- <div class="section">
+           <div class="section-title">Labs Reports</div>
+           <div class="section-content scrollable">
+              <img src="images/path_to_lab.png" alt="Lab Report 1">
+              <img src="images/path_to_lab.png" alt="Lab Report 2">
+           </div>
+        </div> -->
 
     <!-- Screens Section -->
-    <div class="section">
-        <div class="section-title">Screens Reports</div>
-        <div class="section-content scrollable">
+        <!-- <div class="section">
+          <div class="section-title">Screens Reports</div>
+          <div class="section-content scrollable">
             <img src="images/path_to_screens.png" alt="Screen Report 1">
             <img src="images/path_to_screens.png" alt="Screen Report 2">  
-        </div>
-    </div>
+          </div>
+        </div> -->
 
         <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -197,7 +245,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <img id="modalImage" src="images/path_to_lab.png" alt="Report Image" class="img-fluid">
+                        <img id="modalImage" src="../statics/path_to_lab.png" alt="Report Image" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -205,31 +253,31 @@
 
     <div class="section">
             <div class="section-title">Main Complain</div>
-            <div class="section-content" id="mainComplainText">{{pt.complain}}</div>
+            <div class="section-content" id="mainComplainText">{{complain}}</div>
     </div>
 
         <!-- Diagnosis Section -->
     <div class="section">
             <div class="section-title">Diagnosis</div>
-            <div class="section-content" id="diagnosisText">{{pt.diagnosis}}</div>
+            <div class="section-content" id="diagnosisText">{{diagnosis}}</div>
     </div>
 
         <!-- Treatment Section -->
     <div class="section">
             <div class="section-title">Treatment</div>
-            <div class="section-content" id="treatmentText">{{pt.treatment}}</div>
+            <div class="section-content" id="treatmentText">{{treatment}}</div>
     </div>
 
         <!-- Vitals Section -->
     <div class="section">
             <div class="section-title">Vitals Information</div>
             <div class="bold-black">
-                <div>BP : <span  id="bpText" class="no-bold">{{pt.blood_pressure}}</span></div>
-                <div>HR : <span  id="hrText" class="no-bold">{{pt.heart_rate}}</span></div>
-                <div>T  : <span  id="tempText" class="no-bold">{{pt.temp}}</span></div>
-                <div>SAT : <span id="satText" class="no-bold">{{pt.oxygen_sat}}</span></div>
-                <div>RBS : <span id="rbsText" class="no-bold">{{pt.rbs}}</span></div>
-                <div>RESP : <span id="res_ratText" class="no-bold">{{pt.res_rate}}</span></div>
+                <div>BP : <span  id="bpText" class="no-bold">{{blood_pressure}}</span></div>
+                <div>HR : <span  id="hrText" class="no-bold">{{heart_rate}}</span></div>
+                <div>T  : <span  id="tempText" class="no-bold">{{temperature}}</span></div>
+                <div>SAT : <span id="satText" class="no-bold">{{oxygen_sat}}</span></div>
+                <div>RBS : <span id="rbsText" class="no-bold">{{rbs}}</span></div>
+                <div>RESP : <span id="res_ratText" class="no-bold">{{res_rate}}</span></div>
 
             </div>
         </div>
@@ -238,6 +286,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#menuToggle').click(function(event) {
