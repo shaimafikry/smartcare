@@ -184,13 +184,13 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <a class="navbar-brand" href="#">
-            <img src="images/logo.png" alt="Hospital Logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Hospital Logo">
         </a>
-        <form class="form-inline mx-auto">
+        <form class="form-inline mx-auto" method='POST' action="/search">
             <div class="input-group">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control" type="search" placeholder="Search" name="search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn search-btn" type="button">
+                    <button class="btn search-btn" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -202,11 +202,11 @@
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="#">Home</a>
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">All Patients</a>
+                <a class="dropdown-item" href="{{ url_for('manager_dashboard') }}">Home</a>
+                <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
+                <a class="dropdown-item" href="{{ url_for('patients') }}">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="#">Sign Out</a>
+                <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
             </div>
         </div>
     </nav>
@@ -214,25 +214,29 @@
     <div class="container content">
         <div class="section">
             <div class="section-title">Past History</div>
-            <div type="text" class="section-content" id="pastHistoryText">{{history}}</div>
+            <div type="text" class="section-content" id="pastHistoryText">{{pt.history}}</div>
         </div>
 
-        <!-- <div class="section">
+        <div class="section">
            <div class="section-title">Labs Reports</div>
            <div class="section-content scrollable">
-              <img src="images/path_to_lab.png" alt="Lab Report 1">
-              <img src="images/path_to_lab.png" alt="Lab Report 2">
+              <img src="{{ url_for('static', filename='images/path_to_lab.png') }}" alt="Lab Report 1">
+              <img src="{{ url_for('static', filename='images/path_to_lab.png') }}" alt="Lab Report 2">
+              <img src="{{ url_for('static', filename='images/path_to_lab.png') }}" alt="Lab Report 1">
+              <img src="{{ url_for('static', filename='images/path_to_lab.png') }}" alt="Lab Report 2">
            </div>
-        </div> -->
+        </div>
 
     <!-- Screens Section -->
-        <!-- <div class="section">
+        <div class="section">
           <div class="section-title">Screens Reports</div>
           <div class="section-content scrollable">
-            <img src="images/path_to_screens.png" alt="Screen Report 1">
-            <img src="images/path_to_screens.png" alt="Screen Report 2">  
+            <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" alt="Screen Report 1">
+            <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" alt="Screen Report 2">
+            <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" alt="Screen Report 1">
+            <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" alt="Screen Report 2">
           </div>
-        </div> -->
+        </div>
 
         <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -245,7 +249,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <img id="modalImage" src="../statics/path_to_lab.png" alt="Report Image" class="img-fluid">
+                        <img id="modalImage" src="images/path_to_lab.png" alt="Report Image" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -253,36 +257,45 @@
 
     <div class="section">
             <div class="section-title">Main Complain</div>
-            <div class="section-content" id="mainComplainText">{{complain}}</div>
+            <div class="section-content" id="mainComplainText">{{pt.complain}}</div>
     </div>
 
         <!-- Diagnosis Section -->
     <div class="section">
             <div class="section-title">Diagnosis</div>
-            <div class="section-content" id="diagnosisText">{{diagnosis}}</div>
+            <div class="section-content" id="diagnosisText">{{pt.diagnosis}}</div>
     </div>
 
         <!-- Treatment Section -->
     <div class="section">
             <div class="section-title">Treatment</div>
-            <div class="section-content" id="treatmentText">{{treatment}}</div>
+            <div class="section-content" id="treatmentText">{{pt.treatment}}</div>
     </div>
 
         <!-- Vitals Section -->
     <div class="section">
             <div class="section-title">Vitals Information</div>
             <div class="bold-black">
-                <div>BP : <span  id="bpText" class="no-bold">{{blood_pressure}}</span></div>
-                <div>HR : <span  id="hrText" class="no-bold">{{heart_rate}}</span></div>
-                <div>T  : <span  id="tempText" class="no-bold">{{temperature}}</span></div>
-                <div>SAT : <span id="satText" class="no-bold">{{oxygen_sat}}</span></div>
-                <div>RBS : <span id="rbsText" class="no-bold">{{rbs}}</span></div>
-                <div>RESP : <span id="res_ratText" class="no-bold">{{res_rate}}</span></div>
-
+                <div>BP : <span  id="bpText" class="no-bold">{{pt.blood_pressure}}</span></div>
+                <div>HR : <span  id="hrText" class="no-bold">{{pt.heart_rate}}</span></div>
+                <div>T  : <span  id="tempText" class="no-bold">{{pt.temp}}</span></div>
+                <div>SAT : <span id="satText" class="no-bold">{{pt.oxygen_sat}}</span></div>
+                <div>RBS : <span id="rbsText" class="no-bold">{{pt.rbs}}</span></div>
             </div>
         </div>
     </div>
 
+        <!-- Discharge Section -->
+<!--
+    <div class="section">
+        <div class="section-title">Discharge Date</div>
+        <div class="section-content" id="dischargeText">{{pt.discharge_at}}</div>
+    </div>
+    <div class="section">
+        <div class="section-title">Discharge Notes</div>
+        <div class="section-content" id="dischargeNoteText">{{pt.discharge_notes}}</div>
+    </div> 
+-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

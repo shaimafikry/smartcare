@@ -278,16 +278,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for i in patients %}
+                            {% for emergency in emergences %}
                             <tr>
-                                <td>{{i.id}}</td>
-                                <td><a href="#">{{i.name}}</a></td>
-                                <td>{{i.age}}</td>
-                                <td>{{i.sex}}</td>
-                                <td>{{i.admission_at}}</td>
+                                <td>{{ emergency.patient.id }}</td>
+                                {% if role == 'nurse' %}
+                                <td><a href="{{ url_for('nurse', nurse_id=id, patient_id=emergency.patient.id) }}">{{ emergency.patient.name }}</a></td>
+                                {% else %}
+                                <td><a href="{{ url_for('doctor', doctor_id=id, patient_id=emergency.patient.id) }}">{{ emergency.patient.name }}</a></td>
+                                {% endif %}
+                                <td>{{ emergency.patient.age }}</td>
+                                <td>{{ emergency.patient.sex }}</td>
+                                <td>{{ emergency.patient.created_at }}</td>
                             </tr>
-                           {% endfor %}
-            
+                            {% endfor %}
+                            
                         </tbody>
                     </table>
                 </div>
