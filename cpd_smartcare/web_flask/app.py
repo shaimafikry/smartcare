@@ -97,7 +97,6 @@ class Doctor(db.Model):
 
     def __repr__(self):
         return f'<Doctor {self.department}>'
-
 class Nurse(db.Model):
     __tablename__ = "nurses"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -124,26 +123,69 @@ class Patient(db.Model):
     name = db.Column(db.String(50), nullable=False)
     sex = db.Column(db.String(50), nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    address = db.Column(db.String(50),  nullable=False)
     national_id = db.Column(db.String(50), unique=True, nullable=False)
+    address = db.Column(db.String(150), nullable=False)
     department = db.Column(db.String(50), nullable=False)
     room = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete='CASCADE'), nullable=False)
-    # nurse_id = db.Column(db.Integer, db.ForeignKey('nurses.id', ondelete='CASCADE'), nullable=False)
+    phone = db.Column(db.String(28), nullable=True)
 
-    def __init__(self, name="", department="", bio="", room=0, doctor_id=0, nurse_id=0):
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    history = db.Column(db.String(256), nullable=True, default="was in good health")
+    treatment = db.Column(db.String(256), nullable=True, default="no previous treatment")
+    complain = db.Column(db.String(256), nullable=True, default="no previous complain")
+    diagnosis = db.Column(db.String(256), nullable=True, default="no previous diagnosis")
+    heart_rate = db.Column(db.Integer, nullable=True, default=80)
+    temp = db.Column(db.Float, nullable=True, default=37)
+    rbs = db.Column(db.Integer, nullable=True, default=125)  # random blood sugar
+    oxygen_sat = db.Column(db.Integer, nullable=True, default=95)
+    blood_pressure = db.Column(db.String(128), nullable=True, default="120/80")
+    res_rate = db.Column(db.Integer, nullable=True, default=16)  # respiratory rate
+    discharge_at = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
+    discharge_notes = db.Column(db.String(128), nullable=True, default="in a good health now")
+
+    doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete='CASCADE'), nullable=False)
+    nurse_id = db.Column(db.Integer, db.ForeignKey('nurses.id', ondelete='CASCADE'), nullable=False)
+
+    def __init__(self, name, sex, age, national_id, address, department, room, doctor_id=1, nurse_id=1,
+                phone=None, updated_at=None, history=None, treatment=None, complain=None, diagnosis=None,
+                heart_rate=None, temp=None, rbs=None, oxygen_sat=None, blood_pressure=None, res_rate=None,
+                discharge_at=None, discharge_notes=None):
         self.name = name
+        self.sex = sex
+        self.age = age
+        self.national_id = national_id
+        self.address = address
         self.department = department
-        self.bio = bio
         self.room = room
         self.doctor_id = doctor_id
         self.nurse_id = nurse_id
-
-
+        self.phone = phone
+        self.updated_at = updated_at or datetime.utcnow()
+        self.history = history or "was in good health"
+        self.treatment = treatment or "no previous treatment"
+        self.complain = complain or "no previous complain"
+        self.diagnosis = diagnosis or "no previous diagnosis"
+        self.heart_rate = heart_rate or 80
+        self.temp = temp or 37
+        self.rbs = rbs or 125
+        self.oxygen_sat = oxygen_sat or 95
+        self.blood_pressure = blood_pressure or "120/80"
+        self.res_rate = res_rate or 16
+        self.discharge_at = discharge_at or datetime.utcnow()
+        self.discharge_notes = discharge_notes or "in a good health now"
+        self.created_at = datetime.utcnow()
 
     def __repr__(self):
         return f'<Patient {self.name}>'
+
+class Emergency(db.Model):
+    __tablename__ = "emergencies"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patients.id', ondelete='CASCADE'), nullable=False)
+    # Define the relationship to Patient with uselist=False>>> define 1 to 1 relationship, each record here match 1 record there.
+    patient = db.relationship('Patient', backref=db.backref('emergency', uselist=False, cascade='all, delete-orphan'))
 
 
 @login_manager.user_loader
@@ -163,7 +205,10 @@ def login():
         current_user = User.query.filter(and_(User.username == username, User.role == role)).first()
         if current_user and current_user.check_password(password):
             login_user(current_user)
-            return redirect(url_for(role, id=current_user.id))
+            if role == 'manager' or role == 'receptionist':
+                return redirect(url_for(role, id=current_user.id))
+            else:
+                return redirect(url_for('departments', id=current_user.id))
         else:
             return 'Login Unsuccessful. Please check username, password, and role'
     return render_template('index.html')
@@ -221,27 +266,52 @@ def manager(id):
           nurses=nurses, doctors=doctors, receptionists=receptionists, managers=managers,
           success_massage=success_massage, error_massage=error_massage)
 
-@app.route('/doctor/<int:id>', strict_slashes=False)
+@app.route('/doctor/<int:id>', strict_slashes=False, methods=['GET', 'POST'])
 @login_required
 def doctor(id):
     doctor = User.query.get_or_404(id)
     return render_template("doctor.html", name=doctor.username)
 
-@app.route('/nurse/<int:id>', strict_slashes=False)
+@app.route('/nurse/<int:id>', strict_slashes=False, methods=['GET', 'POST'])
 @login_required
 def nurse(id):
     nurse = User.query.get_or_404(id)
     return render_template("nurse.html", nurse=nurse)
 
-@app.route('/receptionist/<int:id>', strict_slashes=False)
+@app.route('/departments/<int:id>', strict_slashes=False, methods=['GET', 'POST'])
+@login_required
+def departments(id):
+    emergences = Emergency.query.all()
+    nurse_or_doctor = User.query.get_or_404(id)
+    return render_template("departments.html", id=id, name=nurse_or_doctor.username, emergences=emergences)
+
+@app.route('/receptionist/<int:id>', strict_slashes=False, methods=['GET', 'POST'])
 @login_required
 def receptionist(id):
+    massage=""
     if request.method == 'POST':
-        name = request.form['name']
-        department = request.form['department']
-        bio = request.form['bio']
-        room = request.form['room']
-        
+        name = request.form.get('name')
+        sex = request.form.get('sex')
+        age = request.form.get('age')
+        national_id = request.form.get('national_id')
+        address = request.form.get('address')
+        department = request.form.get('department')
+        room = request.form.get('room')
+        phone = request.form.get("phone")
+        new_patient = Patient(
+            name=name,
+            sex=sex,
+            age=int(age),
+            national_id=national_id,
+            address=address,
+            department=department,
+            room=int(room),
+            phone=phone
+        )
+
+        db.session.add(new_patient)
+        db.session.commit()
+        massage="Patient added successfully"
 
 
 
@@ -249,7 +319,7 @@ def receptionist(id):
 
 
     receptionist = User.query.get_or_404(id)
-    return render_template("receptionist.html", receptionist=receptionist)
+    return render_template("receptionist.html", id=id, name=receptionist.username, massage=massage)
 
 if __name__ == "__main__":
     # with app.app_context():

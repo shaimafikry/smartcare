@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Care - Doctors</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -107,14 +108,7 @@
             width: 100%;
             margin-bottom: 30px;
         }
-        .custom-p {
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0;
-            padding-left: 0;
-            text-align: left;
-            margin-bottom: 120px;
-        }
+        
         .modal-body textarea {
             width: 100%;
             height: 200px;
@@ -128,62 +122,118 @@
             max-height: 400px;
             overflow-y: auto;
         }
+        .input-group .form-control {
+            border-right: 0;
+            border-color: #ced4da;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
         
+        .input-group .input-group-append .btn {
+            border-left: 0;
+            border-color: #ced4da;
+            border-radius: 0 0.25rem 0.25rem 0;
+            background-color: white;
+        }
+        
+        .input-group:hover .form-control,
+        .input-group:hover .search-btn,
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+            z-index: 1;
+        }
+        
+        .input-group .form-control:focus,
+        .input-group .search-btn:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        
+        .search-btn {
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+        
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .search-btn {
+            border-color: #007bff;
+        }
+        
+        .input-group .form-control:focus + .input-group-append .btn,
+        .input-group-append .btn:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .username { 
+            font-weight: bold; 
+        }
+        .modal-body {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .modal-dialog {
+            max-width: 600px;
+        }
+
         
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <a class="navbar-brand" href="#">
-            <img src="images/logo.png" alt="Hospital Logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Hospital Logo">
         </a>
-        <form class="form-inline mx-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline mx-auto" method='POST' action="/search">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" name="search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn search-btn" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </form>
+        <div class="username">patient: {{ name }}</div>
         <div class="dropdown ml-auto">
             <button class="dropdown-toggle" type="button" id="menuToggle">
                 <img src="https://img.icons8.com/ios-filled/50/000000/menu--v1.png" alt="Menu">
             </button>
             <div class="dropdown-menu" aria-labelledby="menuToggle">
-                <a class="dropdown-item" href="{{ url_for('dashboard') }}">Home</a>
-                <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
+                <a class="dropdown-item" href="#">Home</a>
+                <a class="dropdown-item" href="#">Profile</a>
                 <a class="dropdown-item" href="#">All Patients</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="{{ url_for('sign_out') }}">Sign Out</a>
+                <a class="dropdown-item" href="{{ url_for('login') }}">Sign Out</a>
             </div>
         </div>
     </nav>
 
     <div class="container content">
-        <div class="form-group">
-            <div class="form-group">
-                <h4 class="custom-p">{{ name }}</h4>
-            </div>
-            
-        </div>
 
         <!-- Buttons to trigger modals -->
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#pastHistoryModal">Past History</button>
-            <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#labsModal">Labs</button>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#screensModal">Screens</button> -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#labsModal">Labs</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#screensModal">Screens</button>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mainComplainModal">Main Complain</button>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#diagnosisModal">Diagnosis</button>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#treatmentModal">Treatment</button>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#vitalsModal">Vitals</button>
-            <br/>
-            <button type="button" class="btn btn-success submit-button">Submit</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dischargedateModal">discharge date</button>
+
         </div>
 
         <!-- Submit Button -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"> ALL patients in your department</button>
-
+        <form method="POST" action="{{url_for('doctor', doctor_id=id, patient_id=pt.id)}}">
+            <button type="submit" class="btn btn-success submit-button" name="submit">Submit</button>
+        </form>
     </div>
 
     <!-- Modals for each button -->
     <div class="modal fade" id="pastHistoryModal" tabindex="-1" role="dialog" aria-labelledby="pastHistoryLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="pastHistoryLabel">Past History</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -191,70 +241,67 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="pastHistoryText"></textarea>
+                    <textarea id="pastHistoryText" name="history">{{pt.history}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                    <button type="submit" class="btn btn-primary save-changes" name="save_changes">Save changes</button>
                 </div>
-            </div>
+            </form>
+          </div>
         </div>
     </div>
 
     <!-- Modal for Labs -->
-<div class="modal fade" id="labsModal" tabindex="-1" role="dialog" aria-labelledby="labsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="labsModalLabel">Labs Reports</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
-                <!-- Add images or content related to Labs here -->
-                <img src="images/path_to_lab.png" alt="Lab Report 1" class="img-fluid mb-2">
-                <img src="images/path_to_lab.png" alt="Lab Report 2" class="img-fluid mb-2">
-                <img src="images/path_to_lab.png" alt="Lab Report 3" class="img-fluid mb-2">
-                <img src="images/path_to_lab.png" alt="Lab Report 4" class="img-fluid mb-2">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <div class="modal fade" id="labsModal" tabindex="-1" role="dialog" aria-labelledby="labsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labsModalLabel">Labs Reports</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                    <img src="{{ url_for('static', filename='images/path_to_lab.png') }}" class="img-fluid mb-2" alt="lab Report 1">
+                    <img src="{{ url_for('static', filename='images/path_to_lab.png') }}" class="img-fluid mb-2" alt="lab Report 2">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="screensModal" tabindex="-1" role="dialog" aria-labelledby="screensModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="screensModalLabel">Screens Reports</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
-                <img src="images/path_to_screens.png" alt="Screen Report 1" class="img-fluid mb-2">
-                <img src="images/path_to_screens.png" alt="Screen Report 2" class="img-fluid mb-2">
-                <img src="images/path_to_screens.png" alt="Screen Report 3" class="img-fluid mb-2">
-                <img src="images/path_to_screens.png" alt="Screen Report 1" class="img-fluid mb-2">
-                <img src="images/path_to_screens.png" alt="Screen Report 2" class="img-fluid mb-2">
-                <img src="images/path_to_screens.png" alt="Screen Report 3" class="img-fluid mb-2">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <div class="modal fade" id="screensModal" tabindex="-1" role="dialog" aria-labelledby="screensModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="screensModalLabel">Screens Reports</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                    <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" class="img-fluid mb-2" alt="Screen Report 1">
+                    <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" class="img-fluid mb-2" alt="Screen Report 2">
+                    <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" class="img-fluid mb-2" alt="Screen Report 1">
+                    <img src="{{ url_for('static', filename='images/path_to_screens.png') }}" class="img-fluid mb-2" alt="Screen Report 2">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <div class="modal fade" id="mainComplainModal" tabindex="-1" role="dialog" aria-labelledby="mainComplainLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form method="POST">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="mainComplainLabel">Main Complain</h5>
+                    <h5 class="modal-title" id="mainComplainLabel" name="complain">{{pt.complain}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -264,15 +311,51 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                    <button type="submit" class="btn btn-primary save-changes">Save changes</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 
+        <!-- Modal for Discharge Date -->
+    <div class="modal fade" id="dischargedateModal" tabindex="-1" role="dialog" aria-labelledby="dischargedateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <form method="POST">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="dischargedateModalLabel">Discharge Date</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+            </div>
+            <div class="modal-body">
+                <form id="dischargeForm" method="POST">
+                    <div class="form-group">
+                        <label for="dischargeDate">Select Discharge Date:</label>
+                        <input type="date" class="form-control" id="dischargeDate" name="discharge_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dischargeNotes">Discharge Notes:</label>
+                        <textarea class="form-control" id="dischargeNotes" name="discharge_notes" rows="4"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="saveDischargeDate">Save Date</button>
+            </div>
+             </form>
+          </div>
+       </div>
+    </div>
+
+    
+
     <div class="modal fade" id="diagnosisModal" tabindex="-1" role="dialog" aria-labelledby="diagnosisLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <form method="POST" action="{{url_for('doctor', doctor_id=id, patient_id=pt.id)}}">
                 <div class="modal-header">
                     <h5 class="modal-title" id="diagnosisLabel">Diagnosis</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -280,12 +363,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="diagnosisText"></textarea>
+                    <textarea id="diagnosisText" name="diagnosis">{{pt.diagnosis}}</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                    <button type="submit" class="btn btn-primary save-changes">Save changes</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -293,6 +377,7 @@
     <div class="modal fade" id="treatmentModal" tabindex="-1" role="dialog" aria-labelledby="treatmentLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="treatmentLabel">Treatment</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -304,8 +389,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary save-changes">Save changes</button>
+                    <button type="submit" class="btn btn-primary save-changes">Save changes</button>
                 </div>
+            </form> 
             </div>
         </div>
     </div>
@@ -322,29 +408,30 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="bpInput">BP</label>
-                        <input type="text" class="form-control" id="bpInput" placeholder="Enter BP">
+                        <input type="text" class="form-control" id="bpInput" placeholder="Enter BP" name="blood_pressure" value="{{pt.blood_pressure}}">
                     </div>
                     <div class="form-group">
                         <label for="hrInput">HR</label>
-                        <input type="text" class="form-control" id="hrInput" placeholder="Enter HR">
+                        <input type="text" class="form-control" id="hrInput" placeholder="Enter HR" name ="heart_rate" value="{{pt.heart_rate}}">
                     </div>
                     <div class="form-group">
                         <label for="tempInput">T</label>
-                        <input type="text" class="form-control" id="tempInput" placeholder="Enter Temperature">
+                        <input type="text" class="form-control" id="tempInput" placeholder="Enter Temperature" name="temp" value="{{pt.temp}}">
                     </div>
                     <div class="form-group">
                         <label for="satInput">SAT</label>
-                        <input type="text" class="form-control" id="satInput" placeholder="Enter SAT">
+                        <input type="text" class="form-control" id="satInput" placeholder="Enter SAT" name="oxygen_sat" value="{{pt.oxygen_sat}}">
                     </div>
                     <div class="form-group">
                         <label for="rbsInput">RBS</label>
-                        <input type="text" class="form-control" id="rbsInput" placeholder="Enter RBS">
+                        <input type="text" class="form-control" id="rbsInput" placeholder="Enter RBS" name="rbs" value="{{pt.rbs}}">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+              </form>
             </div>
         </div>
     </div>
@@ -353,35 +440,80 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#menuToggle').click(function(event) {
-                event.stopPropagation(); // Prevent event bubbling to close dropdown
-                $('.dropdown-menu').toggle();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle the dropdown menu toggle
+            var menuToggle = document.getElementById('menuToggle');
+            var dropdownMenu = document.querySelector('.dropdown-menu');
+        
+            menuToggle.addEventListener('click', function() {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
             });
-
-            $(document).click(function(event) {
-                if (!$(event.target).closest('.dropdown').length) {
-                    $('.dropdown-menu').hide();
+        
+            // Handle closing the dropdown menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!menuToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = 'none';
                 }
             });
-
-            // Modal interactions for saving data
-            $('.save-changes').click(function() {
-                var modal = $(this).closest('.modal');
-                var textarea = modal.find('textarea').val();
-                alert('Data saved: ' + textarea);
-                modal.modal('hide');
+        
+            // Handle saving changes in modals
+            var saveButtons = document.querySelectorAll('.save-changes');
+        
+            saveButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var modal = button.closest('.modal');
+                    var textarea = modal.querySelector('textarea');
+                    var data = textarea ? textarea.value : null;
+        
+                    // Save the data (you can replace this with actual save logic)
+                    if (data) {
+                        console.log('Data saved:', data);
+                    }
+        
+                    // Close the modal
+                    $(modal).modal('hide');
+                });
             });
-            $('#labsModal').on('show.bs.modal', function () {
-                // This code runs when the Labs modal is shown
-                console.log("Labs modal is displayed");
+        
+            // Specific handling for the Vitals modal
+            var vitalsModalSaveButton = document.querySelector('#vitalsModal .btn-primary');
+            vitalsModalSaveButton.addEventListener('click', function() {
+                var modal = vitalsModalSaveButton.closest('.modal');
+                var inputs = modal.querySelectorAll('input');
+                var vitalsData = {};
+        
+                inputs.forEach(function(input) {
+                    vitalsData[input.id] = input.value;
+                });
+        
+                // Save the vitals data (you can replace this with actual save logic)
+                console.log('Vitals data saved:', vitalsData);
+        
+                // Close the modal
+                $(modal).modal('hide');
             });
-    
-            $('#screensModal').on('show.bs.modal', function () {
-                // This code runs when the Screens modal is shown
-                console.log("Screens modal is displayed");
+        
+            // Specific handling for the Discharge modal
+            var dischargeSaveButton = document.getElementById('saveDischargeDate');
+            dischargeSaveButton.addEventListener('click', function() {
+                var modal = dischargeSaveButton.closest('.modal');
+                var dischargeDate = document.getElementById('dischargeDate').value;
+                var dischargeNotes = document.getElementById('dischargeNotes').value;
+        
+                // Save the discharge data (you can replace this with actual save logic)
+                console.log('Discharge Date:', dischargeDate);
+                console.log('Discharge Notes:', dischargeNotes);
+        
+                // Close the modal
+                $(modal).modal('hide');
             });
+            // Redirect to department.html when the submit button is clicked
+            var submitButton = document.querySelector('.submit-button');
+            submitButton.addEventListener('click', function() {
+                   window.location.href = 'department.html';
+    });
         });
+        
     </script>
 </body>
 </html>
