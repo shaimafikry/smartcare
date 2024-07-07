@@ -37,18 +37,23 @@ def do_the_login():
         # get the name and password
         usr_id = request.form.get('username')
         psswd = request.form.get('password')
+        
         if usr_id and psswd:
             user = storage.get_obj(usr_id)
-            if user is not None:
-                if user['password'] == psswd:
+            
+            if user is None:
+                 return render_template('index.html', error="Invalid username or password.")
+             
+            if user['password'] == psswd:
                     session['user_id'] = usr_id
                     cls_name = (classes[usr_id[0]]).lower()
+
                     # print(usr_id)
                     if usr_id[0] == 'D' or usr_id[0] == 'N':
                         return redirect(url_for('dashboard'))
                     else:
                         return redirect(url_for(f'{cls_name}_dashboard'))
-        return render_template('index.html')
+        return render_template('index.html', error="Please provide both username and password.")
 
 def show_the_login_form():
     return render_template('index.html')
