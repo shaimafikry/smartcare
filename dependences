@@ -1,6 +1,22 @@
-flask app
-python3
-json
-sqlalchemy
-sql
-Flask Flask-SQLAlchemy
+#!/bin/bash
+
+# Set up a virtual environment
+echo "Setting up a virtual environment..."
+python3 -m venv venv
+source venv/bin/activate
+
+# Install MySQL
+echo "Installing MySQL DB..."
+sudo apt update
+sudo apt install mysql-server
+
+# Install mysqlclient
+echo "Installing mysqlclient..."
+pip install mysqlclient
+
+# Install Flask and Flask-SQLAlchemy
+echo "Installing Flask and Flask-SQLAlchemy..."
+pip install Flask
+pip install Flask-SQLAlchemy
+
+echo "Installation completed successfully."

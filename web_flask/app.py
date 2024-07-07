@@ -42,6 +42,8 @@ def do_the_login():
             if user is not None:
                 if user['password'] == psswd:
                     session['user_id'] = usr_id
+                    if  session['user_id'] is None:
+                                return render_template('index.html')
                     cls_name = (classes[usr_id[0]]).lower()
                     # print(usr_id)
                     if usr_id[0] == 'D' or usr_id[0] == 'N':
