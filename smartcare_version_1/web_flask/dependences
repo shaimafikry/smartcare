@@ -1,0 +1,6 @@
+flask app
+python3
+json
+sqlalchemy
+sql
+Flask Flask-SQLAlchemy
