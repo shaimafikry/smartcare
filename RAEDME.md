@@ -65,5 +65,5 @@ API Gateway: Acts as a single entry point for all client requests, directing the
 # team
 
 * Saraa Talaat
-* Mahmoud Fouad
+* Mahmoud El-Fouad
 * Shaimaa Fikry
