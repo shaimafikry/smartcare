@@ -41,7 +41,7 @@ function Login() {
   const submitForm = (e) => {
     e.preventDefault();
    
-    // Validate user data against the schema
+    // Validate user data
     const { error } = schema.validate(user, { abortEarly: false });
 
     if (error) {

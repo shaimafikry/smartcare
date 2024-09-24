@@ -4,16 +4,19 @@ import './Home.css';
 
 const Home = () => {
   return (
+    /* Main container */
     <div className="home-container">
       <img
         className="smartcare-logo"
         src={`${process.env.PUBLIC_URL}/images/Smart_care-logo.png`}
         alt="Smart Care Logo"
       />
-      <h1>Welcome Back </h1>
-      <h5>To enter press Login </h5>
+          {/* Header */}
+      <h2>Welcome Back</h2>
+      <p>To enter our dashboard, please press login</p>
+         {/* link to login page direct */}
       <Link to="/login">
-        <button className="login-button"><i class="fa fa-sign-in"></i>Login</button>
+        <button className="login-button"><i className="fa fa-sign-in"></i> Login</button>
       </Link>
     </div>
   );

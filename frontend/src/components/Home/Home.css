@@ -1,4 +1,4 @@
-/* استايل للصفحة بأكملها */
+/* body styles */
 html, body {
     margin: 0;
     padding: 0;
@@ -8,62 +8,73 @@ html, body {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    background: linear-gradient(135deg, #8161b0, #7e8691);
-    overflow: hidden; /* لمنع أي إزاحة جانبية */
-}
-
-/* الحاوية الرئيسية */
-.home-container {
+    background: linear-gradient(135deg, #3a6073, #3f2f39);
+    overflow: hidden;
+  }
+  
+  /* Main container */
+  .home-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: center;  
+    align-items: left;     
+    text-align: left;
     width: 100vw;
     height: 100vh;
     padding: 20px;
-    box-sizing: border-box; /* التأكد من حساب الـ padding في الحجم */
-}
-
-/* استايل الشعار */
-.smartcare-logo {
-    width: 280px;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease; /* تأثير التحريك */
-}
-
-.smartcare-logo:hover {
-    transform: scale(1.1); /* تكبير عند التحويم */
-}
-
-/* استايل العنوان */
-h2 {
-    font-size: 28px;
-    color: #ad9292;
+    box-sizing: border-box;
+  }
+  
+  /* Logo style */
+  .smartcare-logo {
+    width: 320px;
+    margin-bottom: 15px;
+    margin-top: -30px;
+    align-items: left;    
+    transition: transform 0.3s ease;
+  }
+  
+  .smartcare-logo:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Header style */
+  h2 {
+    font-size: 40px;
+    color: #ffffff;
     margin-bottom: 30px;
-}
+    align-items: left;   
+    text-align: left;
 
-/* استايل الفقرة */
-p {
+  }
+  
+  /* Paragraph style */
+  p {
     font-size: 20px;
-    color: #b18d8d;
+    color: #e0e0e0;
     margin-bottom: 50px;
-}
-
-/* استايل زر تسجيل الدخول */
-.login-button {
+  }
+  
+  /* Login button */
+  .login-button {
     background-color: #1a1b1c;
-    color: rgb(222, 217, 217);
+    color: #ffffff;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
-    padding: 12px 24px;
-    border: none;
+    padding: 15px 12px;
     border-radius: 18px;
+    align-items: left;    
+    text-align: left;
     font-size: 18px;
+    border: none;
+    width: auto;
+    max-width: 260px;
+    margin-left: 90px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير التحويل */
-}
-
-.login-button:hover {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .login-button:hover {
     background-color: #323131;
-    transform: translateY(-2px); /* تأثير الرفع عند التحويم */
-}
+    transform: translateY(-3px);
+  }
+  

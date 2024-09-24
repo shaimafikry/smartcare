@@ -81,7 +81,7 @@ body {
   color: red;
   font-size: 0.875rem;
   position: absolute;
-  bottom: -30px; /* تعديل المسافة بين رسالة الخطأ والحقل */
+  bottom: -30px;
   left: 22px;
   width: 100%;
   text-align: left;
