@@ -1,4 +1,4 @@
-/* تصميم الشريط الجانبي */
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -16,7 +16,7 @@
   }
   
   .sidebar.open {
-    width: 250px; /* عرض الشريط الجانبي عند الفتح */
+    width: 250px; 
   }
   
   .sidebar-header {
