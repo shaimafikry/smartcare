@@ -1,0 +1,69 @@
+/* استايل للصفحة بأكملها */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #8161b0, #7e8691);
+    overflow: hidden; /* لمنع أي إزاحة جانبية */
+}
+
+/* الحاوية الرئيسية */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box; /* التأكد من حساب الـ padding في الحجم */
+}
+
+/* استايل الشعار */
+.smartcare-logo {
+    width: 280px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease; /* تأثير التحريك */
+}
+
+.smartcare-logo:hover {
+    transform: scale(1.1); /* تكبير عند التحويم */
+}
+
+/* استايل العنوان */
+h2 {
+    font-size: 28px;
+    color: #ad9292;
+    margin-bottom: 30px;
+}
+
+/* استايل الفقرة */
+p {
+    font-size: 20px;
+    color: #b18d8d;
+    margin-bottom: 50px;
+}
+
+/* استايل زر تسجيل الدخول */
+.login-button {
+    background-color: #1a1b1c;
+    color: rgb(222, 217, 217);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 18px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير التحويل */
+}
+
+.login-button:hover {
+    background-color: #323131;
+    transform: translateY(-2px); /* تأثير الرفع عند التحويم */
+}
