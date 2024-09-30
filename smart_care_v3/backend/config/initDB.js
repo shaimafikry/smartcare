@@ -1,19 +1,22 @@
 // backend/config/initDB.js
-const createUsersTable = require('./createUsersTable');
-const createPatientsTable = require('./createPatientsTable');
-const createRelationshipsTable = require('./createRelationshipsTable'); // إضافة جدول العلاقات
+const { sequelize } = require('./db'); // Sequelize instance
+const { Users, UserPhone } = require('./users');
+const { Patients, PatientPhone, PatientDetails } = require('./patients');
+const { DoctorPatient, NursePatient } = require('./relations');
 
-const createTables = async () => {
-  try {
-    await createUsersTable();
-    await createPatientsTable();
-    await createRelationshipsTable(); // إنشاء الجداول للعلاقات
-    console.log('All tables created successfully.');
-  } catch (err) {
+// Sync models with database (creates tables if they don't exist)
+sequelize.sync({ force: false }).then(() => {
+    console.log('Database & tables created!');
+}).catch((err) => {
     console.error('Error creating tables:', err);
-  } finally {
-    pool.end(); // أغلق الاتصال بقاعدة البيانات بعد الانتهاء
-  }
-};
+});
 
-createTables();
+module.exports = {
+    Users,
+    UserPhone,
+    Patients,
+    PatientPhone,
+    PatientDetails,
+    DoctorPatient,
+    NursePatient
+};
