@@ -3,14 +3,15 @@ import './Reciptionists.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-function Reciptionists() {
+function Reception({ receptionist, message }) {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
-    medicalCondition: '',
-    medicalHistory: '',
-    complaint: '',
+    gender: '',
+    national_id: '',
+    address: '',
     department: '',
+    phone: '',
     admissionDate: new Date(),
   });
 
@@ -25,102 +26,135 @@ function Reciptionists() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log('Form Data Submitted:', formData);
   };
 
   return (
-    <div className="reception-form">
-      <h2>Reception Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div className="container content">
+      <div>
+           {/* form header */}
+        <h4>Register New Patient</h4>
+      </div>
+            {/* form raws */}
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="patientName">Name</label>
+              <input
+                type="text"
+                id="patientName"
+                name="name"
+                placeholder="Enter name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="age">Age</label>
-          <input
-            type="number"
-            id="age"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            required
-          />
-        </div>
+            <div className="form-group">
+              <label htmlFor="patientgender">Gender</label>
+              <select
+                id="patientGender "
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+              >
+                      {/* Placeholder option */}
+                <option value="" disabled>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="medicalCondition">Medical Condition</label>
-          <input
-            type="text"
-            id="medicalCondition"
-            name="medicalCondition"
-            value={formData.medicalCondition}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="patientAge">Age</label>
+              <input
+                type="text"
+                id="patientAge"
+                name="age"
+                placeholder="Enter Age"
+                value={formData.age}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="medicalHistory">Medical History</label>
-          <textarea
-            id="medicalHistory"
-            name="medicalHistory"
-            value={formData.medicalHistory}
-            onChange={handleChange}
-            rows="4"
-            required
-          />
-        </div>
+            <div className="form-group">
+              <label htmlFor="patientID">National ID</label>
+              <input
+                type="text"
+                id="patientID"
+                name="national_id"
+                placeholder="Enter National ID"
+                value={formData.national_id}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="complaint">Complaint</label>
-          <textarea
-            id="complaint"
-            name="complaint"
-            value={formData.complaint}
-            onChange={handleChange}
-            rows="4"
-            required
-          />
-        </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="patientAddress">Address</label>
+              <input
+                type="text"
+                id="patientAddress"
+                name="address"
+                placeholder="Enter address"
+                value={formData.address}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="department">Department</label>
-          <input
-            type="text"
-            id="department"
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
-            required
-          />
-        </div>
+            <div className="form-group">
+              <label htmlFor="patientDepartment">Department</label>
+              <select
+                id="patientDepartment"
+                name="department"
+                value={formData.department}
+                onChange={handleChange}
+              >
+                <option value="" disabled>Select department</option>
+                <option value="emergency">Emergency</option>
+                <option value="nursery">Nursery</option>
+                <option value="bones">Bones</option>
+                <option value="brain">Brain</option>
+              </select>
+            </div>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="admissionDate">Admission Date</label>
-          <DatePicker
-            id="admissionDate"
-            selected={formData.admissionDate}
-            onChange={handleDateChange}
-            dateFormat="MMMM d, yyyy"
-            className="datepicker"
-            required
-          />
-        </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="patientPhone">Phone</label>
+              <input
+                type="text"
+                id="patientPhone"
+                name="phone"
+                placeholder="Enter phone number"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-        <button type="submit" className="submit-button">Submit</button>
-      </form>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="admissionDate">Entry Date</label>
+              <DatePicker
+                selected={formData.admissionDate}
+                onChange={handleDateChange}
+                className="date-picker"
+              />
+            </div>
+          </div>
+
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
 
-export default Reciptionists;
+export default Reception;
