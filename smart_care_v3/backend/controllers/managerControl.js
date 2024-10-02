@@ -18,4 +18,4 @@ async function register(req, res) {
 };
 
 
-module.exports = register;
+module.exports = {register};

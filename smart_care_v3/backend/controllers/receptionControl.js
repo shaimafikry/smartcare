@@ -32,4 +32,5 @@ async function editPatient(req, res){
 };
 
 
+
 module.exports = {addNewPatient, editPatient};

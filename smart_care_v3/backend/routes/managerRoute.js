@@ -2,7 +2,7 @@
 // import 
 // import the files
 const express = require('express');
-const {register} = require('../controllers/userControl');
+const {register} = require('../controllers/managerControl');
 
 const router = express.Router();
 
