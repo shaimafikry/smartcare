@@ -16,8 +16,13 @@ const Home = () => {
       <p>To enter our dashboard, please press login</p>
          {/* link to login page direct */}
       <Link to="/login">
-        <button className="login-button"><i className="fa fa-sign-in"></i> Login</button>
+        <button className="login-button-homePage"><i className="fa fa-sign-in"></i> Login</button>
       </Link>
+       {/* Footer */}
+       <footer className="footer">
+         <h6>Contact us at Smartcare@gmail.com</h6>
+         <h6>&copy; Smartcare 2024 </h6>
+      </footer>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
-    username: '',
+    email: '',
     password: ''
   });
    // Initialize errors as an empty object
@@ -24,11 +24,11 @@ function Login() {
 
   // Joi validation schema
   const schema = Joi.object({
-    username: Joi.string().min(3).max(30).required().messages({
-      "string.empty": "User ID is required",
-      "string.min": "User ID must be at least 3 characters",
-      "string.max": "User ID can't be longer than 15 characters",
-      "any.required": "User ID is required",
+    email: Joi.string().email({ tlds: { allow: false } }).required().messages({
+      "string.empty": "Email is required",
+      "string..email": "Please enter a valid email address",
+      "string.max": "Email can't be longer than 15 characters",
+      "any.required": "Email is required",
     }),
     password: Joi.string().min(6).max(20).required().messages({
       "string.empty": "Password is required",
@@ -54,7 +54,7 @@ function Login() {
     } else {
       setErrors({});
       console.log("Form submitted successfully:", user);
-      //then Send valid data to the server
+      //Send the valid data to the server
     }
   };
 
@@ -70,15 +70,15 @@ function Login() {
           <div className="input-group">
             <input
               type="text"
-              name="username"
-              placeholder="User ID"
-              value={user.username}
+              name="email"
+              placeholder="Email"
+              value={user.email}
               onChange={handleInputChange}
               
               className="input-field"
             />
             {/* Display error for username */}
-            {errors.username && <p className="error-message">{errors.username}</p>}
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
 
           <div className="input-group password-container">

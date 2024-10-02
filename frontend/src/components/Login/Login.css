@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Roboto', sans-serif;
   background-color: #c2c0c0;
 }
@@ -9,7 +10,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to right, #b1b1bd, #7583bd);
+  width: 400px;
+  max-width: 800%;
 }
 .login-logo {
   text-align: center;
@@ -23,18 +25,18 @@ body {
 }
 .login-container {
   background-color: #fff;
-  padding: 40px;
+  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  max-width: 800%;
   width: 100%;
   text-align: center;
 }
 
 .login-header {
-  font-size: 39px;
+  font-size: 32px;
   color: #333;
   margin-bottom: 50px;
+  text-align: center;
   margin-top: -80px;
   font-family: 'Roboto', sans-serif;
 }
@@ -65,7 +67,7 @@ body {
   position: relative;
   border-radius: 15px;
   margin-bottom: 40px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .toggle-password {
@@ -81,15 +83,15 @@ body {
   color: red;
   font-size: 0.875rem;
   position: absolute;
-  bottom: -30px;
+  bottom: -70px;
   left: 22px;
   width: 100%;
   text-align: left;
 }
 
 .login-button {
-  width: 100%;
-  background-color: #2575fc;
+  width:auto;
+  background-color: #1f3d95 !important;
   color: white;
   padding: 12px;
   border: none;
@@ -97,11 +99,18 @@ body {
   cursor: pointer;
   font-size: 16px;
   margin-top: 20px;
+  text-align: center;
+  justify-content: center;
+  margin-right: 0%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
 .login-button:hover {
-  background-color: #2d15cc;
+  background-color: #154198e2 !important;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(3, 6, 12, 0.2);
 }
+
 
 .remember-me {
   display: flex;

@@ -1,35 +1,21 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import './App.css';
+import Layout from '../Layout/Layout';
 import Login from '../Login/Login';
-import { Outlet } from 'react-router-dom';
 import Reciptionists from '../Reciptionists/Reciptionists';
-import Sidebar from '../Sidebar/Sidebar';
 import Home from '../Home/Home';
 import Profile from '../Profile/Profile';
-import Patients from '../Patients/Patients';
+import Department from '../Department/Department';
 import Settings from '../Settings/Settings';
 import SignOut from '../SignOut/SignOut';
-
-import Navbar from '../Navbar/Navbar';
+import Manegers from '../Manegers/Manegers';
 import NewPatientForm from '../NewPatientForm/NewPatientForm';
 
-const Layout = () => (
-  <div className="app">
-    <Sidebar />
-    <div className="main-content">
-      <Outlet />
-    </div>
-  </div>
-);
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/navbar",
-    element: <Navbar />,
   },
   {
     path: "/home",
@@ -46,10 +32,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/patients",
+    path: "/manegers",
     element: <Layout />,
     children: [
-      { path: "", element: <Patients /> },
+      { path: "", element: <Manegers /> },
+    ],
+  },
+  {
+    path: "/Department",
+    element: <Layout />,
+    children: [
+      { path: "", element: <Department /> },
     ],
   },
   {
@@ -74,31 +67,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/Reciptionists",
-    element: (
-      <div>
-        <Navbar />
-        <Reciptionists />
-      </div>
-    ),
+    path: "/reciptionists",
+    element: <Layout />,
+    children: [
+      { path: "", element: <Reciptionists /> },
+    ],
   },
-  {
-    path: "/new-patient",
-    element: (
-      <div>
-        <Navbar />
-        <NewPatientForm />
-      </div>
-    ),
-  },
-  {
-    path: "/sidebar"
-
-  },
-
   {
     path: "*",
-    element: <Navigate to="/" />,
+    element: <Navigate to="/login" />,
   },
 ]);
 
