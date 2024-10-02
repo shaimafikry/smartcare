@@ -3,15 +3,17 @@
 // import the files
 const express = require('express');
 const {addNewPatient, editPatient} = require('../controllers/receptionControl');
-const { editUser } = require('../models/user')
+const { editUser, showUser } = require('../models/user')
+
+const authToken = require('../middleware/authToken');
 
 const router = express.Router();
 
 // edit receptionst profile
-router.get('/reception/profile');
-router.put('/reception/profile', editUser);
+// router.get('/reception/profile');
+// router.put('/reception/profile', editUser);
 
-router.get('/reception/dashboard');
+router.get('/reception/dashboard', authToken, showUser);
 // router.put('/reception/dashboard', editPatient)
 router.post('/reception/dashboard', addNewPatient);
 

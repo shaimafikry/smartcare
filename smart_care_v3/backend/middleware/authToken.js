@@ -1,7 +1,7 @@
 // this function check the validty of token sent in request
 
 const jwt = require('jsonwebtoken');
-require('dotenv').config('path: ./config');
+require('dotenv').config({ path: './config/.env' });
 
 const secret_key = process.env.SECRET_KEY;
 

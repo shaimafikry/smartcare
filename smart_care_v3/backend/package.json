@@ -4,9 +4,16 @@
   "description": "backend dev for smart care project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "mocha",
+    "start": "nodemon server.js"
   },
   "author": "mahmoud shaimaa",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.7"
+  }
 }
