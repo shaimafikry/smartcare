@@ -13,8 +13,8 @@ const router = express.Router();
 // router.get('/reception/profile');
 // router.put('/reception/profile', editUser);
 
-router.get('/reception/dashboard', authToken, showUser);
+router.get('/reception/home', authToken, showUser);
 // router.put('/reception/dashboard', editPatient)
-router.post('/reception/dashboard', addNewPatient);
+router.post('/reception/home', addNewPatient);
 
 module.exports = router;
