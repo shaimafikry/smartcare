@@ -1,12 +1,11 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import './App.css';
-import Layout from '../Layout/Layout';
+import Layout from '../Layout/Layout'; // استيراد الـ Layout الذي يحتوي على الهيدر والسايدبار
 import Login from '../Login/Login';
 import Reciptionists from '../Reciptionists/Reciptionists';
 import Home from '../Home/Home';
 import Profile from '../Profile/Profile';
-import Department from '../Department/Department';
 import Settings from '../Settings/Settings';
 import SignOut from '../SignOut/SignOut';
 import Manegers from '../Manegers/Manegers';
@@ -17,60 +16,16 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/home",
-    element: <Layout />,
-    children: [
-      { path: "", element: <Home /> },
-    ],
-  },
-  {
-    path: "/profile",
-    element: <Layout />,
-    children: [
-      { path: "", element: <Profile /> },
-    ],
-  },
-  {
-    path: "/manegers",
-    element: <Layout />,
-    children: [
-      { path: "", element: <Manegers /> },
-    ],
-  },
-  {
-    path: "/Department",
-    element: <Layout />,
-    children: [
-      { path: "", element: <Department /> },
-    ],
-  },
-  {
-    path: "/new-patient",
-    element: <Layout />,
-    children: [
-      { path: "", element: <NewPatientForm /> },
-    ],
-  },
-  {
-    path: "/settings",
-    element: <Layout />,
-    children: [
-      { path: "", element: <Settings /> },
-    ],
-  },
-  {
-    path: "/sign-out",
-    element: <Layout />,
-    children: [
-      { path: "", element: <SignOut /> },
-    ],
-  },
-  {
-    path: "/reciptionists",
-    element: <Layout />,
-    children: [
-      { path: "", element: <Reciptionists /> },
+  
+    {path: '/', element:<Layout />, children:[
+
+      { path: "home", element: <Home /> },
+      { path: "profile", element: <Profile /> },
+      { path: "manegers", element: <Manegers /> },
+      { path: "new-patient", element: <NewPatientForm /> },
+      { path: "settings", element: <Settings /> },
+      { path: "sign-out", element: <SignOut /> },
+      { path: "reciptionists", element: <Reciptionists /> },
     ],
   },
   {
