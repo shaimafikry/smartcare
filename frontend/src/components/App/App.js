@@ -9,7 +9,8 @@ import Profile from '../Profile/Profile';
 import Settings from '../Settings/Settings';
 import SignOut from '../SignOut/SignOut';
 import Manegers from '../Manegers/Manegers';
-import NewPatientForm from '../NewPatientForm/NewPatientForm';
+import Doctors from '../Doctors/Doctors';
+
 
 const router = createBrowserRouter([
   {
@@ -20,9 +21,9 @@ const router = createBrowserRouter([
     {path: '/', element:<Layout />, children:[
 
       { path: "home", element: <Home /> },
+      { path: "doctors ", element: <Doctors /> },
       { path: "profile", element: <Profile /> },
       { path: "manegers", element: <Manegers /> },
-      { path: "new-patient", element: <NewPatientForm /> },
       { path: "settings", element: <Settings /> },
       { path: "sign-out", element: <SignOut /> },
       { path: "reciptionists", element: <Reciptionists /> },
