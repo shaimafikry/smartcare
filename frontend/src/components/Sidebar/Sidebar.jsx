@@ -27,7 +27,6 @@ const Sidebar = () => {
           <nav className="sidebar-nav">
             <a className="sidebar-link" href="./Home/Home">Home</a>
             <a className="sidebar-link" href="./Profile/Profile">Profile</a>
-            <a className="sidebar-link" href="./All Patients/All Patients">Department</a>
             <a className="sidebar-link" href="./Settings/Settings">Settings</a>
             <a className="sidebar-link" href="./Sign Out/Sign Out">Sign Out</a>
           </nav>
