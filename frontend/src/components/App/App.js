@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import './App.css';
-import Layout from '../Layout/Layout'; // استيراد الـ Layout الذي يحتوي على الهيدر والسايدبار
+import Layout from '../Layout/Layout'; 
 import Login from '../Login/Login';
 import Reciptionists from '../Reciptionists/Reciptionists';
 import Home from '../Home/Home';
