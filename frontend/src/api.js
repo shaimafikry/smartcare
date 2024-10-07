@@ -1,4 +1,4 @@
-const API_URL = 'https://localhost:5000.com';
+const API_URL = 'https://localhost:5000';
 
 // GET request
 export const fetchData = async (endpoint) => {
