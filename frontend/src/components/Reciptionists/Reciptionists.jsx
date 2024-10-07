@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Reciptionists.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { postData } from '../../api';
 
 function Reception({ receptionist, message }) {
   const [formData, setFormData] = useState({
@@ -15,6 +16,9 @@ function Reception({ receptionist, message }) {
     admissionDate: new Date(),
   });
 
+  const [apiError, setApiError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -24,18 +28,26 @@ function Reception({ receptionist, message }) {
     setFormData({ ...formData, admissionDate: date });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data Submitted:', formData);
+
+    try {
+      /*called postData  from api.js to send data to backend*/
+      const response = await postData('receptionists', formData);  
+      /* backend endpoint*/
+      setSuccessMessage('Patient registered successfully!');
+      console.log('Form Data Submitted:', response);
+    } catch (error) {
+      setApiError('Failed to register patient. Please try again.');
+      console.error('Error:', error);
+    }
   };
 
   return (
     <div className="container content">
       <div>
-           {/* form header */}
         <h4>Register New Patient</h4>
       </div>
-            {/* form raws */}
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <div className="form-row">
@@ -54,12 +66,11 @@ function Reception({ receptionist, message }) {
             <div className="form-group">
               <label htmlFor="patientgender">Gender</label>
               <select
-                id="patientGender "
+                id="patientGender"
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
               >
-                      {/* Placeholder option */}
                 <option value="" disabled>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -151,6 +162,9 @@ function Reception({ receptionist, message }) {
           <button type="submit" className="submit-btn">
             Submit
           </button>
+
+          {apiError && <p className="error-message">{apiError}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
         </form>
       </div>
     </div>
