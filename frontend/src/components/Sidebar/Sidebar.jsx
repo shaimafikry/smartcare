@@ -12,13 +12,12 @@ const Sidebar = () => {
     setIsOpen(false);
   };
 
-  // اغلق السايد بار عند الضغط في أي مكان في الصفحة
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       const sidebar = document.querySelector('.sidebar-container');
       const hamburgerMenu = document.querySelector('.hamburger-menu');
 
-      // تحقق مما إذا كان الضغط خارج السايد بار وزر الهمبورجر
       if (isOpen && !sidebar.contains(event.target) && !hamburgerMenu.contains(event.target)) {
         closeSidebar();
       }
@@ -32,7 +31,6 @@ const Sidebar = () => {
 
   return (
     <div>
-      {/* زر الهمبورجر */}
       <div className="hamburger-menu" onClick={toggleSidebar}>
         <div className="hamburger-icon">
           <div></div>
