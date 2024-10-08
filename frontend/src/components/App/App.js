@@ -10,6 +10,7 @@ import Settings from '../Settings/Settings';
 import SignOut from '../SignOut/SignOut';
 import Manegers from '../Manegers/Manegers';
 import Doctors from '../Doctors/Doctors';
+import Nurses from '../Nurses/Nurses';
 
 
 const router = createBrowserRouter([
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
     {path: '/', element:<Layout />, children:[
 
       { path: "home", element: <Home /> },
-      { path: "doctors ", element: <Doctors /> },
+      { path: "doctors", element: <Doctors /> },
+      { path: "nurses", element: <Nurses /> },
       { path: "profile", element: <Profile /> },
       { path: "manegers", element: <Manegers /> },
       { path: "settings", element: <Settings /> },
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Navigate to="/Doctors" />,
+    element: <Navigate to="/login" />,
   },
 ]);
 
