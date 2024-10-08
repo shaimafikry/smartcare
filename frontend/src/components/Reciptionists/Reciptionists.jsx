@@ -32,7 +32,7 @@ function Reception({ receptionist, message }) {
     e.preventDefault();
 
     try {
-      /*called postData  from api.js to send data to backend*/
+      /*called postData from api.js to send data to backend*/
       const response = await postData('receptionists', formData);  
       /* backend endpoint*/
       setSuccessMessage('Patient registered successfully!');
