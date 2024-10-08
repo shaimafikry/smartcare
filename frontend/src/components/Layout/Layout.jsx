@@ -8,7 +8,7 @@ const Layout = () => {
     <div className="app">
       <Header /> {/*import header */}
       <div className="layout-container">
-        <Sidebar /> {/* import sidebar*/}
+        <Sidebar /> {/* import sidebar */}
         <div className="main-content">
           <Outlet /> {/*other content */}
         </div>
