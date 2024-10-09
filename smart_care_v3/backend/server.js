@@ -14,6 +14,7 @@ const managerRoute = require('./routes/managerRoute');
 const doctorRoute = require('./routes/doctorRoute');
 const nurseRoute = require('./routes/nurseRoute');
 const receptionRoute = require('./routes/receptionRoute');
+const signoutRoute = require('./routes/signoutRoute');
 
 const app = express();
 
@@ -30,8 +31,10 @@ app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 app.use('/', signinRoute);
 app.use('/', receptionRoute);
 // app.use('/', managerRoute);
-// app.use('/', doctorRoute);
+app.use('/', doctorRoute);
 // app.use('/', nurseRoute);
+
+app.use('/', signoutRoute);
 
 
 app.listen(PORT, () => {

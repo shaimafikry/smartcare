@@ -60,15 +60,8 @@ async function validatePass(password, hashedPassword) {
 
 
 
-async function showUser(req, res) {
-	// Assuming req.user is populated by the authToken middleware
-	res.status(200).json({
-			message: 'Welcome to the reception dashboard',
-			user: req.user
-	});
-};
 
-module.exports = { addUser, findUser, updateUser, deleteUser, showUser, validatePass };
+module.exports = { addUser, findUser, updateUser, deleteUser, validatePass };
 
 
 
