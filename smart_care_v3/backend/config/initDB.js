@@ -1,8 +1,8 @@
 // backend/config/initDB.js
 const sequelize = require('./db'); // Sequelize instance
-const { Users, UserPhone } = require('./users');
-const { Patients, PatientPhone, PatientDetails } = require('./patients');
-const { DoctorPatient, NursePatient } = require('./relationships');
+const { Users } = require('./users');
+const { Patients, PatientDetails } = require('./patients');
+//  const { DoctorPatient, NursePatient } = require('./relationships');
 
 // Sync models with database (creates tables if they don't exist)
 sequelize.sync({ force: false }).then(() => {
@@ -13,10 +13,6 @@ sequelize.sync({ force: false }).then(() => {
 
 module.exports = {
     Users,
-    UserPhone,
     Patients,
-    PatientPhone,
     PatientDetails,
-    DoctorPatient,
-    NursePatient
 };
