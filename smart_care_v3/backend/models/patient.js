@@ -1,6 +1,6 @@
 
 // patient module
-const { Patient, PatientPhone, PatientDetails } = require('../config/patients'); // تأكد من تحديث مسار النموذج
+const { Patient, PatientDetails } = require('../config/patients'); // تأكد من تحديث مسار النموذج
 const { Op } = require('sequelize'); // Make sure to import Op for Sequelize operators
 
 
@@ -22,7 +22,7 @@ async function editPatient(id, updatedData) {
             throw new Error('Patient not found');
         }
 
-        await PatientDetails.update(updatedData, { where: { patient_id: id } });
+        await Patient.update(updatedData, { where: { id: id } });
         return true; // إرجاع true عند النجاح
     } catch (error) {
         throw new Error(`Error updating patient: ${error.message}`);
