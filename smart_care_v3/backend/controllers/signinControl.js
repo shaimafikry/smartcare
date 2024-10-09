@@ -19,11 +19,22 @@ async function signin (req, res) {
 	// check valid password
 	const isValidPassword =  await validatePass(password, user.password);
 	if (!isValidPassword) {
-		return res.status(400).json({message: 'Invalid input: Incorrect password'});
+		return res.setHeader('content-Type', 'application/json').status(400).json({message: 'Invalid input: Incorrect password'});
 
 	}
-	// create  the token 
-	const token = jwt.sign({id: user.id, role: user.role}, secret_key);
+	// create  the token m
+	// const token = jwt.sign({id: user.id, role: user.role}, secret_key);
+
+	// create token manually
+	const payload = {
+		'user_id': user.id,
+		'role': user.role,
+		'name': user.name.split(' ')[0]
+		// 'exp': datetime.utcnow() + timedelta(hours=24)
+
+	}
+	console.log(payload);
+	token =  jwt.sign(payload, secret_key, { algorithm: 'HS256' });
   
 	//debug
   console.log(token);
@@ -31,7 +42,7 @@ async function signin (req, res) {
 	// send the token through the cookies and make the oken availbe during session only
 	// redirect to the role(user) dashboard
 	// make secure false to test it on postman
-	res.cookie('token', token,  { httpOnly: true, secure: false, sameSite: 'strict'}).json({ message: 'Login successful', redirectUrl: `${user.role}/home` });
+	res.cookie('token', token,  { httpOnly: true, secure: false, sameSite: 'strict'}).json({ message: 'Login successful',token, redirectUrl: `/${user.role}/dashboard` });
 };
 
 module.exports = {signin};

@@ -2,8 +2,8 @@
 // import 
 // import the files
 const express = require('express');
-const {addNewPatient, editPatient} = require('../controllers/receptionControl');
-const { editUser, showUser } = require('../models/user')
+const {addNewPatient, editPatient} = require('../controllers/doctorControl');
+const { showUser } = require('../controllers/userControl')
 
 const authToken = require('../middleware/authToken');
 
@@ -13,8 +13,10 @@ const router = express.Router();
 // router.get('/reception/profile');
 // router.put('/reception/profile', editUser);
 
-router.get('/reception/home', authToken, showUser);
+router.get('/receptionist/dashboard', authToken, showUser);
+router.get('/receptionist/profile', authToken, showUser);
+
 // router.put('/reception/dashboard', editPatient)
-router.post('/reception/home', addNewPatient);
+router.post('/receptionist/dashboard', addNewPatient);
 
 module.exports = router;
