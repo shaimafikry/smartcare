@@ -13,15 +13,19 @@ const Patient = sequelize.define('Patients', {
         type: DataTypes.STRING,
         allowNull: false
     },
-		gender: {
-			type: DataTypes.STRING,
-			allowNull: false
-	},
-    age: {
-        type: DataTypes.INTEGER,
+    gender: {
+        type: DataTypes.STRING,
         allowNull: false
     },
+    age: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
     national_id: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phone_number: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -29,34 +33,37 @@ const Patient = sequelize.define('Patients', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    entry_date: {
-        type: DataTypes.DATE,
-        allowNull: false
-    }
-}, {
-    timestamps: false
-});
-
-const PatientPhone = sequelize.define('PatientPhone', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    phone_number: {
+    state: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    patient_id: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Patient,
-            key: 'id'
-        }
     }
 }, {
-    timestamps: false
+    timestamps: true
 });
+
+
+
+// const PatientPhone = sequelize.define('PatientPhone', {
+//     id: {
+//         type: DataTypes.INTEGER,
+//         primaryKey: true,
+//         autoIncrement: true
+//     },
+//     phone_number: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     },
+//     patient_id: {
+//         type: DataTypes.INTEGER,
+//         references: {
+//             model: Patient,
+//             key: 'id'
+//         }
+//     }
+// }, {
+//     timestamps: false
+// });
+
 
 // Patient Part 2
 const PatientDetails = sequelize.define('PatientDetails', {
@@ -65,51 +72,70 @@ const PatientDetails = sequelize.define('PatientDetails', {
         primaryKey: true,
         autoIncrement: true
     },
-    blood_pressure: {
-        type: DataTypes.STRING
+    complain: {
+        type: DataTypes.STRING(256),
+        allowNull: true
     },
+    treatment: {
+        type: DataTypes.STRING(256),
+        allowNull: true
+    },
+    history: {
+        type: DataTypes.STRING(256),
+        allowNull: true
+    },
+    diagnosis: {
+        type: DataTypes.STRING(256),
+        allowNull: true
+    },
+    heart_rate: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+      // Body temperature
+    temp: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+    },
+     // Random blood sugar (RBS)
     sugar: {
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
-    recovery_percentage: {
-        type: DataTypes.FLOAT
+     // Oxygen saturation level
+    oxygen_sat: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
-    medicine: {
-        type: DataTypes.STRING
+    blood_pressure: {
+        type: DataTypes.STRING(128),
+        allowNull: true
     },
-    dose: {
-        type: DataTypes.STRING
+    // Respiratory rate
+    res_rate: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
-    time: {
-        type: DataTypes.STRING
+    discharge_notes: {
+        type: DataTypes.STRING(256),
+        allowNull: true
     },
-    is_taken: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-    },
-    recovery_rate: {
-        type: DataTypes.FLOAT
-    },
+    // Foreign key to Patient model
     patient_id: {
         type: DataTypes.INTEGER,
         references: {
-            model: Patient,
+            model: Patient,  // Reference to the Patient model
             key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
     }
 }, {
-    timestamps: false
+    timestamps: true
 });
 
-// Association
-Patient.hasMany(PatientPhone, { foreignKey: 'patient_id' });
-PatientPhone.belongsTo(Patient, { foreignKey: 'patient_id' });
 
 Patient.hasOne(PatientDetails, { foreignKey: 'patient_id' });
 PatientDetails.belongsTo(Patient, { foreignKey: 'patient_id' });
 
-module.exports = { Patient, PatientPhone, PatientDetails };
+module.exports = { Patient, PatientDetails };
