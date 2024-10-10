@@ -30,6 +30,22 @@ async function editPatient(id, updatedData) {
 }
 
 
+// إخراج مريض (تعديل الحالة إلى 'out')
+async function dischargePatient(id) {
+    try {
+        const patient = await Patient.findByPk(id); // البحث عن المريض باستخدام ID
+        if (!patient) {
+            throw new Error('Patient not found');
+        }
+
+        // تحديث حالة المريض إلى 'out'
+        await Patient.update({ status: 'out' }, { where: { id: id } });
+        return true; // إرجاع true عند النجاح
+    } catch (error) {
+        throw new Error(`Error discharging patient: ${error.message}`);
+    }
+}
+
 // البحث عن مريض
 async function findPatient(searchInput) {
     try {
@@ -88,7 +104,7 @@ async function receptionistFindPatient(searchInput) {
 }
 
 
-module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient };
+module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient };
 
 
 
