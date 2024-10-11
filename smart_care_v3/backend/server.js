@@ -10,19 +10,19 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const signinRoute = require('./routes/signinRoute');
-const managerRoute = require('./routes/managerRoute');
+// const managerRoute = require('./routes/managerRoute');
 const doctorRoute = require('./routes/doctorRoute');
 const nurseRoute = require('./routes/nurseRoute');
 const receptionRoute = require('./routes/receptionRoute');
 const signoutRoute = require('./routes/signoutRoute');
-
+const sessionMiddleware = require('./middleware/session');
 const app = express();
 
 // Middleware
 // json , cookieparser
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(sessionMiddleware);
 // connec to front through api
 app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 

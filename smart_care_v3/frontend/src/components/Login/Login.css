@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #c2c0c0;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 400px;
+  max-width: 800%;
+}
+.login-logo {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: -30px;
+}
+
+.login-logo img {
+  width: 250px;
+  height: auto;
+}
+.login-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800%;
+  width: 100%;
+  text-align: center;
+}
+
+.login-header {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 50px;
+  text-align: center;
+  margin-top: -80px;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+  padding-right: 40px;
+  margin-bottom: 10px;
+}
+
+.input-field:focus {
+  box-shadow: #2575fc;
+  outline: none;
+  box-shadow: 0 0 5px 1px rgba(0, 123, 255, 0.8)
+}
+
+.password-container {
+  position: relative;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  margin-top: 30px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #9f7373;
+  font-size: 14px;
+}
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  position: absolute;
+  bottom: -70px;
+  left: 22px;
+  width: 100%;
+  text-align: left;
+}
+
+.login-button {
+  width:auto;
+  background-color: #1f3d95 !important;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: center;
+  justify-content: center;
+  margin-right: 0%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.login-button:hover {
+  background-color: #154198e2 !important;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(3, 6, 12, 0.2);
+}
+
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  margin-top: -15px;
+}
+
+.forgot-password {
+  display: block;
+  margin-top: 20px;
+  color: #2575fc;
+  text-decoration: none;
+  
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}

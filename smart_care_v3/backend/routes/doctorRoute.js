@@ -6,14 +6,14 @@ const {addNewPatient, editPatient, showPatient, allPatient} = require('../contro
 const { showUser } = require('../controllers/userControl')
 
 const authToken = require('../middleware/authToken');
-
+const verifyRole = require('../middleware/verifyRole');
 const router = express.Router();
 
 // edit doctor profile
 // router.get('/docotor/profile');
 // router.put('/doctor/profile', editUser);
 
-router.get('/doctor/dashboard', authToken, showUser, allPatient);
+router.get('/doctor/dashboard', authToken, verifyRole(['doctor']), showUser, allPatient);
 router.get('/doctor/profile', authToken, showUser);
 
 // router.put('/reception/dashboard', editPatient)

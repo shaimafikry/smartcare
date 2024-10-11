@@ -29,7 +29,8 @@ async function signin (req, res) {
 	const payload = {
 		'user_id': user.id,
 		'role': user.role,
-		'name': user.name.split(' ')[0]
+		'name': user.name.split(' ')[0],
+		'department': user.department
 		// 'exp': datetime.utcnow() + timedelta(hours=24)
 
 	}
