@@ -1,6 +1,6 @@
 
 // patient module
-const { Patient, PatientPhone, PatientDetails } = require('../config/patients'); // تأكد من تحديث مسار النموذج
+const { Patient, PatientDetails } = require('../config/patients'); // تأكد من تحديث مسار النموذج
 const { Op } = require('sequelize'); // Make sure to import Op for Sequelize operators
 
 
@@ -22,13 +22,29 @@ async function editPatient(id, updatedData) {
             throw new Error('Patient not found');
         }
 
-        await PatientDetails.update(updatedData, { where: { patient_id: id } });
+        await Patient.update(updatedData, { where: { id: id } });
         return true; // إرجاع true عند النجاح
     } catch (error) {
         throw new Error(`Error updating patient: ${error.message}`);
     }
 }
 
+
+// إخراج مريض (تعديل الحالة إلى 'out')
+async function dischargePatient(id) {
+    try {
+        const patient = await Patient.findByPk(id); // البحث عن المريض باستخدام ID
+        if (!patient) {
+            throw new Error('Patient not found');
+        }
+
+        // تحديث حالة المريض إلى 'out'
+        await Patient.update({ status: 'out' }, { where: { id: id } });
+        return true; // إرجاع true عند النجاح
+    } catch (error) {
+        throw new Error(`Error discharging patient: ${error.message}`);
+    }
+}
 
 // البحث عن مريض
 async function findPatient(searchInput) {
@@ -88,7 +104,7 @@ async function receptionistFindPatient(searchInput) {
 }
 
 
-module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient };
+module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient };
 
 
 

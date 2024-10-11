@@ -1,6 +1,7 @@
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.sequelize.query(`
+const sequelize = require('./db'); // assuming the db config file for Sequelize instance
+
+
+ const departmentTrigger = sequelize.query(`
       CREATE OR REPLACE FUNCTION update_state_on_department_change()
       RETURNS TRIGGER AS $$
       BEGIN
@@ -17,7 +18,7 @@ module.exports = {
       EXECUTE FUNCTION update_state_on_department_change();
     `);
 
-    await queryInterface.sequelize.query(`
+    const updateTrigger = sequelize.query(`
       CREATE OR REPLACE FUNCTION update_patient_state_on_patientdetails_change()
       RETURNS TRIGGER AS $$
       BEGIN
@@ -33,14 +34,14 @@ module.exports = {
       FOR EACH ROW
       EXECUTE FUNCTION update_patient_state_on_patientdetails_change();
     `);
-  },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.sequelize.query(`
-      DROP TRIGGER IF EXISTS update_state_on_department_change ON "Patients";
-      DROP FUNCTION IF EXISTS update_state_on_department_change;
 
-      DROP TRIGGER IF EXISTS update_patient_state_on_patientdetails_change ON "PatientDetails";
-      DROP FUNCTION IF EXISTS update_patient_state_on_patientdetails_change;
-    `);
-  }
-};
+    module.exports = {departmentTrigger, updateTrigger}
+  // down: async (queryInterface, Sequelize) => {
+  //   await queryInterface.sequelize.query(`
+  //     DROP TRIGGER IF EXISTS update_state_on_department_change ON "Patients";
+  //     DROP FUNCTION IF EXISTS update_state_on_department_change;
+
+  //     DROP TRIGGER IF EXISTS update_patient_state_on_patientdetails_change ON "PatientDetails";
+  //     DROP FUNCTION IF EXISTS update_patient_state_on_patientdetails_change;
+  //   `);
+  // }
