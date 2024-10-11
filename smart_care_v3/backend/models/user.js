@@ -8,6 +8,7 @@ const { User, UserPhone } = require('../config/users');
 // check user 
 async function findUser(email) {
     const user = await User.findOne({ where: { email } });
+		console.log(user.password);
     return user ? user.get({ plain: true }) : null; // إرجاع بيانات المستخدم بشكل بسيط
 }
 

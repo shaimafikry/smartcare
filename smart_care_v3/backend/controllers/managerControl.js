@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
-const { findUser, validatePass } = require('../models/user');
+const { findUser, validatePass , addUser} = require('../models/user');
 require('dotenv').config('path: ../config')
 
 
-async function register(req, res) {
+async function addNewUser(req, res) {
   // when user click sudmit i get data in the req body
   const newUser = req.body;
 	// check if i have this user
@@ -18,4 +18,4 @@ async function register(req, res) {
 };
 
 
-module.exports = {register};
+module.exports = {addNewUser};

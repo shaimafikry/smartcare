@@ -22,7 +22,7 @@ module.exports = {
       RETURNS TRIGGER AS $$
       BEGIN
         UPDATE "Patients"
-        SET state = 'persist'
+        SET state = 'resident'
         WHERE id = NEW.patient_id;
         RETURN NEW;
       END;

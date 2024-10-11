@@ -10,6 +10,7 @@ const secret_key = process.env.SECRET_KEY;
 const authToken = ((req, res, next) => {
 	// 1- get the token from the cookies
 	const token = req.cookies.token;
+	console.log(token);
 	// check if it exist
 	if (!token) {
 		return res.status(401).send('Access Denied');
