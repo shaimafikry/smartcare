@@ -1,4 +1,6 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import './App.css';
 import Layout from '../Layout/Layout'; 
@@ -11,6 +13,8 @@ import SignOut from '../SignOut/SignOut';
 import Manegers from '../Manegers/Manegers';
 import Doctors from '../Doctors/Doctors';
 import Nurses from '../Nurses/Nurses';
+import EditProfile from '../EditProfile/EditProfile';
+
 
 
 const router = createBrowserRouter([
@@ -29,6 +33,7 @@ const router = createBrowserRouter([
       { path: "settings", element: <Settings /> },
       { path: "sign-out", element: <SignOut /> },
       { path: "reciptionists", element: <Reciptionists /> },
+      { path: "editProfile", element: <EditProfile /> },
     ],
   },
   {
