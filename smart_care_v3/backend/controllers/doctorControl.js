@@ -1,6 +1,6 @@
 // dealing with patient information taken from receptionist
 // import patient data
-const {addPatient, findPatient, editPatient, showAllPatient} = require('../models/patientDetail');
+const { addPatientMedical, editPatientMedical, getPatientsInDepartment } = require('../models/patientDetail');
 
 // add patient function
 async function addNewPatient( req, res) {
@@ -13,7 +13,7 @@ async function addNewPatient( req, res) {
        return res.json({message: 'Pateint exist, new visit?'});
 		}
 	
-		await addPatient(newPatient);
+		await addPatientMedical(newPatient);
 		return res.json({message: 'Pateint added successfully'});
 };
 
@@ -28,10 +28,10 @@ async function editExistPatient(req, res){
        return res.json({message: 'Pateint doesnt exost, new add?'});
 		}
     //edit the pt if exist
-		
+		await editPatientMedical(req.body);
 };
 
-// show one patient
+// show one patient profile
 async function showPatient(req, res){
 	const newPatient = req.body;
 	// if patient exist
@@ -50,7 +50,7 @@ async function showPatient(req, res){
 
 // show all patients
 async function allPatient(req, res){
-	const all = allPatient();
+	const all = getPatientsInDepartment();
    return res.json(all);
 };
 module.exports = {addNewPatient, editExistPatient, showPatient, allPatient};

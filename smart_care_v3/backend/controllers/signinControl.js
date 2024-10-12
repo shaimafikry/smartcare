@@ -43,7 +43,7 @@ async function signin (req, res) {
 	// send the token through the cookies and make the oken availbe during session only
 	// redirect to the role(user) dashboard
 	// make secure false to test it on postman
-	res.cookie('token', token,  { httpOnly: true, secure: false, sameSite: 'strict'}).json({ message: 'Login successful',token, redirectUrl: `/${user.role}/dashboard` });
+	res.cookie('token', token,  { httpOnly: true, secure: false, sameSite: 'strict'}).json({ message: 'Login successful',token , redirectUrl: `/${user.role}/dashboard` });
 };
 
 module.exports = {signin};
