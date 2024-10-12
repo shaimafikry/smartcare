@@ -1,8 +1,9 @@
 // handle signin and signup routes
 // import 
 // import the files
+
 const express = require('express');
-const {addNewPatient, editPatient, showPatient, allPatient} = require('../controllers/doctorControl');
+const {addNewPatient, editExistPatient, showPatient, allPatient} = require('../controllers/doctorControl');
 const { showUser } = require('../controllers/userControl')
 
 const authToken = require('../middleware/authToken');
@@ -13,11 +14,15 @@ const router = express.Router();
 // router.get('/docotor/profile');
 // router.put('/doctor/profile', editUser);
 
-router.get('/doctor/dashboard', authToken, verifyRole(['doctor']), showUser, allPatient);
-router.get('/doctor/profile', authToken, showUser);
+router.use(authToken);
+
+router.get('/doctor/dashboard', showUser);
+router.get('/doctor/dashboard', allPatient);
+
+router.get('/doctor/profile', showUser);
 
 // router.put('/reception/dashboard', editPatient)
-router.post('/doctor/dashboard', addNewPatient);
+router.post('/doctor/dashboard',authToken, addNewPatient);
 // router.get('/doctor/dashboard', showPatient);
 
 

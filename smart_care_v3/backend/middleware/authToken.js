@@ -1,4 +1,5 @@
 // this function check the validty of token sent in request
+const cookieParser = require('cookie-parser');
 
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: './config/.env' });

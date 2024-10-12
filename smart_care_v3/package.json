@@ -13,9 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.0.1"
-  }
-}
-{
+  },
   "dependencies": {
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
