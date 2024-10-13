@@ -46,11 +46,11 @@ const Doctors = () => {
               patients.map((patient, index) => (
                 <tr key={index}>
                   <td>{patient.name}</td>
-                  <td>{patient.nationalId}</td>
+                  <td>{patient.national_id}</td>
                   <td>{patient.age}</td>
-                  <td>{patient.diagnosis}</td>
-                  <td>{patient.status}</td>
-                  <td>{patient.entryDate}</td>
+                  <td>{patient.PatientDetail.diagnosis}</td>
+                  <td>{patient.state}</td>
+                  <td>{patient.createdAt}</td>
                 </tr>
               ))
             ) : (

@@ -7,10 +7,15 @@ const API_URL = 'http://localhost:5000';
 
 // GET request
 export const fetchData = async (endpoint) => {
-  const response = await fetch(`${API_URL}/${endpoint}`);
+	
+  const response = await fetch(`${API_URL}/${endpoint}`,
+		{
+			method: 'GET',
+			credentials: 'include',  // Include credentials (cookies)
+		});
 	console.log(response);
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw new Error('Network response was not ok during fetch');
   }
   return await response.json();
 };
@@ -26,6 +31,7 @@ export const postData = async (endpoint, data) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
+			credentials: 'include',
 			body: JSON.stringify(data),
 		});
 	  //  console.log("this is th response",response.json);
