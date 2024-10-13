@@ -2,7 +2,7 @@
 // import 
 // import the files
 const express = require('express');
-const {addNewPatient, editPatient} = require('../controllers/doctorControl');
+const { addNewPatient, editPatient } = require('../controllers/receptionControl');
 const { showUser } = require('../controllers/userControl')
 
 const authToken = require('../middleware/authToken');
@@ -13,7 +13,7 @@ const router = express.Router();
 // router.get('/reception/profile');
 // router.put('/reception/profile', editUser);
 
-router.get('/receptionist/dashboard', authToken, showUser);
+router.get('/receptionist/dashboard', authToken);
 router.get('/receptionist/profile', authToken, showUser);
 
 // router.put('/reception/dashboard', editPatient)

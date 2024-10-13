@@ -36,13 +36,14 @@ async function getPatientsInDepartment(departmentName) {
         const patients = await Patient.findAll({
             where: {
                 department: departmentName, // Replace with actual department
-                status: ['new', 'persist'] // Status should be either 'new' or 'persist'
+                state: ['new', 'resident'] // Status should be either 'new' or 'persist'
             },
+						include: [PatientDetails], // تضمين جدول PatientDetails لجلب البيانات المرتبطة
             order: [
                 ['createdAt', 'DESC'] // Sort by createdAt in descending order
             ]
         });
-        
+        console.log(patients);
         // Check if patients array is empty
         if (patients.length === 0) {
             return null; // يمكن إرجاع null إذا لم يوجد مرضى
