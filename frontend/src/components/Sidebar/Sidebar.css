@@ -3,15 +3,11 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  background: none;
-  border:#302f2f;
   cursor: pointer;
   z-index: 1100;
   display: flex;
   flex-direction: column;
   align-items: center;
-  outline: none;
-  
 }
 
 /* Hamburger Icon */
@@ -39,8 +35,6 @@
 
 .hamburger-menu:hover .menu-text {
   color: rgb(220, 219, 219);
-  outline: none;
-  text-decoration: none ;
 }
 
 /* Sidebar Container */
@@ -72,59 +66,55 @@
 
 /* Sidebar Header */
 .sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 30px;
 }
 
-/* Sidebar Logo */
-.sidebar-header img {
-  width: 250px;
-  height: auto;
+/* Custom Search Input */
+.custom-search-input {
+  border: 1px solid #ccc;
 }
 
-/* Search Bar */
-.search-bar {
-  margin-bottom: 40px;
-  margin-top: -50px;
-}
-
-.search-bar input {
-  width: 100%;
-  height: 39px;
-  padding: 10px;
+/* Results Frame */
+.results-frame {
+  border: 1px solid #ccc;
   border-radius: 15px;
-  border: none;
-  outline: none;
-  background-color: #e8e7ec;
-  color: #302f2f;
-  box-shadow: 2px 8px 8px rgba(42, 41, 42, 0.1);
-  font-size: 17px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+/* Result Item */
+.result-item {
+  cursor: pointer;
+}
+
+/* Result Item Hover Effect */
+.result-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* No Results */
+.no-results {
+  padding: 10px;
+  color: rgb(6, 6, 6);
 }
 
 /* Sidebar Navigation */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  justify-content: start;
 }
 
 .sidebar-link {
-  display: block;
-  padding: 15px;
   color: white;
-  border-radius: 8px;
   text-decoration: none;
   margin-bottom: 10px;
-  transition: box-shadow 0.3s ease;
-
 }
 
 /* Hover effect for sidebar links */
 .sidebar-link:hover {
-  color: rgb(230, 226, 226);
+  color: rgb(228, 227, 227);
   text-decoration: none;
-  border-radius: 15px; 
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #616060;
 }

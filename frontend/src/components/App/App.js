@@ -13,6 +13,7 @@ import SignOut from '../SignOut/SignOut';
 import Manegers from '../Manegers/Manegers';
 import Doctors from '../Doctors/Doctors';
 import Nurses from '../Nurses/Nurses';
+import Edituserprofile from '../Edit-user-profile/Edit-user-profile';
 import EditProfile from '../EditProfile/EditProfile';
 
 
@@ -34,7 +35,9 @@ const router = createBrowserRouter([
       { path: "sign-out", element: <SignOut /> },
       { path: "reciptionists", element: <Reciptionists /> },
       { path: "editProfile", element: <EditProfile /> },
+      { path: "edituserprofile", element: <Edituserprofile /> },
     ],
+
   },
   {
     path: "*",
