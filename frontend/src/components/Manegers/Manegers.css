@@ -1,0 +1,235 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #424444;
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(29, 29, 29, 0.1);
+    padding: 20px;
+    margin-top: 40px;
+}
+
+h1 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.custom-btn-manag {
+    background-color: rgba(163, 49, 49, 0.6);
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.4em;
+    border: none;
+    border-radius: 25px;
+    width: 100%;
+    text-align: left;
+    transition: 0.3s, box-shadow 0.3s;
+}
+
+.custom-btn-manag:hover {
+    background-color: rgba(205, 68, 70, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.custom-btn-new { 
+    background-color: rgba(48, 77, 149, 0.6);
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 15px;
+    width: 90%;
+    text-align: left;
+    transition: 0.3s, box-shadow 0.3s;
+}
+
+.custom-btn-new:hover {
+    background-color: rgba(88, 111, 226, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.description {
+    display: block;
+    font-size: .8em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 5px;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+.button-group .btn {
+    margin-bottom: 20px;
+}
+
+button.close{
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin-right: 0px;
+    position: absolute;
+    top: 20px;
+    right: -69px;
+}
+button.close:hover {
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #e7e5e5;
+}
+
+.form-control-user {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    height: 60px;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table th {
+    background-color: #5c97d6;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+}
+
+.modal-header {
+    background-color:#2f4dd4a8;
+
+    color: white;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #06579d;
+    color: white;
+}
+
+.username {
+    color: white;
+    font-weight: bold;
+    margin-right: 20px;
+}
+.btn-maneger-submit{
+    padding: 20px;
+    color: #f9f9fc;
+    background-color: #1559c0;
+}
+.btn-maneger-submit:hover{
+    padding: 20px;
+    background-color:#1559c0;
+    color: #f9f9fc;
+}
+.modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.container.content {
+    padding: 20px;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog {
+    max-width: 600px;
+    margin: 1.75rem auto;
+}
+
+.modal-content {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: none;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.close {
+    color: #fff;
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 2rem;
+    background-color: #fff;
+}
+
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.text-danger {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.text-success {
+    margin-top: 1rem;
+    font-weight: bold;
+}
