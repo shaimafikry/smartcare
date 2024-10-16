@@ -18,14 +18,14 @@ const Patient = sequelize.define('Patients', {
         allowNull: false
     },
     age: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
     national_id: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    phone_number: {
+    phone: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -33,36 +33,15 @@ const Patient = sequelize.define('Patients', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    state: {
+    status: { // i make it default new , trgger to residnet if updated
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+				defaultValue: 'new', // Set default value to 'new'
     }
 }, {
     timestamps: true
 });
 
-
-
-// const PatientPhone = sequelize.define('PatientPhone', {
-//     id: {
-//         type: DataTypes.INTEGER,
-//         primaryKey: true,
-//         autoIncrement: true
-//     },
-//     phone_number: {
-//         type: DataTypes.STRING,
-//         allowNull: false
-//     },
-//     patient_id: {
-//         type: DataTypes.INTEGER,
-//         references: {
-//             model: Patient,
-//             key: 'id'
-//         }
-//     }
-// }, {
-//     timestamps: false
-// });
 
 
 // Patient Part 2
@@ -89,22 +68,22 @@ const PatientDetails = sequelize.define('PatientDetails', {
         allowNull: true
     },
     heart_rate: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
       // Body temperature
     temp: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.STRING,
         allowNull: true
     },
      // Random blood sugar (RBS)
     sugar: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
      // Oxygen saturation level
     oxygen_sat: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
     blood_pressure: {
@@ -113,7 +92,7 @@ const PatientDetails = sequelize.define('PatientDetails', {
     },
     // Respiratory rate
     res_rate: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
     discharge_notes: {

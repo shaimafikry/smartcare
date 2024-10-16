@@ -4,17 +4,18 @@ const { Patient, PatientDetails } = require('../config/patients'); // تأكد �
 const { Op } = require('sequelize'); // Make sure to import Op for Sequelize operators
 
 
-// إضافة مريض
+// Mark:receptionist_add
 async function addPatient(patient) {
     try {
-        const newPatient = await Patient.create(patient); // إضافة المريض إلى قاعدة البيانات
+			console.log("Patient data before creation:", patient); // Log the patient data
+			const newPatient = await Patient.create(patient); // إضافة المريض إلى قاعدة البيانات
         return newPatient.get({ plain: true }); // إرجاع بيانات المريض الجديد
     } catch (error) {
         throw new Error(`Error adding patient: ${error.message}`); // التعامل مع الأخطاء
     }
 }
 
-// تعديل مريض
+// Mark: receptionist edit
 async function editPatient(id, updatedData) {
     try {
         const patient = await Patient.findByPk(id); // البحث عن المريض باستخدام ID
@@ -32,43 +33,34 @@ async function editPatient(id, updatedData) {
 
 // إخراج مريض (تعديل الحالة إلى 'out')
 async function dischargePatient(id) {
-    try {
-        const patient = await Patient.findByPk(id); // البحث عن المريض باستخدام ID
-        if (!patient) {
-            throw new Error('Patient not found');
-        }
-
         // تحديث حالة المريض إلى 'out'
         await Patient.update({ status: 'out' }, { where: { id: id } });
         return true; // إرجاع true عند النجاح
-    } catch (error) {
-        throw new Error(`Error discharging patient: ${error.message}`);
-    }
 }
 
-// البحث عن مريض
+
 async function findPatient(searchInput) {
     try {
-        // Constructing the where clause to search by either national_id or name
-        const whereClause = {
-            [Op.or]: [
-                {
-                    national_id: searchInput // Search by national_id
-                },
-                {
-                    name: {
-                        [Op.iLike]: `%${searchInput}%` // Search by name with case-insensitive matching
-                    }
-                }
-            ]
-        };
+				 // Determine if the searchInput is a valid integer (for id) or string (for name)
+				 const isNumber = !isNaN(searchInput);
 
-        const patients = await Patient.findAll({
+				 // Construct the where clause based on whether searchInput is a number or a string
+				 const whereClause = isNumber
+						 ? { id: parseInt(searchInput, 10) } // Search by ID if it's a number
+						 : {
+									 // Otherwise, search by name using case-insensitive matching
+									 name: {
+											 [Op.iLike]: `%${searchInput}%`
+									 }
+							 };
+ 
+
+        const patient = await Patient.findOne({
             where: whereClause,
             include: [PatientDetails], // Include related details
         });
-
-        return patients.map(patient => patient.get({ plain: true })); // Return plain objects of the patients
+        // console.log("patient module",patient);
+        return patient.get({ plain: true }); // Return plain objects of the patients
     } catch (error) {
         throw new Error(`Error finding patients: ${error.message}`);
     }
@@ -76,52 +68,100 @@ async function findPatient(searchInput) {
 
 
 
-// البحث عن مريض
-async function receptionistFindPatient(searchInput) {
+// receptioinst search to add 
+async function receptionistFindOnePatient(national_id) {
     try {
         // Constructing the where clause to search by either national_id or name
-        const whereClause = {
-            [Op.or]: [
-                {
-                    national_id: searchInput // Search by national_id
-                },
-                {
-                    name: {
-                        [Op.iLike]: `%${searchInput}%` // Search by name with case-insensitive matching
-                    }
-                }
-            ]
-        };
-
-        const patients = await Patient.findAll({
-            where: whereClause,
+        const patient = await Patient.findOne({
+            where:{ national_id: national_id},
         });
+				console.log("after in search",patient);
 
-        return patients.map(patient => patient.get({ plain: true })); // Return plain objects of the patients
+				if (!patient) {
+					return null; // Or throw an error
+			}
+        return patient.get({ plain: true }); // Return plain objects of the patients
     } catch (error) {
         throw new Error(`Error finding patients: ${error.message}`);
     }
 }
 
+// receptioinst search
+async function receptionistFindPatient(searchInput) {
+	try {
+			// Constructing the where clause to search by either national_id or name
+			const whereClause = {
+					[Op.or]: [
+							{
+									national_id: searchInput // Search by national_id
+							},
+							{
+									name: {
+											[Op.iLike]: `%${searchInput}%` // Search by name with case-insensitive matching
+									}
+							}
+					]
+			};
 
-module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient };
+			const patients = await Patient.findAll({
+					where: whereClause,
+			});
+
+			return patients.map(patient => patient.get({ plain: true })); // Return plain objects of the patients
+	} catch (error) {
+			throw new Error(`Error finding patients: ${error.message}`);
+	}
+}
+
+//patientDetail Table
+
+async function editPatientMedical(id, updatedData) {
+    try {
+			  const { discharge, ...Data } = updatedData; // Destructure the discharge flag from the body
+
+			  // check if i has psat records
+				const patientMedRecord = await PatientDetails.findOne({ where: { patient_id: id } });
+				if (patientMedRecord) {
+
+					await PatientDetails.update(Data, { where: { patient_id: id } });
+				}
+				 
+        else {
+					await PatientDetails.create({ patient_id: id, ...Data });
+				}
+				if (discharge){
+					await dischargePatient(id);
+				}
+				return true;
+    } catch (error) {
+        throw new Error(`Error updating patient: ${error.message}`);
+    }
+}
+
+async function getPatientsInDepartment(departmentName) {
+    try {
+        const patients = await Patient.findAll({
+            where: {
+                department: departmentName, // Replace with actual department
+                status: ['new', 'resident'] // Status should be either 'new' or 'persist'
+            },
+						include: [PatientDetails], // تضمين جدول PatientDetails لجلب البيانات المرتبطة
+            order: [
+                ['createdAt', 'DESC'] // Sort by createdAt in descending order
+            ]
+        });
+        // console.log(patients);
+        // Check if patients array is empty
+        if (patients.length === 0) {
+            return null; // يمكن إرجاع null إذا لم يوجد مرضى
+        }
+
+        return patients; // Return the array of patients
+    } catch (error) {
+        console.error(`Error fetching patients: ${error.message}`);
+        throw error; // Handle the error
+    }
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// async function addPatient (patient) {};
-// async function editPatient(patient){};
-// async function findPatient(patient){};
-
-// module.exports = {addPatient, editPatient, findPatient};
+module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient, editPatientMedical, getPatientsInDepartment, receptionistFindOnePatient };

@@ -7,8 +7,8 @@ const secret_key = process.env.SECRET_KEY;
 // Middleware to verify JWT token and protect routes based on roles
 const verifyRole = (allowedRoles) => {
   return (req, res, next) => {
-    const token = req.cookies.token;
-
+    const token = req.headers.authorization?.split(' ')[1]; // Get the token from the Authorization header
+    
     // Check if token exists
     if (!token) {
       return res.status(403).json({ message: 'Access denied. No token provided.' });
@@ -18,11 +18,12 @@ const verifyRole = (allowedRoles) => {
       // Verify token
       jwt.verify(token, secret_key, (err, user)=> {
 				if (err) {
-					return res.status(403).send('Invalid Token');	}
 
-					console.log(user);
+					return res.status(403).send('Invalid Token');
+				}
 
-
+			console.log(user.role);
+			// output doctor
       if (!allowedRoles.includes(user.role)) {
         return res.status(403).json({ message: 'Access denied. Insufficient permissions.' });
       }

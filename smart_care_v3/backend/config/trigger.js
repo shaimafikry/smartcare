@@ -6,7 +6,7 @@ const sequelize = require('./db'); // assuming the db config file for Sequelize 
       RETURNS TRIGGER AS $$
       BEGIN
         IF TG_OP = 'INSERT' OR (NEW.department <> OLD.department) THEN
-          NEW.state := 'new';
+          NEW.status := 'new';
         END IF;
         RETURN NEW;
       END;
@@ -23,7 +23,7 @@ const sequelize = require('./db'); // assuming the db config file for Sequelize 
       RETURNS TRIGGER AS $$
       BEGIN
         UPDATE "Patients"
-        SET state = 'resident'
+        SET status = 'resident'
         WHERE id = NEW.patient_id;
         RETURN NEW;
       END;

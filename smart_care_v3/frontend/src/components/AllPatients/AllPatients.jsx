@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import './Nurses.css';
+import './AllPatients.css';
 import { fetchData } from '../../api';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+// import { decodeJWT } from '../../utils';
 
-const Nurses = () => {
+const PatientAll = () => {
   const [patients, setPatients] = useState([]);
   const [apiError, setApiError] = useState('');
+	// const [department, setDepartment] = useState('');
 	const navigate = useNavigate(); // Get the navigate function
 
   // API
   const getPatients = async () => {
     try {
-      const response = await fetchData('doctor/dashboard');
+      const response = await fetchData('patients');
       setPatients(response);
+			// const user = decodeJWT(localStorage.getItem('token'))
+
+			// console.log('user in edit patient profile page', user);
+			// setDepartment(user.department);
     } catch (error) {
       setApiError('Failed to find patients data.');
       console.error('Error fetching patients:', error);
@@ -32,7 +38,7 @@ const Nurses = () => {
   return (
     <div className="doctor-page">
       <div className="page-header">
-        <h4>All Patients</h4>
+        <h4> All Patients </h4>
       </div>
       {apiError && <p className="error-message">{apiError}</p>}
       <div className="table-container">
@@ -40,11 +46,11 @@ const Nurses = () => {
           <thead>
             <tr>
               <th>Name</th>
-              <th>National ID</th>
+              <th>Department</th>
               <th>Age</th>
               <th>Diagnosis</th>
-              <th>Entry Date</th>
               <th>Status</th>
+              <th>Entry Date</th>
             </tr>
           </thead>
           <tbody>
@@ -52,10 +58,10 @@ const Nurses = () => {
               patients.map((patient, index) => (
                 <tr key={index} onClick={() => handleRowClick(patient.id)} className="clickable-row">
                   <td>{patient.name}</td>
-                  <td>{patient.national_id}</td>
+                  <td>{patient.department}</td>
                   <td>{patient.age}</td>
                   <td>{patient.PatientDetail?.diagnosis || "Not Yet Diagnosis"}</td>
-                  <td>{patient.state}</td>
+                  <td>{patient.status}</td>
                   <td>{new Date(patient.createdAt).toLocaleDateString()}</td>
                 </tr>
               ))
@@ -71,4 +77,4 @@ const Nurses = () => {
   );
 };
 
-export default Nurses;
+export default PatientAll;

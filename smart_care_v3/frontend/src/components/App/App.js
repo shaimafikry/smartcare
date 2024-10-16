@@ -7,12 +7,13 @@ import Login from '../Login/Login';
 import Reciptionists from '../Reciptionists/Reciptionists';
 import Home from '../Home/Home';
 import Profile from '../Profile/Profile';
-import Settings from '../Settings/Settings';
 import SignOut from '../SignOut/SignOut';
+import AllPatients from '../AllPatients/AllPatients';
 import Manegers from '../Manegers/Manegers';
 import Doctors from '../Doctors/Doctors';
 import Nurses from '../Nurses/Nurses';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import EditPatientProfile from '../EditPatientProfile/EditPatientProfile';
 
 const router = createBrowserRouter([
   {
@@ -35,30 +36,36 @@ const router = createBrowserRouter([
 					children:[
 						{path: "dashboard", element: <ProtectedRoute allowedRoles={['doctor']}> <Doctors /> </ProtectedRoute>},
 						{ path: "profile", element: <ProtectedRoute allowedRoles={['doctor']}> <Profile /> </ProtectedRoute>},
-						{ path: "settings", element: <ProtectedRoute allowedRoles={['doctor']}> <Settings /> </ProtectedRoute>},
 					] },
 
 				{ path: "nurse", 
 					children:[
 						{path: "dashboard", element: <ProtectedRoute allowedRoles={['nurse']}>  <Nurses /> </ProtectedRoute>},
 						{ path: "profile", element: <ProtectedRoute allowedRoles={['nurse']}> <Profile /> </ProtectedRoute>},
-						{ path: "settings", element: <ProtectedRoute allowedRoles={['nurse']}> <Settings /> </ProtectedRoute>},
-						// { path: "signout", element: <SignOut /> },
 				] },
 				
 				{ path: "manager" ,
 						children:[
 						{path: "dashboard", element: <ProtectedRoute allowedRoles={['manager']}> <Manegers /> </ProtectedRoute>},
 						{ path: "profile", element: <ProtectedRoute allowedRoles={['manager']}> <Profile /> </ProtectedRoute>},
-						{ path: "settings", element: <ProtectedRoute allowedRoles={['manager']}> <Settings /> </ProtectedRoute>},
 				]},
 				
 				{ path: "receptionist" ,
 						children:[
 						{ path: "dashboard", element: <ProtectedRoute allowedRoles={['receptionist']}> <Reciptionists /> </ProtectedRoute>},
 						{ path: "profile", element: <ProtectedRoute allowedRoles={['receptionist']}> <Profile /> </ProtectedRoute> },
-						{ path: "settings", element: <ProtectedRoute allowedRoles={['receptionist']}> <Settings /></ProtectedRoute> },
 				]},
+				
+				{ path: "patients",
+					children:[
+						{ path: "", element: <ProtectedRoute allowedRoles={['doctor']}> <AllPatients /> </ProtectedRoute>},
+						{path: ":id",
+							children:[
+								{path: "edit", element:<ProtectedRoute allowedRoles={['doctor', 'nurse']}> <EditPatientProfile /> </ProtectedRoute>}
+							]
+						},
+					]
+				},
 			],
   },
   {

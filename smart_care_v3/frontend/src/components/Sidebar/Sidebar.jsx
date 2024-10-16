@@ -41,7 +41,7 @@ const Sidebar = ({ role, onReloadClick }) => {
 			console.log(data);
 			localStorage.removeItem('token'); // or sessionStorage
 			// Redirect to login page or home
-			document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/login;";
+			document.cookie = "token=; path=/login;";
 			navigate('/login');
 		} catch (error) {
 			console.error("something happend during signout", error);
@@ -74,7 +74,7 @@ const Sidebar = ({ role, onReloadClick }) => {
           <nav className="sidebar-nav">
 						<Link className="sidebar-link" to={`${baseUrl}/dashboard`} onClick={onReloadClick}>Dashboard</Link>
 						<Link className="sidebar-link" to={`${baseUrl}/profile`} onClick={onReloadClick}>Profile</Link>
-						<Link className="sidebar-link" to={`${baseUrl}/settings`} onClick={onReloadClick}>Settings</Link>
+						<Link className="sidebar-link" to={`${baseUrl}/patients`} onClick={onReloadClick}>All Patients</Link>
 						<Link className="sidebar-link" to='*' onClick={handleLogout} >Sign Out</Link>
           </nav>
         </div>
