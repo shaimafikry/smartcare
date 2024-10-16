@@ -35,7 +35,7 @@ function Reception({ receptionist, message }) {
       const response = await postData('receptionist/dashboard', formData);  
       /* backend endpoint*/
       setSuccessMessage('Patient registered successfully!');
-			// handleReload();
+			handleReload();
       console.log('Form Data Submitted:', response);
     } catch (error) {
       setApiError('Failed to register patient. Please try again.');

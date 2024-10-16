@@ -74,6 +74,27 @@ tbody tr:nth-child(even) td {
 	background-color: #dad8d8;
 }
 
+/* Clickable rows styling */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Add hover effect to indicate clickability */
+.clickable-row:hover {
+  background-color: #f1f1f1;
+  transform: translateY(-2px); /* Slight lift when hovered */
+  box-shadow: 0 4px 10px rgb(143, 137, 137); /* Shadow effect on hover */
+}
+
+/* Active row effect */
+.clickable-row:active {
+  background-color: #e2e2e2;
+  transform: translateY(0); /* No lift when clicked */
+  box-shadow: none; /* Remove shadow when clicked */
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
 	.table-container {

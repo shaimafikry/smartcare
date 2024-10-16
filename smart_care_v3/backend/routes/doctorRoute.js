@@ -3,7 +3,7 @@
 // import the files
 
 const express = require('express');
-const { allPatient } = require('../controllers/patientControl');
+const { departmentPatients } = require('../controllers/patientControl');
 const { showUser } = require('../controllers/userControl')
 const authToken = require('../middleware/authToken');
 const verifyRole = require('../middleware/verifyRole');
@@ -15,7 +15,7 @@ router.use(authToken);
 
 
 
-router.get('/doctor/dashboard', allPatient);
+router.get('/doctor/dashboard', departmentPatients);
 
 router.get('/doctor/profile', showUser);
 

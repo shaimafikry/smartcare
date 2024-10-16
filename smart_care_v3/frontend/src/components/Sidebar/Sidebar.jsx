@@ -74,7 +74,7 @@ const Sidebar = ({ role, onReloadClick }) => {
           <nav className="sidebar-nav">
 						<Link className="sidebar-link" to={`${baseUrl}/dashboard`} onClick={onReloadClick}>Dashboard</Link>
 						<Link className="sidebar-link" to={`${baseUrl}/profile`} onClick={onReloadClick}>Profile</Link>
-						<Link className="sidebar-link" to={`${baseUrl}/patients`} onClick={onReloadClick}>All Patients</Link>
+						<Link className="sidebar-link" to={'patients'} onClick={onReloadClick}>All Patients</Link>
 						<Link className="sidebar-link" to='*' onClick={handleLogout} >Sign Out</Link>
           </nav>
         </div>
