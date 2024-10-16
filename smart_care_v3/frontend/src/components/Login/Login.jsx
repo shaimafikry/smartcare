@@ -66,6 +66,8 @@ function Login() {
 				console.log(user);
 				console.log("token after signin", data.token);  // Make sure it's a valid JWT (header.payload.signature)
 				localStorage.setItem('token', data.token);
+				sessionStorage.setItem('token', data.token);
+
 				console.log('Token stored successfully:', data.token);
         /*endpoint 'login'*/
         setSuccessMessage('Login successful!');
@@ -129,10 +131,6 @@ function Login() {
 
         {apiError && <p className="error-message">{apiError}</p>} {/* Show API error message */}
         {successMessage && <p className="success-message">{successMessage}</p>}
-
-        <a href="/forgot-password" className="forgot-password">
-          Forgot Password?
-        </a>
       </div>
     </div>
   );

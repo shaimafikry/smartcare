@@ -1,12 +1,15 @@
 // dealing with patient information taken from receptionist
 // import patient data
-const {addPatient, findPatient} = require('../models/patient');
+const {addPatient, receptionistFindPatient, receptionistFindOnePatient} = require('../models/patient');
 
 // add patient function
 async function addNewPatient( req, res) {
   const newPatient = req.body;
 	// if patient exist
-	  const patient = await findPatient(newPatient.national_id);
+	console.log(newPatient);
+	console.log(newPatient.national_id)
+	  const patient = await receptionistFindOnePatient(newPatient.national_id);
+		console.log("after search",patient);
 		// if pt exist return the data 
 		if (patient) {
 			// ask for new visit or edit pt data
@@ -21,11 +24,11 @@ async function addNewPatient( req, res) {
 async function editPatient(req, res){
   const newPatient = req.body;
 	// if patient exist
-	  const patient = await findPatient(newPatient.national_id);
+	  const patient = await receptionistFindOnePatient(newPatient.national_id);
 
   if (!patient) {
 			// ask for new visit or edit pt data
-       return res.json({message: 'Pateint doesnt exost, new add?'});
+       return res.json({message: 'Pateint doesnt exist, new add?'});
 		}
     //edit the pt if exist
 		

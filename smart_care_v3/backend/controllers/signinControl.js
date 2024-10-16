@@ -34,11 +34,11 @@ async function signin (req, res) {
 		// 'exp': datetime.utcnow() + timedelta(hours=24)
 
 	}
-	console.log(payload);
+	// console.log(payload);
 	token =  jwt.sign(payload, secret_key, { algorithm: 'HS256' });
   
 	//debug
-  console.log(token);
+  // console.log(token);
 
 	// send the token through the cookies and make the oken availbe during session only
 	// redirect to the role(user) dashboard

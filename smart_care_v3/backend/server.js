@@ -14,6 +14,7 @@ const signinRoute = require('./routes/signinRoute');
 const doctorRoute = require('./routes/doctorRoute');
 const nurseRoute = require('./routes/nurseRoute');
 const receptionRoute = require('./routes/receptionRoute');
+const patientRoute = require('./routes/patientRoute');
 const signoutRoute = require('./routes/signoutRoute');
 const sessionMiddleware = require('./middleware/session');
 const app = express();
@@ -35,6 +36,7 @@ app.use('/', doctorRoute);
 // app.use('/', nurseRoute);
 
 app.use('/', signoutRoute);
+app.use('/', patientRoute);
 
 
 app.listen(PORT, () => {
