@@ -1,6 +1,6 @@
 // dealing with patient information taken from receptionist
 // import patient data
-const { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient, getPatientsInDepartment, editPatientMedical } = require('../models/patient');
+const { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient, getPatientsInDepartment, editPatientMedical, getAllPatients } = require('../models/patient');
 
 
 // edit patient medical
@@ -53,7 +53,7 @@ async function showPatient(req, res){
 
 
 // show all patients in on depatrment
-async function allPatient(req, res){
+async function departmentPatients(req, res){
 	user = req.user;
 	console.log(req.user)
 	// console.log(token);
@@ -69,20 +69,21 @@ async function allPatient(req, res){
 
 
 
-// // discharge patient
-// async function dischagredPatient(req, res){
-// 	const patientId = parseInt(req.params.id);
-// 	// const newPatient = req.body;
-// 	// if patient exist
-// 	const patient = await findPatient(patientId);
-// 	if (patient){
-// 		await dischargePatient(patientId);
-// 		return true;
-// 	}
-// 	// console.log("in patient control",all);
-//    return res.json({message: "patient dischagred"});
-// };
+
+// show all patients in on depatrment
+async function allPatients(req, res){
+	user = req.user;
+	console.log(req.user)
+	// console.log(token);
+	const all = await getAllPatients();
+	// andle if all is null
+	if (all === null){
+		return res.json({message: "no current data"});
+	}
+
+	// console.log("in patient control",all);
+   return res.json(all);
+};
 
 
-
-module.exports = { editExistPatient, showPatient, allPatient};
+module.exports = { editExistPatient, showPatient, departmentPatients, allPatients};

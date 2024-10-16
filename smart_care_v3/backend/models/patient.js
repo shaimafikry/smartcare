@@ -164,4 +164,23 @@ async function getPatientsInDepartment(departmentName) {
 }
 
 
-module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient, editPatientMedical, getPatientsInDepartment, receptionistFindOnePatient };
+async function getAllPatients() {
+	try {
+			const patients = await Patient.findAll();
+			// console.log(patients);
+			// Check if patients array is empty
+			if (patients.length === 0) {
+					return null; // يمكن إرجاع null إذا لم يوجد مرضى
+			}
+
+			return patients; // Return the array of patients
+	} catch (error) {
+			console.error(`Error fetching patients: ${error.message}`);
+			throw error; // Handle the error
+	}
+}
+
+
+
+
+module.exports = { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient, editPatientMedical, getPatientsInDepartment, receptionistFindOnePatient, getAllPatients };

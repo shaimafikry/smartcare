@@ -58,7 +58,8 @@ const router = createBrowserRouter([
 				
 				{ path: "patients",
 					children:[
-						{ path: "", element: <ProtectedRoute allowedRoles={['doctor']}> <AllPatients /> </ProtectedRoute>},
+						{ path: "", element: <ProtectedRoute allowedRoles={['doctor', 'nurse']}> <AllPatients /> </ProtectedRoute>},
+
 						{path: ":id",
 							children:[
 								{path: "edit", element:<ProtectedRoute allowedRoles={['doctor', 'nurse']}> <EditPatientProfile /> </ProtectedRoute>}
