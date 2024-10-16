@@ -1,13 +1,16 @@
 import React, { useEffect, useState }from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Manegers.css'; 
+import './Manegers.css';
 import { Button, Modal, Table } from 'react-bootstrap';
 import { postData } from '../../api';
 
 const Manegers = () => {
     const [newUserFormVisible, setNewUserFormVisible] = useState(false);
-    const [userType, setUserType] = useState('');
+    const [userRole, setUserRole] = useState('');
     const [userName, setUserName] = useState('');
+    const [userAge, setUserAge] = useState('');
+    const [userGender, setUserGender] = useState('');
+    const [userNationalID, setUserNationalID] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [userPhone, setUserPhone] = useState('');
     const [userSpecialty, setUserSpecialty] = useState('');
@@ -53,20 +56,26 @@ const Manegers = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = {
-            userType,
+            userRole,
             userName,
             userPassword,
             userPhone,
             userSpecialty,
             userDepartment,
+            userAge,
+            userGender,
+            userNationalID,
         };
 
         try {
             const response = await postData('users', formData); 
               console.log(response);
             setSuccessMessage('User registered successfully!'); 
-            setUserType('');
+            setUserRole('');
             setUserName('');
+            setUserAge('');
+            setUserGender('');
+            setUserNationalID('');
             setUserPassword('');
             setUserPhone('');
             setUserSpecialty('');
@@ -90,8 +99,8 @@ const Manegers = () => {
                     <div className="admin-container d-flex flex-column align-items-start">
             <div className="mb-4">
                 <button className="btn custom-btn-new" onClick={() => setNewUserFormVisible(true)}>
-                    Add New User
-                    <small className="description">Create and editing new user </small>
+                    <i className='fa fa-plus'></i>  New User
+                    <small className="description">Create new user</small>
                 </button>
             </div>
             <div className="d-flex flex-column align-items-start">
@@ -116,81 +125,120 @@ const Manegers = () => {
     </div>
         
                 {newUserFormVisible && (
-                    <div className="modal fade show" style={{ display: 'block' }} onClick={handleCloseModal}>
-                        <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+                    <div className="modal fade show" style={{ display: 'block' }} onClick={handleCloseModal} centered>
+                        <div className="modal-dialog-m" onClick={(e) => e.stopPropagation()}>
                             <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Add New User</h5>
-                                    <button type="button" className="close" onClick={handleCloseModal}>
+                                <div className="modal-header-m">
+                                    <h5 className="modal-title-m"> New User</h5>
+                                    <button type="button" className="close-m" onClick={handleCloseModal}>
                                         &times;
                                     </button>
                                 </div>
                                 <div className="modal-body">
                                     <form onSubmit={handleSubmit}>
-                                        <div className="form-group">
+                                        <div className="form-group-m">
                                             <label htmlFor="userName">Name</label>
                                             <input
                                                 type="text"
-                                                className="form-control"
+                                                className="form-control-m"
                                                 id="userName"
                                                 value={userName}
                                                 onChange={(e) => setUserName(e.target.value)}
                                                 placeholder="Enter name"
                                             />
                                         </div>
-                                        <div className="form-group">
+                                        <div className="form-group-m">
+                                            <label htmlFor="userAge">Age</label>
+                                            <input
+                                                type="text"
+                                                className="form-control-m"
+                                                id="userName"
+                                                value={userAge}
+                                                onChange={(e) => setUserAge(e.target.value)}
+                                                placeholder="Enter Age"
+                                            />
+                                        </div>
+                                        <div className="form-group-m">
+                                            <label htmlFor="userGender">Gender</label>
+                                            <select
+                                               className="form-control-m"
+                                               id="userGender"
+                                               value={userGender}
+                                               onChange={(e) => setUserGender(e.target.value)}
+                                             >
+                                              <option value="" disabled selected>
+                                                   Select...
+                                                     </option>
+                                              <option value="Male">Male</option>
+                                              <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="form-group-m">
                                             <label htmlFor="userId">Password</label>
                                             <input
                                                 type="password"
-                                                className="form-control"
+                                                className="form-control-m"
                                                 id="userPassword"
                                                 value={userPassword}
                                                 onChange={(e) => setUserPassword(e.target.value)}
                                                 placeholder="Enter password"
                                             />
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="userType">User Role</label>
+                                        <div className="form-group-m">
+                                            <label htmlFor="userType">Role</label>
                                             <select
-                                                className="form-control-user"
+                                                className="form-control-m"
                                                 id="userType"
-                                                value={userType}
-                                                onChange={(e) => setUserType(e.target.value)}
+                                                value={userRole}
+                                                onChange={(e) => setUserRole(e.target.value)}
                                             >
                                                 <option value="" disabled selected>
                                                     Select...
                                                 </option>
-                                                <option value="Nurses">Nurses</option>
-                                                <option value="Receptionists">Receptionists</option>
-                                                <option value="Doctors">Doctors</option>
+                                                <option value="Nurses">Nurse</option>
+                                                <option value="Receptionists">Receptionist</option>
+                                                <option value="Doctors">Doctor</option>
+                                                <option value="Doctors">Manager</option>
                                             </select>
                                         </div>
-                                        <div className="form-group">
+                                        <div className="form-group-m">
                                             <label htmlFor="userPhone">Phone</label>
                                             <input
                                                 type="text"
-                                                className="form-control"
+                                                className="form-control-m"
                                                 id="userPhone"
                                                 value={userPhone}
                                                 onChange={(e) => setUserPhone(e.target.value)}
                                                 placeholder="Enter phone number"
                                             />
                                         </div>
-                                        <div className="form-group">
+                                        <div className="form-group-m">
+                                            <label htmlFor="userNationalID">National-ID</label>
+                                            <input
+                                                type="text"
+                                                className="form-control-m"
+                                                id="userNationalID"
+                                                value={userNationalID}
+                                                onChange={(e) => setUserNationalID(e.target.value)}
+                                                placeholder="Enter National-ID"
+                                            />
+                                        </div>
+                                        <div className="form-group-m">
                                             <label htmlFor="userSpecialty">Specialty</label>
                                             <input
                                                 type="text"
-                                                className="form-control"
+                                                className="form-control-m"
                                                 id="userSpecialty"
                                                 value={userSpecialty}
                                                 onChange={(e) => setUserSpecialty(e.target.value)}
                                                 placeholder="Enter specialty"
                                             />
                                         </div>
-                                        <div className="form-group">
+                                        <div className="form-group-m">
                                             <label htmlFor="userDepartment">Department</label>
                                                 <select
-                                                className="form-control-user"
+                                                className="form-control-m"
                                                 id="Department"
                                                 value={userDepartment} 
                                                 onChange={(e) => setUserDepartment(e.target.value)} 
@@ -221,7 +269,7 @@ const Manegers = () => {
                 )}
 
                 {/* Modal for nurses */}
-                <Modal show={showNurseModal} onHide={() => setShowNurseModal(false)}>
+                <Modal show={showNurseModal} onHide={() => setShowNurseModal(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Nurses</Modal.Title>
                     </Modal.Header>
@@ -249,7 +297,7 @@ const Manegers = () => {
                 </Modal>
 
                 {/* Modal for doctors */}
-                <Modal show={showDoctorModal} onHide={() => setShowDoctorModal(false)}>
+                <Modal show={showDoctorModal} onHide={() => setShowDoctorModal(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Doctors</Modal.Title>
                     </Modal.Header>
@@ -277,7 +325,7 @@ const Manegers = () => {
                 </Modal>
 
                 {/* Modal for receptionists */}
-                <Modal show={showReceptionistModal} onHide={() => setShowReceptionistModal(false)}>
+                <Modal show={showReceptionistModal} onHide={() => setShowReceptionistModal(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Receptionists</Modal.Title>
                     </Modal.Header>
@@ -305,7 +353,7 @@ const Manegers = () => {
                 </Modal>
 
                 {/* Modal for managers */}
-                <Modal show={showManegerModal} onHide={() => setShowManegersModal(false)}>
+                <Modal show={showManegerModal} onHide={() => setShowManegersModal(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Managers</Modal.Title>
                     </Modal.Header>

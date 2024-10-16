@@ -4,19 +4,115 @@ body {
     margin: 0;
     padding: 0;
 }
-
-.form-container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(29, 29, 29, 0.1);
+.modal-dialog-m{
+    width: calc(70% - 30px);
+    margin-left: 30%;
+    margin-top: 20px;
     padding: 20px;
-    margin-top: 40px;
-}
+    margin-bottom: 20px;
+    height:99vh;
+    border-radius: 15px;
+    overflow-y: auto;
+    box-shadow: rgb(0, 0, 0);
 
-h1 {
-    color: #007bff;
+}
+.modal-dialog-m::-webkit-scrollbar {
+    width: 0;
+  }
+.modal-dialog-m{
+    scrollbar-width: thin;
+    scrollbar-color: rgba(87, 87, 87, 0.2) transparent;
+  }
+.modal-title-m{
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 15px;
+    font-weight: bold;
+
+    }
+.modal-header-m{
+    text-align: center;
+    background-color:#2f4dd4a8;
+    color: white;
+    }
+.close-m{
+    text-align: right;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin-right: 0px;
+    position: absolute;
+    top: -5%;
+    right: 10px;
+    color: #fff;
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+.close-m:hover{
+    text-align: right;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin-right: 0px;
+    position: absolute;
+    top: -5%;
+    right: 10px;
+    color: #fff;
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+.form-group-m label{
+    color: #000000;
+    text-align:left;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 2px 3px;
+    margin: 5px 5px;
+    font-family:'Times New Roman', Times, serif
+}
+.form-group-m input{
+    color: #000000;
+    text-align:left;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    justify-content: center;    
+}
+.form-control-m{
+    color: #101010;
+    text-align: center;
+    background-color: #e7e9eb;
+    margin-bottom: 10px;
+    border:#000000
+}
+.form-control-m option{
+    color: #000000;
+    text-align:left;
+    width:100%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    justify-content: center;  
+}
+#userPassword {
+    width: 80%; 
+    text-align:left;
+    padding: 10px;
+    border-radius: 10px;
+}
+.form-control-m select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #e7e9eb;
+    border: 1px solid #000000;
+}
+.form-control-m select option {
+    padding: 15px;
+    width: 100%;
+    color: #000000;
+    background-color: #ffffff;
 }
 
 .text-left {
@@ -37,18 +133,19 @@ h1 {
 
 .custom-btn-manag:hover {
     background-color: rgba(205, 68, 70, 0.8);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border:none;
+    box-shadow: 0 4px 8px rgba(114, 31, 31, 0.2);
 }
 .custom-btn-new { 
     background-color: rgba(48, 77, 149, 0.6);
     color: white;
-    padding: 15px 20px;
+    padding: 20px 60px;
     font-size: 1.3em;
     border: none;
     border-radius: 15px;
-    width: 90%;
+    width: calc(100%);
     text-align: left;
-    transition: 0.3s, box-shadow 0.3s;
+    transition: 0.3s, box-shadow black 0.3s;
 }
 
 .custom-btn-new:hover {
@@ -88,17 +185,6 @@ button.close:hover {
     box-shadow: none;
 }
 
-.form-group label {
-    font-weight: bold;
-    color: #e7e5e5;
-}
-
-.form-control-user {
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    height: 60px;
-}
-
 .form-control:focus {
     border-color: #80bdff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
@@ -108,9 +194,12 @@ button.close:hover {
     width: 100%;
     margin-top: 10px;
 }
-
+.modal-title{
+    color: white;
+    text-align: center;
+}
 .table th {
-    background-color: #5c97d6;
+    background-color: #818182;
     color: white;
     text-align: center;
 }
@@ -118,20 +207,10 @@ button.close:hover {
 .table td {
     text-align: center;
 }
-
-.modal-header {
-    background-color:#2f4dd4a8;
-
-    color: white;
-}
-
-.modal-title {
-    font-weight: bold;
-}
-
 .modal-footer .btn-secondary {
-    background-color: #06579d;
+    background-color: #120397;
     color: white;
+    border: none;
 }
 
 .username {
@@ -159,61 +238,22 @@ button.close:hover {
 }
 
 .modal {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(22, 22, 22, 0.5);
 }
-
-.modal-dialog {
-    max-width: 600px;
-    margin: 1.75rem auto;
-}
-
 .modal-content {
     border-radius: 0.5rem;
     overflow: hidden;
 }
 
 .modal-header {
-    background-color: #007bff;
+    background-color: #565454;
     color: #fff;
     border-bottom: none;
 }
-
-.modal-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.close {
-    color: #fff;
-    font-size: 1.5rem;
-    opacity: 0.9;
-}
-
-.close:hover {
-    opacity: 1;
-}
-
 .modal-body {
     padding: 2rem;
     background-color: #fff;
 }
-
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-control {
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    padding: 0.75rem;
-}
-
-.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
