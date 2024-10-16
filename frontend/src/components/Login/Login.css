@@ -10,9 +10,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 400px;
-  max-width: 800%;
 }
+
 .login-logo {
   text-align: center;
   margin-bottom: 20px;
@@ -23,12 +22,12 @@ body {
   width: 250px;
   height: auto;
 }
+
 .login-container {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  max-width: 800%;
-  width: 100%;
+  width: 400px;
   text-align: center;
 }
 
@@ -41,33 +40,32 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-
-.input-group {
+.input-group-login {
   margin-bottom: 20px;
+  position: relative;
 }
 
-.input-field {
+.input-field-login {
   width: 100%;
   padding: 12px;
   border-radius: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #b2b0b0;
   font-size: 16px;
   box-sizing: border-box;
   padding-right: 40px;
   margin-bottom: 10px;
+  transition: box-shadow 0.3s ease;
 }
-
-.input-field:focus {
-  box-shadow: #2575fc;
-  outline: none;
-  box-shadow: 0 0 5px 1px rgba(0, 123, 255, 0.8)
+.input-group-login:hover .input-field-login {
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.6);
 }
-
 .password-container {
   position: relative;
-  border-radius: 15px;
+  margin-bottom: 70px;
+}
+.email-container{
+  position: relative;
   margin-bottom: 40px;
-  margin-top: 30px;
 }
 
 .toggle-password {
@@ -79,19 +77,19 @@ body {
   color: #9f7373;
   font-size: 14px;
 }
+
 .error-message {
   color: red;
   font-size: 0.875rem;
-  position: absolute;
-  bottom: -70px;
-  left: 22px;
-  width: 100%;
+  position: relative;
+  bottom: -10px;
   text-align: left;
+  margin-left: 5px;
 }
 
 .login-button {
-  width:auto;
-  background-color: #1f3d95 !important;
+  width: 100%;
+  background-color: #1f3d95;
   color: white;
   padding: 12px;
   border: none;
@@ -101,16 +99,14 @@ body {
   margin-top: 20px;
   text-align: center;
   justify-content: center;
-  margin-right: 0%;
   transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
 .login-button:hover {
-  background-color: #154198e2 !important;
+  background-color: #154198e2;
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(3, 6, 12, 0.2);
 }
-
 
 .remember-me {
   display: flex;
@@ -125,7 +121,6 @@ body {
   margin-top: 20px;
   color: #2575fc;
   text-decoration: none;
-  
 }
 
 .forgot-password:hover {

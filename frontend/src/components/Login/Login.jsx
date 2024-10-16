@@ -79,26 +79,29 @@ function Login() {
         <h2 className="login-header">Login</h2>
 
         <form onSubmit={submitForm}>
-          <div className="input-group">
-            <input
-              type="text"
-              name="email"
-              placeholder="Email"
-              value={user.email}
-              onChange={handleInputChange}
-              className="input-field"
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
+          <div className="input-group-login">
+            <div className="email-container">
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={user.email}
+                onChange={handleInputChange}
+                className="input-field-login"
+              />
+              {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
+       </div>
 
-          <div className="input-group password-container">
+
+          <div className="input-group-login password-container">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
               value={user.password}
               onChange={handleInputChange}
-              className="input-field"
+              className="input-field-login"
             />
             <span className="toggle-password" onClick={togglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -111,7 +114,7 @@ function Login() {
               <input type="checkbox" /> Remember me
             </label>
           </div>
-          <button type="submit" className="login-button">
+          <button type="submit" className="login-button-login">
             Login
           </button>
         </form>
