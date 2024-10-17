@@ -16,7 +16,7 @@ const Home = () => {
       <p>To enter our dashboard, please press login</p>
          {/* link to login page direct */}
       <Link to="/login">
-        <button className="login-button-homePage"><i className="fa fa-sign-in"></i>Login</button>
+        <button className="login-button-home"><i className="fa fa-sign-in"></i>Login</button>
       </Link>
        {/* Footer */}
        <footer className="footer">

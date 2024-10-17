@@ -34,7 +34,7 @@ h2 {
   margin-top: 0px;
 }
 
-form {
+.patientform {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;

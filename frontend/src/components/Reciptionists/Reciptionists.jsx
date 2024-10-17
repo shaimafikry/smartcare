@@ -21,9 +21,11 @@ function Reception({ receptionist, message }) {
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+		 // Clear error for this field if it was previously marked as an error
   };
 
 
@@ -35,6 +37,7 @@ function Reception({ receptionist, message }) {
       const response = await postData('receptionist/dashboard', formData);  
       /* backend endpoint*/
       setSuccessMessage('Patient registered successfully!');
+
 			handleReload();
       console.log('Form Data Submitted:', response);
     } catch (error) {
@@ -49,7 +52,7 @@ function Reception({ receptionist, message }) {
         <h4>Register New Patient</h4>
       </div>
       <div className="form-container">
-        <form onSubmit={handleSubmit}>
+        <form className="patientform" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="patientName">Name</label>
@@ -60,6 +63,7 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter name"
                 value={formData.name}
                 onChange={handleChange}
+								required
               />
             </div>
 
@@ -70,6 +74,7 @@ function Reception({ receptionist, message }) {
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
+								required
               >
                 <option value="" disabled>Select Gender</option>
                 <option value="Male">Male</option>
@@ -88,6 +93,7 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter Age"
                 value={formData.age}
                 onChange={handleChange}
+								required
               />
             </div>
 
@@ -100,6 +106,7 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter National ID"
                 value={formData.national_id}
                 onChange={handleChange}
+								required
               />
             </div>
           </div>
@@ -114,6 +121,7 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter address"
                 value={formData.address}
                 onChange={handleChange}
+								required
               />
             </div>
 
@@ -124,6 +132,7 @@ function Reception({ receptionist, message }) {
                 name="department"
                 value={formData.department}
                 onChange={handleChange}
+								required
               >
                 <option value="" disabled>Select department</option>
                 <option value="emergency">Emergency</option>
@@ -144,6 +153,7 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter phone number"
                 value={formData.phone}
                 onChange={handleChange}
+								required
               />
             </div>
           </div>

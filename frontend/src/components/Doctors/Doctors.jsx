@@ -60,7 +60,7 @@ const Doctors = () => {
                   <td>{patient.name}</td>
                   <td>{patient.national_id}</td>
                   <td>{patient.age}</td>
-                  <td>{patient.PatientDetail?.diagnosis || "Not Yet Diagnosis"}</td>
+                  <td>{patient.PatientDetail?.diagnosis || "Not yet diagnosed"}</td>
                   <td>{patient.status}</td>
                   <td>{new Date(patient.createdAt).toLocaleDateString()}</td>
                 </tr>
