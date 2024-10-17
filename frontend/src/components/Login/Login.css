@@ -44,11 +44,11 @@
 
 /* Email and Password fields should be stacked vertically */
 .input-group-login {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   display: block; /* Ensure that fields are stacked vertically */
 }
 
-.input-field {
+.input-field-login {
   width: 100%; /* Full width of the container */
   padding: 12px;
   border-radius: 15px;
@@ -58,7 +58,7 @@
   margin-bottom: 10px;
 }
 
-.input-field:focus {
+.input-field-login:focus {
   box-shadow: 0 0 5px 1px rgba(0, 123, 255, 0.8);
   outline: none;
 }
@@ -66,14 +66,14 @@
 .password-container {
   position: relative;
   border-radius: 15px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 	
 }
 
 .toggle-password {
   position: absolute;
   right: 12px;
-  top: 50%;
+  top: 45%;
   transform: translateY(-50%);
   cursor: pointer;
   color: #9f7373;
@@ -113,7 +113,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
-  margin-top: -15px;
+  margin-top: -10px;
 }
 
 .forgot-password {
