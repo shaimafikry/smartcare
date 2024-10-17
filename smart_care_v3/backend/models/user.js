@@ -4,13 +4,24 @@
 
 // import database
 const bcrypt = require('bcryptjs');
-const { User, UserPhone } = require('../config/users');
+const { User } = require('../config/users');
 // check user 
 async function findUser(email) {
     const user = await User.findOne({ where: { email } });
-		console.log(user.password);
+		// console.log(user.password);
+
     return user ? user.get({ plain: true }) : null; // إرجاع بيانات المستخدم بشكل بسيط
 }
+
+async function findUserById(id) {
+	const user = await User.findOne({ where: { id } });
+	console.log(user.password);
+	return user ? user.get({ plain: true }) : null; // إرجاع بيانات المستخدم بشكل بسيط
+}
+
+
+
+
 
 // add user (input is object)
 async function addUser(user) {
@@ -62,7 +73,7 @@ async function validatePass(password, hashedPassword) {
 
 
 
-module.exports = { addUser, findUser, updateUser, deleteUser, validatePass };
+module.exports = { addUser, findUser, updateUser, deleteUser, validatePass, findUserById };
 
 
 
