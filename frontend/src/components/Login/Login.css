@@ -11,8 +11,9 @@
   align-items: center;
   height: 100vh;
   width: 400px;
-  max-width: 800%;
+  max-width: 100%;
 }
+
 .login-logo {
   text-align: center;
   margin-bottom: 20px;
@@ -23,11 +24,11 @@
   width: 250px;
   height: auto;
 }
+
 .login-container {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  max-width: 800%;
   width: 100%;
   text-align: center;
 }
@@ -41,33 +42,32 @@
   font-family: 'Roboto', sans-serif;
 }
 
-
+/* Email and Password fields should be stacked vertically */
 .input-group-login {
   margin-bottom: 20px;
+  display: block; /* Ensure that fields are stacked vertically */
 }
 
 .input-field {
-  width: 100%;
+  width: 100%; /* Full width of the container */
   padding: 12px;
   border-radius: 15px;
   border: 1px solid #ccc;
   font-size: 16px;
   box-sizing: border-box;
-  padding-right: 40px;
   margin-bottom: 10px;
 }
 
 .input-field:focus {
-  box-shadow: #2575fc;
+  box-shadow: 0 0 5px 1px rgba(0, 123, 255, 0.8);
   outline: none;
-  box-shadow: 0 0 5px 1px rgba(0, 123, 255, 0.8)
 }
 
 .password-container {
   position: relative;
   border-radius: 15px;
   margin-bottom: 40px;
-  margin-top: 30px;
+	
 }
 
 .toggle-password {
@@ -79,18 +79,17 @@
   color: #9f7373;
   font-size: 14px;
 }
+
 .error-message {
   color: red;
   font-size: 0.875rem;
-  position: absolute;
-  bottom: -70px;
-  left: 22px;
-  width: 100%;
+  position: relative; /* Adjust error message position */
+  margin-top: 5px;
   text-align: left;
 }
 
 .login-button {
-  width:auto;
+  width: auto;
   background-color: #1f3d95 !important;
   color: white;
   padding: 12px;
@@ -100,9 +99,7 @@
   font-size: 16px;
   margin-top: 20px;
   text-align: center;
-  justify-content: center;
-  margin-right: 0%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login-button:hover {
@@ -110,7 +107,6 @@
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(3, 6, 12, 0.2);
 }
-
 
 .remember-me {
   display: flex;
@@ -125,7 +121,6 @@
   margin-top: 20px;
   color: #2575fc;
   text-decoration: none;
-  
 }
 
 .forgot-password:hover {

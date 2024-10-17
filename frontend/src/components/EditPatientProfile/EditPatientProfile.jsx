@@ -132,7 +132,7 @@ function EditProfile({ message }) {
   return (
     <div className="edit-patient-profile">
       <h2>Edit Patient Profile</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="patientform" onSubmit={handleSubmit}>
         {Object.keys(formData).map((key) => (
           <div className="form-group" key={key}>
             <label>{key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}:</label>

@@ -8,7 +8,7 @@ html, body {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    background: linear-gradient(135deg, #3a6073, #3f2f39);
+    background: linear-gradient(135deg, #3a6073, #a58398);
     overflow: hidden;
   }
   
@@ -56,7 +56,8 @@ html, body {
   }
   
   /* Login button */
-  .login-button-homePage {
+  .login-button-home {
+		width: auto;
     background-color: #183690;
     color: white;
     padding: 12px;
