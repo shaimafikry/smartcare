@@ -92,26 +92,26 @@ function Login() {
         <h2 className="login-header">Login</h2>
 
         <form onSubmit={submitForm}>
-          <div className="input-group">
+          <div className="input-group-login">
             <input
               type="email"
               name="email"
               placeholder="Email"
               value={user.email}
               onChange={handleInputChange}
-              className="input-field"
+              className="input-field-login"
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
 
-          <div className="input-group password-container">
+          <div className="input-group-login password-container">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
               value={user.password}
               onChange={handleInputChange}
-              className="input-field"
+              className="input-field-login"
             />
             <span className="toggle-password" onClick={togglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />

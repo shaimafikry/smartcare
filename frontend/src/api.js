@@ -16,7 +16,7 @@ export const fetchData = async (endpoint) => {
 			method: 'GET',
 			credentials: 'include',  // Include credentials (cookies)
 			headers: {
-				Authorization: token ? `Bearer ${token}` : '', // Set Authorization header if token exists
+			Authorization: token ? `Bearer ${token}` : '', // Set Authorization header if token exists
 			},
 		});
 	console.log(response);
@@ -51,7 +51,7 @@ export const postData = async (endpoint, data) => {
 		return await response.json();
 	} catch (error){
     //handling Errors 
-			throw new Error(`HTTP error! status: ${error.message}`);
+			throw new Error(`${error.message}`);
 		}
 };
 
@@ -80,7 +80,7 @@ export const putData = async (endpoint, data) => {
 	} catch (error){
     //handling Errors 
 		  console.error('Error in putData:', error); // Log the error for debugging
-			throw new Error(`HTTP error! status: ${error.message}`);
+			throw new Error(`${error.message}`);
 		}
 };
 
@@ -107,6 +107,6 @@ export const deleteData = async (endpoint, data = null) => {
 	} catch (error) {
 			// Handling Errors 
 			console.error('Error in deleteData:', error); // Log the error for debugging
-			throw new Error(`HTTP error! status: ${error.message}`);
+			throw new Error(`${error.message}`);
 	}
 };
