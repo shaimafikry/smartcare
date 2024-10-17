@@ -4,10 +4,8 @@ import Joi from "joi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { postData } from "../../api";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function Login() {
-	const navigate = useNavigate(); // Initialize useNavigate
   const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
     email: '',
@@ -54,31 +52,20 @@ function Login() {
         newErrors[err.context.key] = err.message;
       });
       setErrors(newErrors);
-			setApiError(''); // Clear API error if validation fails
     } else {
       setErrors({});
       setApiError('');
       setSuccessMessage('');
       
       try {
-        /*postData for login */
+              /*postData for login */
         const data = await postData('login', user);
-				console.log(user);
-				console.log("token after signin", data.token);  // Make sure it's a valid JWT (header.payload.signature)
-				localStorage.setItem('token', data.token);
-				sessionStorage.setItem('token', data.token);
-
-				console.log('Token stored successfully:', data.token);
         /*endpoint 'login'*/
         setSuccessMessage('Login successful!');
         console.log("Login successful:", data);
-				console.log("Redirecting to:", data.redirectUrl);
-				navigate(data.redirectUrl);
-
+        /* token storage in localStorage */
       } catch (error) {
-				console.error("Error caught during login:", error);
-					// Server responded with a status other than 200 range
-				setApiError(error.message || 'An unexpected error occurred during signin');
+        setApiError(error.message || 'An unexpected error occurred.');
       }
     }
   };
@@ -92,26 +79,29 @@ function Login() {
         <h2 className="login-header">Login</h2>
 
         <form onSubmit={submitForm}>
-          <div className="input-group">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={user.email}
-              onChange={handleInputChange}
-              className="input-field"
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
+          <div className="input-group-login">
+            <div className="email-container">
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={user.email}
+                onChange={handleInputChange}
+                className="input-field-login"
+              />
+              {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
+       </div>
 
-          <div className="input-group password-container">
+
+          <div className="input-group-login password-container">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
               value={user.password}
               onChange={handleInputChange}
-              className="input-field"
+              className="input-field-login"
             />
             <span className="toggle-password" onClick={togglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -124,14 +114,17 @@ function Login() {
               <input type="checkbox" /> Remember me
             </label>
           </div>
-          <button type="submit" className="login-button">
+          <button type="submit" className="login-button-login">
             Login
           </button>
         </form>
 
-        {apiError && <p className="error-message">{apiError}</p>} {/* Show API error message */}
+        {apiError && <p className="error-message">{apiError}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
 
+        <a href="/forgot-password" className="forgot-password">
+          Forgot Password?
+        </a>
       </div>
     </div>
   );

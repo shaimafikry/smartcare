@@ -8,15 +8,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background-color: #1e4075b3;
+    background-color: #b83838;
     flex-direction: row;
     position:absolute;
-		top: 10px;            /* Align to the top */
-    right: 10px;   
-    /* margin-right: 20%; */
-    /* margin-top: 3%; */
-    /* margin-left: 50%; */
-    color: rgb(230, 230, 230);
+    margin-right: 20%;
+    margin-top: 3%;
+    margin-left: 50%;
+    color: rgb(74, 73, 73);
     border-radius: 15px;
   }
   
@@ -37,7 +35,6 @@
   body {
      /* Prevent content from hiding behind the header */
     margin-top: 50px;
-		padding-top: 80px; /* Add space to ensure content doesn’t hide behind the header */
   }
   
   @media (max-width: 768px) {
