@@ -1,96 +1,59 @@
+const { addUser, findUser, findUserById, updateUser, deleteUser, validatePass, updateUserPassword } = require('../models/user');
 
-
-const { addUser, findUser,findUserById, updateUser, deleteUser, validatePass, updateUserPassword } = require('../models/user');
-
-
-
+// Show user details
 async function showUser(req, res) {
-  // Assuming req.user is populated by the authToken middleware
-  const user_id = req.user.user_id;
-  console.log(user_id);
+  const user_id = req.user.user_id; // Assuming req.user is populated by the authToken middleware
 
   try {
     const user = await findUserById(user_id);
 
     if (user) {
-      res.status(200).json({
-        user: user, // Include the user object in the response
-      });
-      console.log("in user control",user);
+      res.status(200).json({ user });
+      console.log("User found:", user);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
     console.error('Error fetching user:', error);
-    res.status(500).json({ message: 'An error occurred' });
+    res.status(500).json({ message: 'An error occurred while fetching user' });
   }
 }
 
-
-async function updatePassword(req, res){
-     // Assuming req.user is populated by the authToken middleware
-  const user_id = req.user.user_id;
+// Update password
+async function updatePassword(req, res) {
+  const user_id = req.user.user_id; // Assuming req.user is populated by the authToken middleware
   const { old_Password, password } = req.body;
+
+  // Check if both old_Password and new password are provided
+  if (!old_Password || !password) {
+    return res.status(400).json({ message: 'Old and new passwords are required' });
+  }
 
   try {
     const userDb = await findUserById(user_id);
 
+    if (!userDb) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
     const isValid = await validatePass(old_Password, userDb.password);
 
-    if (isValid){
-<<<<<<< Updated upstream:backend/controllers/userControl.js
-<<<<<<< Updated upstream:backend/controllers/userControl.js
+    if (isValid) {
+      const isUpdated = await updateUserPassword(userDb.email, password);
 
-			const isUpdated = await updateUserPassword(userDb.email, password);
-
-			if (isUpdated) {
-
-				res.status(200).json({ message: 'password updated' });
-
-			}else {
-
-				res.status(400).json({ message: 'password not updated' });
-			}
-    } else {
-
-      res.status(404).json({ message: 'wrong old password' });
-=======
-			const isUpdated = await updateUser(userDb.email, password);
-      if (isUpdated) 
-      {
-        console.log("Password Updated successfully")
-        res.status(200).json({ message: 'password updated' });
-      }
-      else {
-        console.log("Password haven't Updated yet")
-
+      if (isUpdated) {
+        return res.status(200).json({ message: 'Password updated successfully' });
+      } else {
+        return res.status(400).json({ message: 'Password update failed' });
       }
     } else {
-
-=======
-			const isUpdated = await updateUser(userDb.email, password);
-      if (isUpdated) 
-      {
-        console.log("Password Updated successfully")
-        res.status(200).json({ message: 'password updated' });
-      }
-      else {
-        console.log("Password haven't Updated yet")
-
-      }
-    } else {
-
->>>>>>> Stashed changes:smart_care_v3/backend/controllers/userControl.js
-      res.status(404).json({ message: 'User not found' });
->>>>>>> Stashed changes:smart_care_v3/backend/controllers/userControl.js
+      return res.status(400).json({ message: 'Incorrect old password' });
     }
+    
   } catch (error) {
-
-    console.error('Error fetching user:', error);
-		
-    res.status(500).json({ message: 'An error occurred' });
+    console.error('Error updating password:', error);
+    return res.status(500).json({ message: 'An error occurred while updating the password' });
   }
-
 }
 
 module.exports = { showUser, updatePassword };
