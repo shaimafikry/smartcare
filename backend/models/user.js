@@ -97,7 +97,19 @@ async function validatePass(password, hashedPassword) {
 
 
 
-module.exports = { addUser, findUser, updateUser, deleteUser, validatePass, findUserById, updateUserPassword };
+// Fetch specific users based on their role
+async function getSpecificUsers(role) {
+    try {
+      const users = await User.findAll({ where: { role } });
+      return users; // Return the users when found
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error; // Handle the error appropriately
+    }
+  }
+  
+
+module.exports = { addUser, findUser, updateUser, deleteUser, validatePass, findUserById, updateUserPassword, getSpecificUsers };
 
 
 
