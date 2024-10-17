@@ -39,6 +39,7 @@ async function updatePassword(req, res){
 
     if (isValid){
 <<<<<<< Updated upstream:backend/controllers/userControl.js
+<<<<<<< Updated upstream:backend/controllers/userControl.js
 
 			const isUpdated = await updateUserPassword(userDb.email, password);
 
@@ -66,6 +67,20 @@ async function updatePassword(req, res){
       }
     } else {
 
+=======
+			const isUpdated = await updateUser(userDb.email, password);
+      if (isUpdated) 
+      {
+        console.log("Password Updated successfully")
+        res.status(200).json({ message: 'password updated' });
+      }
+      else {
+        console.log("Password haven't Updated yet")
+
+      }
+    } else {
+
+>>>>>>> Stashed changes:smart_care_v3/backend/controllers/userControl.js
       res.status(404).json({ message: 'User not found' });
 >>>>>>> Stashed changes:smart_care_v3/backend/controllers/userControl.js
     }
