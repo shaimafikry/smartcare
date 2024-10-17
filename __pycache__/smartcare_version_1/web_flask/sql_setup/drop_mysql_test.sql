@@ -1,5 +1,0 @@
-
-DROP DATABASE IF EXISTs smart_care_test;
-
-
-FLUSH PRIVILEGES;

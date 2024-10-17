@@ -1,36 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import { fetchData, postData } from '../../api';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { fetchData, putData } from '../../api';
 import './Profile.css';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { decodeJWT } from '../../utils';
 
-function Profile() {
+function EditProfile({ message }) {
   const [formData, setFormData] = useState({
-    Name: '',
-    Age: '',
-    NewPassword: '',
-    ConfirmPassword: '',
+    email: '',
+    oldPassword: '', // Added oldPassword field
+    password: '',
+    role: '',
+    name: '',
+    age: '',
+    department: '',
+    phone: '',
+    national_id: '',
   });
 
-  const [showEditProfileModal, setShowEditProfileModal] = useState(false);
-  const [showEditPasswordModal, setShowEditPasswordModal] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   const [apiError, setApiError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState(false);
   const [errorFields, setErrorFields] = useState([]);
+  
+  const user = decodeJWT(localStorage.getItem('token'));
+  const userRole = user.role;
 
   useEffect(() => {
-    const fetchPatientData = async () => {
-      try {
-        const data = await fetchData('/api/profile');
-        setFormData(data);
-      } catch (error) {
-        setApiError('Failed to load data.');
-      }
-    };
-
-    fetchPatientData();
-  }, []);
+		const fetchPatientData = async () => {
+			try {
+				const data = await fetchData(`${userRole}/profile`);
+				
+				// Log the data received to debug
+				console.log("Data from backend:", data);
+				
+				// Check if user object exists and then update form data
+				if (data && data.user) {
+					setFormData({
+						email: data.user.email || '',
+						role: data.user.role || '',
+						old_Password: '', // Old password for validation
+						password: '', // Password will be blank initially for editing
+						name: data.user.name || '',
+						age: data.user.age || '',
+						department: data.user.department || '',
+						phone: data.user.phone || '',
+						national_id: data.user.national_id || '',
+					});
+				} else {
+					setApiError('Failed to load user data.');
+				}
+				
+				setIsLoading(false); // Data is loaded
+			} catch (error) {
+				setApiError('Failed to load patient data.');
+				console.error('Error fetching data:', error);
+			}
+		};
+	
+		fetchPatientData();
+	}, [userRole]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,152 +67,62 @@ function Profile() {
     }
   };
 
-  const handleSubmitProfile = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const emptyFields = Object.keys(formData).filter(field => !formData[field].trim());
-    if (emptyFields.length > 0) {
-      setErrorFields(emptyFields);
-      return;
-    }
-
+    const updatedFormData = {
+      old_Password: formData.old_Password, // Send old password for validation
+      password: formData.password, // Send new password for update
+    };
+    setSuccessMessage('');
+    
     try {
-      const response = await postData('/api/profile', {
-        Name: formData.Name,
-        Age: formData.Age
-      });
-      setSuccessMessage('Profile updated successfully!');
-      setApiError('');
-      setShowEditProfileModal(false);
-      console.log('Form Data Submitted:', response);
-    } catch (error) {
-      setApiError('Failed to update profile. Please try again.');
-      console.error('Error:', error);
-    }
-  };
-
-  const handleSubmitPassword = async (e) => {
-    e.preventDefault();
-    const { NewPassword, ConfirmPassword } = formData;
-
-    if (!NewPassword || !ConfirmPassword) {
-      setErrorFields(['NewPassword', 'ConfirmPassword']);
-      return;
-    }
-
-    if (NewPassword !== ConfirmPassword) {
-      setApiError("Passwords do not match.");
-      return;
-    }
-
-    try {
-      // 
-      // const response = await postData('/api/update-password', formData);
+      const response = await putData(`${userRole}/profile`, updatedFormData);
       setSuccessMessage('Password updated successfully!');
       setApiError('');
-      setShowEditPasswordModal(false);
+      console.log('Password Updated:', response);
     } catch (error) {
       setApiError('Failed to update password. Please try again.');
       console.error('Error:', error);
     }
   };
 
+  if (isLoading) {
+    return <div>Loading user data...</div>;
+  }
+
   return (
-    <div className="edit-profile">
-      <Button className="custom-btn" onClick={() => setShowEditProfileModal(true)}>
-        Edit Profile
-      </Button>
-      <Button className="custom-btn" onClick={() => setShowEditPasswordModal(true)}>
-          Edit Password
-       </Button>
-
-
-      {/* Modal profile*/}
-      <Modal show={showEditProfileModal} onHide={() => setShowEditProfileModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Profile</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmitProfile}>
-            <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
+    <div className="edit-patient-profile">
+      <h2>Edit User Profile</h2>
+      <form onSubmit={handleSubmit}>
+        {Object.keys(formData).map((key) => (
+          <div className="form-group" key={key}>
+            <label>{key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}:</label>
+            {key === 'password' || key === 'old_Password' ? (
+              <input
+                type="password"
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                placeholder={key === 'password' ? "Enter new password" : "Enter old password"}
+              />
+            ) : (
+              <input
                 type="text"
-                name="Name"
-                value={formData.Name}
-                onChange={handleChange}
-                required
-                className={errorFields.includes('Name') ? 'is-invalid' : ''}
+                name={key}
+                value={formData[key]}
+                disabled // Make all other fields non-editable
               />
-              {errorFields.includes('Name') && <span className="error-message">Required</span>}
-            </Form.Group>
+            )}
+            {errorFields.includes(key) && <span className="error-message">Required</span>}
+          </div>
+        ))}
+        <button type="submit">Update Password</button>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Age</Form.Label>
-              <Form.Control
-                type="text"
-                name="Age"
-                value={formData.Age}
-                onChange={handleChange}
-                required
-                className={errorFields.includes('Age') ? 'is-invalid' : ''}
-              />
-              {errorFields.includes('Age') && <span className="error-message">Required</span>}
-            </Form.Group>
-
-            <Button type="submit" variant="danger">Save</Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-
-      {/* Modal password*/}
-      <Modal show={showEditPasswordModal} onHide={() => setShowEditPasswordModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Password</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmitPassword}>
-            
-            <Form.Group className="mb-3 position-relative">
-              <Form.Label>New Password</Form.Label>
-              <Form.Control
-                type={showPassword ? 'text' : 'password'}
-                name="NewPassword"
-                value={formData.NewPassword}
-                onChange={handleChange}
-                required
-                className={errorFields.includes('NewPassword') ? 'is-invalid' : ''}
-              />
-              <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-              </span>
-              {errorFields.includes('NewPassword') && <span className="error-message">Required</span>}
-            </Form.Group>
-
-            <Form.Group className="mb-3 position-relative">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type={showPassword ? 'text' : 'password'}
-                name="ConfirmPassword"
-                value={formData.ConfirmPassword}
-                onChange={handleChange}
-                required
-                className={errorFields.includes('ConfirmPassword') ? 'is-invalid' : ''}
-              />
-              <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-              </span>
-              {errorFields.includes('ConfirmPassword') && <span className="error-message">Required</span>}
-            </Form.Group>
-
-            <Button type="submit" variant="danger">Save</Button>
-          </Form>
-          {apiError && <div className="error-message">{apiError}</div>}
-          {successMessage && <div className="success-message">{successMessage}</div>}
-
-        </Modal.Body>
-      </Modal>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        {apiError && <p className="error-message">{apiError}</p>}
+      </form>
     </div>
   );
 }
 
-export default Profile;
+export default EditProfile;

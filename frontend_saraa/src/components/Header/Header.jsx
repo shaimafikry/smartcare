@@ -5,7 +5,7 @@ const Header = ({ username }) => {
   return (
     <header className="header">
       <div className="user-info">
-        Hello, {username}
+        {username}
       </div>
     </header>
   );

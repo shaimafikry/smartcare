@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import './Reciptionists.css';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { postData } from '../../api';
-import { handleReload } from '../../utils'
-
-
 
 function Reception({ receptionist, message }) {
   const [formData, setFormData] = useState({
@@ -26,16 +24,18 @@ function Reception({ receptionist, message }) {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleDateChange = (date) => {
+    setFormData({ ...formData, admissionDate: date });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       /*called postData from api.js to send data to backend*/
-      const response = await postData('receptionist/dashboard', formData);  
+      const response = await postData('receptionists', formData);  
       /* backend endpoint*/
       setSuccessMessage('Patient registered successfully!');
-			handleReload();
       console.log('Form Data Submitted:', response);
     } catch (error) {
       setApiError('Failed to register patient. Please try again.');
@@ -44,14 +44,14 @@ function Reception({ receptionist, message }) {
   };
 
   return (
-    <div className="container content">
+    <div className="container content re">
       <div>
         <h4>Register New Patient</h4>
       </div>
-      <div className="form-container">
+      <div className="form-container-re">
         <form onSubmit={handleSubmit}>
-          <div className="form-row">
-            <div className="form-group">
+          <div className="form-row-re">
+            <div className="form-group-re">
               <label htmlFor="patientName">Name</label>
               <input
                 type="text"
@@ -63,23 +63,23 @@ function Reception({ receptionist, message }) {
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="patientGender">Gender</label>
+            <div className="form-group-re">
+              <label htmlFor="patientgender">Gender</label>
               <select
                 id="patientGender"
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
               >
-                <option value="" disabled>Select Gender</option>
+                <option value="" disabled>Select ...</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
+          <div className="form-row-re">
+            <div className="form-group-re">
               <label htmlFor="patientAge">Age</label>
               <input
                 type="text"
@@ -91,7 +91,7 @@ function Reception({ receptionist, message }) {
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group-re">
               <label htmlFor="patientID">National ID</label>
               <input
                 type="text"
@@ -104,8 +104,8 @@ function Reception({ receptionist, message }) {
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
+          <div className="form-row-re">
+            <div className="form-group-re">
               <label htmlFor="patientAddress">Address</label>
               <input
                 type="text"
@@ -117,7 +117,7 @@ function Reception({ receptionist, message }) {
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group-re">
               <label htmlFor="patientDepartment">Department</label>
               <select
                 id="patientDepartment"
@@ -125,7 +125,7 @@ function Reception({ receptionist, message }) {
                 value={formData.department}
                 onChange={handleChange}
               >
-                <option value="" disabled>Select department</option>
+                <option value="" disabled>Select ...</option>
                 <option value="emergency">Emergency</option>
                 <option value="nursery">Nursery</option>
                 <option value="bones">Bones</option>
@@ -134,8 +134,8 @@ function Reception({ receptionist, message }) {
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
+          <div className="form-row-re">
+            <div className="form-group-re">
               <label htmlFor="patientPhone">Phone</label>
               <input
                 type="text"
@@ -148,7 +148,18 @@ function Reception({ receptionist, message }) {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn">
+          <div className="form-row-re">
+            <div className="form-group-re">
+              <label htmlFor="admissionDate">Entry Date</label>
+              <DatePicker
+                selected={formData.admissionDate}
+                onChange={handleDateChange}
+                className="date-picker"
+              />
+            </div>
+          </div>
+
+          <button type="submit" className="submit-btn-re">
             Submit
           </button>
 

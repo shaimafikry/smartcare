@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import './Nurses.css';
+import './Doctors.css';
 import { fetchData } from '../../api';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
-const Nurses = () => {
+const Doctors = () => {
   const [patients, setPatients] = useState([]);
   const [apiError, setApiError] = useState('');
-	const navigate = useNavigate(); // Get the navigate function
 
   // API
   const getPatients = async () => {
     try {
-      const response = await fetchData('doctor/dashboard');
+      const response = await fetchData('patients');
       setPatients(response);
     } catch (error) {
       setApiError('Failed to find patients data.');
@@ -24,10 +22,6 @@ const Nurses = () => {
     getPatients();
   }, []);
 
-  // Handle row click and navigate to another page (e.g., /patients/:id)
-  const handleRowClick = (patientId) => {
-    navigate(`/patients/${patientId}/edit`); // Redirect to the new page using the patient ID
-  };
 
   return (
     <div className="doctor-page">
@@ -50,13 +44,13 @@ const Nurses = () => {
           <tbody>
             {patients.length > 0 ? (
               patients.map((patient, index) => (
-                <tr key={index} onClick={() => handleRowClick(patient.id)} className="clickable-row">
+                <tr key={index}>
                   <td>{patient.name}</td>
-                  <td>{patient.national_id}</td>
+                  <td>{patient.nationalId}</td>
                   <td>{patient.age}</td>
-                  <td>{patient.PatientDetail?.diagnosis || "Not Yet Diagnosis"}</td>
-                  <td>{patient.state}</td>
-                  <td>{new Date(patient.createdAt).toLocaleDateString()}</td>
+                  <td>{patient.diagnosis}</td>
+                  <td>{patient.status}</td>
+                  <td>{patient.entryDate}</td>
                 </tr>
               ))
             ) : (
@@ -71,4 +65,4 @@ const Nurses = () => {
   );
 };
 
-export default Nurses;
+export default Doctors;
