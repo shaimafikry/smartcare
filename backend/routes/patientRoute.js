@@ -6,7 +6,6 @@ const express = require('express');
 const { editExistPatient, showPatient, departmentPatients, allPatients, addNewPatient  } = require('../controllers/patientControl');
 
 const authToken = require('../middleware/authToken');
-const verifyRole = require('../middleware/verifyRole');
 const router = express.Router();
 
 

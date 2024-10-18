@@ -60,4 +60,19 @@ async function signin (req, res) {
 	res.cookie('token', token,  { httpOnly: true, secure: false, sameSite: 'strict'}).json({ message: 'Login successful',token , redirectUrl: `/${redirectUrl}` });
 };
 
-module.exports = {signin};
+
+
+
+async function signout (req, res) {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).send('Failed to log out');
+    }
+    res.clearCookie('sessionId');
+		res.clearCookie('token'); // Clear the session cookie
+    return res.status(200).json('Logged out successfully');
+  });
+};
+
+
+module.exports = {signin, signout};
