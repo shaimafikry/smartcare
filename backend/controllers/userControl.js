@@ -1,4 +1,34 @@
-const { addUser, findUser, findUserById, updateUser, deleteUser, validatePass, updateUserPassword } = require('../models/user');
+const { addUser, findUserByEmail, findUserById, updateUser, deleteUser, validatePass, updateUserPassword, getSpecificUsers } = require('../models/user');
+
+
+
+
+
+
+async function addNewUser(req, res) {
+  // when user click sudmit i get data in the req body
+  const newUser = req.body;
+	// check if i have this user
+	// console.log(newUser);
+  const user = await findUserByEmail(newUser.email);
+
+	if (user) {
+		return res.status(400).send('User already exists');
+	};
+
+	try {
+		await addUser(newUser);
+		res.status(201).send('User registered');
+	} catch {
+		console.error('Error adding user');
+		return res.status(500).json({ message: 'An error occurred while adding user, please add all fileds' });
+
+	}
+
+	
+	
+};
+
 
 // Show user details
 async function showUser(req, res) {
@@ -19,8 +49,12 @@ async function showUser(req, res) {
   }
 }
 
+
+
+
 // Update password
 async function updatePassword(req, res) {
+	
   const user_id = req.user.user_id; // Assuming req.user is populated by the authToken middleware
   const { old_Password, password } = req.body;
 
@@ -56,4 +90,24 @@ async function updatePassword(req, res) {
   }
 }
 
-module.exports = { showUser, updatePassword };
+
+
+
+async function getUsersData (req, res) {
+  try {
+    const [nurses, doctors, receptionists, managers] = await Promise.all([
+      getSpecificUsers('nurse'),
+      getSpecificUsers('doctor'),
+      getSpecificUsers('receptionist'),
+      getSpecificUsers('manager'),
+    ]);
+
+    res.status(200).json({ nurses, doctors, receptionists, managers });
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+    res.status(500).json({ message: 'Server error while fetching dashboard data' });
+  }
+};
+
+
+module.exports = { showUser, updatePassword, getUsersData, addNewUser };

@@ -3,7 +3,7 @@
 // import the files
 
 const express = require('express');
-const { editExistPatient, showPatient, departmentPatients, allPatients } = require('../controllers/patientControl');
+const { editExistPatient, showPatient, departmentPatients, allPatients, addNewPatient  } = require('../controllers/patientControl');
 
 const authToken = require('../middleware/authToken');
 const verifyRole = require('../middleware/verifyRole');
@@ -14,10 +14,14 @@ router.use(authToken);
 // router.use(verifyRole('doctor, nurse'))
 
 router.get('/patients', allPatients);
+router.get('/patients/:id/edit', showPatient);
+router.get('/patients/:department', departmentPatients);
+
 
 router.put('/patients/:id/edit', editExistPatient);
-// to show patient prfoile as a get request
-router.get('/patients/:id/edit', showPatient);
+router.post('/patients/addNewPatient', addNewPatient);
+
+
 
 
 module.exports = router;

@@ -7,12 +7,10 @@ require('dotenv').config({ path: './config/.env' });
 const secret_key = process.env.SECRET_KEY;
 
 //get the token from cookies after signin
-// check for it, then send the user to the request parameter
 const authToken = ((req, res, next) => {
 	// 1- get the token from the cookies
 	const token = req.cookies.token;
-	console.log(token);
-	// check if it exist
+	// console.log(token);
 	if (!token) {
 		return res.status(401).send('Access Denied');
 	}

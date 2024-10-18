@@ -2,19 +2,19 @@ import React, { useEffect, useState }from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Manegers.css';
 import { Button, Modal, Table } from 'react-bootstrap';
-import { postData } from '../../api';
+import { postData, fetchData } from '../../api';
 
 const Manegers = () => {
     const [newUserFormVisible, setNewUserFormVisible] = useState(false);
-    const [userRole, setUserRole] = useState('');
-    const [userName, setUserName] = useState('');
-    const [userAge, setUserAge] = useState('');
-    const [userGender, setUserGender] = useState('');
-    const [userNationalID, setUserNationalID] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [userPhone, setUserPhone] = useState('');
-    const [userSpecialty, setUserSpecialty] = useState('');
-    const [userDepartment, setUserDepartment] = useState('');
+    const [role, setUserRole] = useState('');
+    const [name, setUserName] = useState('');
+    const [age, setUserAge] = useState('');
+    const [gender, setUserGender] = useState('');
+    const [national_id, setUserNationalID] = useState('');
+    const [password, setUserPassword] = useState('');
+    const [phone, setUserPhone] = useState('');
+    const [email, setUserEmail] = useState('');
+    const [department, setUserDepartment] = useState('');
     
     const [apiError, setApiError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -29,42 +29,33 @@ const Manegers = () => {
     const [showManegerModal, setShowManegersModal] = useState(false);
 
     useEffect(() => {
-        fetchData();
+        getUsers();
     }, []);
 
-    const fetchData = async () => {
+    const getUsers = async () => {
         try {
-            const nursesResponse = await fetch("http://localhost:5000/api/nurses");
-            const doctorsResponse = await fetch("http://localhost:5000/api/doctors");
-            const receptionistsResponse = await fetch("http://localhost:5000/api/receptionists");
-            const ManegersResponse = await fetch("http://localhost:5000/api/manegers");
-
-            const nursesData = await nursesResponse.json();
-            const doctorsData = await doctorsResponse.json();
-            const receptionistsData = await receptionistsResponse.json();
-            const manegersData = await ManegersResponse.json();
-            
-            setNurses(nursesData);
-            setManegers(manegersData);
-            setDoctors(doctorsData);
-            setReceptionists(receptionistsData);
+            const data = await fetchData('users');
+            setNurses(data.nurses);
+            setManegers(data.managers);
+            setDoctors(data.doctors);
+            setReceptionists(data.receptionists);
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error("Error fetching data");
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = {
-            userRole,
-            userName,
-            userPassword,
-            userPhone,
-            userSpecialty,
-            userDepartment,
-            userAge,
-            userGender,
-            userNationalID,
+            role,
+            name,
+            password,
+            phone,
+            email,
+            department,
+            age,
+            gender,
+            national_id,
         };
 
         try {
@@ -78,10 +69,10 @@ const Manegers = () => {
             setUserNationalID('');
             setUserPassword('');
             setUserPhone('');
-            setUserSpecialty('');
+            setUserEmail('');
             setUserDepartment('');
         } catch (error) {
-            setApiError('Failed to register user. Please try again.'); 
+            setApiError('Failed to register user'); 
         }
     };
 
@@ -142,7 +133,7 @@ const Manegers = () => {
                                                 type="text"
                                                 className="form-control-m"
                                                 id="userName"
-                                                value={userName}
+                                                value={name}
                                                 onChange={(e) => setUserName(e.target.value)}
                                                 placeholder="Enter name"
                                             />
@@ -152,8 +143,8 @@ const Manegers = () => {
                                             <input
                                                 type="text"
                                                 className="form-control-m"
-                                                id="userName"
-                                                value={userAge}
+                                                id="userAge"
+                                                value={age}
                                                 onChange={(e) => setUserAge(e.target.value)}
                                                 placeholder="Enter Age"
                                             />
@@ -163,7 +154,7 @@ const Manegers = () => {
                                             <select
                                                className="form-control-m"
                                                id="userGender"
-                                               value={userGender}
+                                               value={gender}
                                                onChange={(e) => setUserGender(e.target.value)}
                                              >
                                               <option value="" disabled selected>
@@ -180,7 +171,7 @@ const Manegers = () => {
                                                 type="password"
                                                 className="form-control-m"
                                                 id="userPassword"
-                                                value={userPassword}
+                                                value={password}
                                                 onChange={(e) => setUserPassword(e.target.value)}
                                                 placeholder="Enter password"
                                             />
@@ -190,16 +181,16 @@ const Manegers = () => {
                                             <select
                                                 className="form-control-m"
                                                 id="userType"
-                                                value={userRole}
+                                                value={role}
                                                 onChange={(e) => setUserRole(e.target.value)}
                                             >
                                                 <option value="" disabled selected>
                                                     Select...
                                                 </option>
-                                                <option value="Nurses">Nurse</option>
-                                                <option value="Receptionists">Receptionist</option>
-                                                <option value="Doctors">Doctor</option>
-                                                <option value="Doctors">Manager</option>
+                                                <option value="nurse">Nurse</option>
+                                                <option value="receptionist">Receptionist</option>
+                                                <option value="doctor">Doctor</option>
+                                                <option value="manager">Manager</option>
                                             </select>
                                         </div>
                                         <div className="form-group-m">
@@ -208,7 +199,7 @@ const Manegers = () => {
                                                 type="text"
                                                 className="form-control-m"
                                                 id="userPhone"
-                                                value={userPhone}
+                                                value={phone}
                                                 onChange={(e) => setUserPhone(e.target.value)}
                                                 placeholder="Enter phone number"
                                             />
@@ -219,20 +210,20 @@ const Manegers = () => {
                                                 type="text"
                                                 className="form-control-m"
                                                 id="userNationalID"
-                                                value={userNationalID}
+                                                value={national_id}
                                                 onChange={(e) => setUserNationalID(e.target.value)}
                                                 placeholder="Enter National-ID"
                                             />
                                         </div>
                                         <div className="form-group-m">
-                                            <label htmlFor="userSpecialty">Specialty</label>
+                                            <label htmlFor="userEmail">Email</label>
                                             <input
                                                 type="text"
                                                 className="form-control-m"
-                                                id="userSpecialty"
-                                                value={userSpecialty}
-                                                onChange={(e) => setUserSpecialty(e.target.value)}
-                                                placeholder="Enter specialty"
+                                                id="userEmail"
+                                                value={email}
+                                                onChange={(e) => setUserEmail(e.target.value)}
+                                                placeholder="Enter Email"
                                             />
                                         </div>
                                         <div className="form-group-m">
@@ -240,7 +231,7 @@ const Manegers = () => {
                                                 <select
                                                 className="form-control-m"
                                                 id="Department"
-                                                value={userDepartment} 
+                                                value={department} 
                                                 onChange={(e) => setUserDepartment(e.target.value)} 
                                                 >
                                                     <option value="" disabled selected>

@@ -11,7 +11,7 @@ const { User } = require('../config/users');
 
 
 
-async function findUser(email) {
+async function findUserByEmail(email) {
     const user = await User.findOne({ where: { email } });
 		// console.log(user.password);
 
@@ -34,12 +34,7 @@ async function findUserById(id) {
 
 // add user (input is object)
 async function addUser(user) {
-    // handle error if user exists
-    const existingUser = await findUser(user.email);
-    if (existingUser) {
-        throw new Error('User already exists');
-    }
-    
+    // console.log("in user model", user);
     // hash password using bcrypt
     const hashedPass = await bcrypt.hash(user.password, 10);
     // add user to database
@@ -53,7 +48,6 @@ async function addUser(user) {
 async function updateUserPassword(email, newPassword) {
 	// إذا كنت تريد تحديث كلمة المرور، عليك أن تقوم بتشفيرها أولاً
 	newPassword = await bcrypt.hash(newPassword, 10);
-	console.log("pass after hash", newPassword)
 	await User.update({ password: newPassword }, { where: { email } });
 	return true; // إرجاع true عند النجاح
 }
@@ -61,26 +55,23 @@ async function updateUserPassword(email, newPassword) {
 
 // update user
 async function updateUser(email, updates) {
-	  console.log("uodate user function", updates)
-    const user = await findUser(email);
+    const user = await findUserByEmail(email);
     if (!user) {
         throw new Error('User not found');
     }
-		console.log("pass before hash", updates.password)
 
     // إذا كنت تريد تحديث كلمة المرور، عليك أن تقوم بتشفيرها أولاً
     if (updates.password) {
         updates.password = await bcrypt.hash(updates.password, 10);
-				console.log("in update user",updates.password);
     }
-    console.log("pass after hash", updates.password)
+    // console.log("pass after hash", updates.password)
     await User.update(updates, { where: { email } });
     return true; // إرجاع true عند النجاح
 }
 
 // delete user
 async function deleteUser(email) {
-    const user = await findUser(email);
+    const user = await findUserByEmail(email);
     if (!user) {
         throw new Error('User not found');
     }
@@ -101,6 +92,7 @@ async function validatePass(password, hashedPassword) {
 async function getSpecificUsers(role) {
     try {
       const users = await User.findAll({ where: { role } });
+			// console.log("user module", users);
       return users; // Return the users when found
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -109,7 +101,7 @@ async function getSpecificUsers(role) {
   }
   
 
-module.exports = { addUser, findUser, updateUser, deleteUser, validatePass, findUserById, updateUserPassword, getSpecificUsers };
+module.exports = { addUser, findUserByEmail, updateUser, deleteUser, validatePass, findUserById, updateUserPassword, getSpecificUsers };
 
 
 

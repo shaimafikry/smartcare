@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import './Doctors.css';
 import { fetchData } from '../../api';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { decodeJWT } from '../../utils';
+import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 const Doctors = () => {
   const [patients, setPatients] = useState([]);
   const [apiError, setApiError] = useState('');
-	const [department, setDepartment] = useState('');
+	// const [userDepartment, setUserDepartment] = useState('');
 	const navigate = useNavigate(); // Get the navigate function
+	const { department } = useParams();
 
+
+	useEffect(() => {
   // API
-  const getPatients = async () => {
-    try {
-      const response = await fetchData('doctor/dashboard');
-      setPatients(response);
-			const user = decodeJWT(localStorage.getItem('token'))
+		const getPatients = async () => {
+			try {
+				const response = await fetchData(`patients/${department}`);
+				setPatients(response);
+				// const user = decodeJWT(localStorage.getItem('token'))
 
-			// console.log('user in edit patient profile page', user);
-			setDepartment(user.department);
-    } catch (error) {
-      setApiError('Failed to find patients data.');
-      console.error('Error fetching patients:', error);
-    }
-  };
+				// console.log('user in edit patient profile page', user);
+				// setUserDepartment(department);
+			} catch (error) {
+				setApiError('Failed to find patients data.');
+				console.error('Error fetching patients:', error);
+			}
+		};
 
-  // getPatients func
-  useEffect(() => {
-    getPatients();
-  }, []);
+		// getPatients func
+		
+			getPatients();
+  }, [department]);
 
   // Handle row click and navigate to another page (e.g., /patients/:id)
   const handleRowClick = (patientId) => {

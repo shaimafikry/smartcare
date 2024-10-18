@@ -22,7 +22,7 @@ function EditProfile({ message }) {
     discharge_notes: '',
   });
 	const [isLoading, setIsLoading] = useState(true); // Add a loading state
-	const [userRole, setUserRole] = useState('');
+	const [userDepartment, setUserDepartment] = useState('');
 	const [isDischargeActivated, setIsDischargeActivated] = useState(false);
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
@@ -107,9 +107,9 @@ function EditProfile({ message }) {
 			const user = decodeJWT(localStorage.getItem('token'))
 
 			// console.log('user in edit patient profile page', user);
-      const userRole = user.role
-			setUserRole(userRole);
-			navigate(`/${userRole}/dashboard`);
+      const userDepartment = user.department
+			setUserDepartment(userDepartment);
+			navigate(`/patients/${userDepartment}`);
     } catch (error) {
       setApiError('Failed to update patient profile. Please try again.');
       console.error('Error:', error);

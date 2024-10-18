@@ -34,7 +34,7 @@ function Reception({ receptionist, message }) {
 
     try {
       /*called postData from api.js to send data to backend*/
-      const response = await postData('receptionist/dashboard', formData);  
+      const response = await postData('patients/addNewPatient', formData);  
       /* backend endpoint*/
       setSuccessMessage('Patient registered successfully!');
 
