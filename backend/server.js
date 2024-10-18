@@ -9,10 +9,9 @@ const cookieParser = require('cookie-parser');
 // مكتبة لإعداد CORS (Cross-Origin Resource Sharing) للسماح لواجهة الـ frontend بالتواصل مع backend على سيرفرات مختلفة.
 const cors = require('cors');
 
-const signinRoute = require('./routes/signinRoute');
+const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
 const patientRoute = require('./routes/patientRoute');
-const signoutRoute = require('./routes/signoutRoute');
 const sessionMiddleware = require('./middleware/session');
 const app = express();
 
@@ -26,9 +25,8 @@ app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 
 // authentication and authorization
 // signin and redirect to the user dashboard
-app.use('/', signinRoute);
+app.use('/', authRoute);
 app.use('/', userRoute);
-app.use('/', signoutRoute);
 app.use('/', patientRoute);
 
 
