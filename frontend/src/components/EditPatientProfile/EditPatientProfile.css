@@ -77,14 +77,14 @@ textarea:hover {
   
   
 }
-.form-group button {
+.button-discharge {
   text-align: center;
   margin-left: 20%;
   box-shadow: rgb(6, 6, 6);
   font-size: 16px;
   background-color: #c23232;
 }
-.form-group button:hover {
+.button-discharge:hover {
   background-color: #a92f2f;
   transform: translateY(0px);
   

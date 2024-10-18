@@ -38,9 +38,9 @@ const router = createBrowserRouter([
 				{ path: "profile", element:  <Profile />},
 				{ path: "patients",
 					children:[
-						{ path: "", element: <ProtectedRoute allowedRoles={['doctor', 'nurse']}> <AllPatients /> </ProtectedRoute>},
+						{ path: "", element: <ProtectedRoute allowedRoles={['doctor', 'nurse', 'manager','receptionist']}> <AllPatients /> </ProtectedRoute>},
             {path: "addNewPatient", element:<ProtectedRoute allowedRoles={['receptionist']}> <Reciptionists /> </ProtectedRoute>},
-						{path: ":department", element:<ProtectedRoute allowedRoles={['doctor']}> <Doctors /> </ProtectedRoute>},
+						{path: ":department", element:<ProtectedRoute allowedRoles={['doctor', 'nurse']}> <Doctors /> </ProtectedRoute>},
 						{path: ":id",
 							children:[
 								{path: "edit", element:<ProtectedRoute allowedRoles={['doctor', 'nurse']}> <EditPatientProfile /> </ProtectedRoute>},	]},]},

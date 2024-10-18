@@ -10,6 +10,8 @@ const PatientAll = () => {
 	// const [department, setDepartment] = useState('');
 	const navigate = useNavigate(); // Get the navigate function
 
+	
+
   // API
   const getPatients = async () => {
     try {

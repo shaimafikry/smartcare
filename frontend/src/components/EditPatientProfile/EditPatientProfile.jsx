@@ -22,11 +22,14 @@ function EditProfile({ message }) {
     discharge_notes: '',
   });
 	const [isLoading, setIsLoading] = useState(true); // Add a loading state
-	const [userDepartment, setUserDepartment] = useState('');
 	const [isDischargeActivated, setIsDischargeActivated] = useState(false);
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorFields, setErrorFields] = useState([]);
+	const [userRole, setUserRole] = useState('');
+	const [userDepartment, setUserDepartment] = useState('');
+
+
 
   useEffect(() => {
     const fetchPatientData = async () => {
@@ -70,6 +73,11 @@ function EditProfile({ message }) {
       }
     };
 
+    // GE THE TOKEN DATA
+		const user = decodeJWT(localStorage.getItem('token'))
+		setUserRole(user.role); 
+		setUserDepartment(user.department);;
+
     fetchPatientData();
   }, [id]);
 
@@ -91,24 +99,12 @@ function EditProfile({ message }) {
     };
     // Reset success message on form submission
     setSuccessMessage('');
-		// console.log(formData);
-		// fields could be empty !
-    // const emptyFields = Object.keys(formData).filter(field => !formData[field].trim());
-    // if (emptyFields.length > 0) {
-    //   setErrorFields(emptyFields);
-    //   return;
-    // }
 
     try {
       const response = await putData(`patients/${id}/edit`, updatedFormData);
       setSuccessMessage('Patient profile updated successfully!');
       setApiError('');
       console.log('Form Data Submitted:', response);
-			const user = decodeJWT(localStorage.getItem('token'))
-
-			// console.log('user in edit patient profile page', user);
-      const userDepartment = user.department
-			setUserDepartment(userDepartment);
 			navigate(`/patients/${userDepartment}`);
     } catch (error) {
       setApiError('Failed to update patient profile. Please try again.');
@@ -147,7 +143,7 @@ function EditProfile({ message }) {
               <input
                 type={key.includes('rate') || key.includes('temp') || key.includes('sugar') || key.includes('pressure') ? 'number' : 'text'}
                 name={key}
-                value={formData[key] || 0}
+                value={formData[key] || ''}
                 onChange={handleChange}
                 
               />
@@ -155,9 +151,16 @@ function EditProfile({ message }) {
             {errorFields.includes(key) && <span className="error-message">Required</span>}
           </div>
         ))}
-				<div className="form-group">
-						<button type="button" onClick={activateDischarge}>Discharge Permission</button>
-				</div>
+        
+				{/* Conditionally render the Discharge button if user is not a nurse */}
+				 {userRole !== 'nurse' && (
+          <div className="form-group">
+            <button className="button-discharge" type="button" onClick={activateDischarge}>
+              Discharge Permission
+            </button>
+          </div>
+        )}
+
         <button type="submit">Submit</button>
 
         {successMessage && <p className="success-message">{successMessage}</p>}
