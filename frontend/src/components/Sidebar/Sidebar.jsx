@@ -4,10 +4,34 @@ import { Link } from 'react-router-dom';
 import { postData } from "../../api";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const Sidebar = ({ role, onReloadClick }) => {
+
+
+const Sidebar = ({ role, onReloadClick, department }) => {
 	const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-	const baseUrl = `/${role}`;
+	const [redirectUrl, setRedirectUrl]=useState('');
+
+	 // useEffect to set the redirect URL based on the role and department
+	 useEffect(() => {
+    switch (role) {
+      case 'doctor':
+      case 'nurse':
+        setRedirectUrl(`/patients/${department}`);
+        console.log('User is a nurse or doctor');
+        break;
+      case 'manager':
+        setRedirectUrl('/users');
+        console.log('User is a manager', redirectUrl);
+        break;
+      case 'receptionist':
+        setRedirectUrl('/patients/addNewPatient');
+        console.log('User is a receptionist');
+        break;
+      default:
+        setRedirectUrl('/login');
+        console.log('User role is unknown');
+    }
+  }, [role, department, redirectUrl]); // Only re-run this effect when role or department changes
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -26,6 +50,8 @@ const Sidebar = ({ role, onReloadClick }) => {
       if (isOpen && !sidebar.contains(event.target) && !hamburgerMenu.contains(event.target)) {
         closeSidebar();
       }
+
+			
     };
 
     document.addEventListener('click', handleClickOutside);
@@ -33,6 +59,8 @@ const Sidebar = ({ role, onReloadClick }) => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [isOpen]);
+
+
 
 
 	const handleLogout = async () => {
@@ -72,8 +100,8 @@ const Sidebar = ({ role, onReloadClick }) => {
           </div>
 
           <nav className="sidebar-nav">
-						<Link className="sidebar-link" to={`${baseUrl}/dashboard`} onClick={onReloadClick}>Dashboard</Link>
-						<Link className="sidebar-link" to={`${baseUrl}/profile`} onClick={onReloadClick}>Profile</Link>
+						<Link className="sidebar-link" to={redirectUrl} onClick={onReloadClick}>Dashboard</Link>
+						<Link className="sidebar-link" to={'profile'} onClick={onReloadClick}>Profile</Link>
 						<Link className="sidebar-link" to={'patients'} onClick={onReloadClick}>All Patients</Link>
 						<Link className="sidebar-link" to='*' onClick={handleLogout} >Sign Out</Link>
           </nav>

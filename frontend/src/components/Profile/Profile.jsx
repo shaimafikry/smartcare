@@ -27,7 +27,7 @@ function EditProfile({ message }) {
   useEffect(() => {
 		const fetchPatientData = async () => {
 			try {
-				const data = await fetchData(`${userRole}/profile`);
+				const data = await fetchData('profile');
 				
 				// Log the data received to debug
 				console.log("Data from backend:", data);
@@ -76,7 +76,7 @@ function EditProfile({ message }) {
     setSuccessMessage('');
     
     try {
-      const response = await putData(`${userRole}/profile`, updatedFormData);
+      const response = await putData('profile', updatedFormData);
       setSuccessMessage('Password updated successfully!');
       setApiError('');
       console.log('Password Updated:', response);

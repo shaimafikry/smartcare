@@ -11,6 +11,8 @@ const Layout = () => {
 	const [role, setRole] = useState(null);
 	const [name, setName] = useState(null);
 	const [key, setKey] = useState(0); // State for the dashboard key
+	const [department, setDepartment] = useState(null);
+
 
   const navigate = useNavigate();
 
@@ -25,9 +27,11 @@ const Layout = () => {
 		// Access the role from the decoded token
 		const role = decoded.role;
 		const name = decoded.name;
+		const department= decoded.department;
 		// add role to the layout
 		setRole(role);
 		setName(name);
+		setDepartment(department);
 		console.log('User role:', role);  // Example: 'doctor', 'nurse', etc.
 		} else {
 			console.log('No token found in localStorage');
@@ -47,7 +51,7 @@ const Layout = () => {
     <div className="app">
       <Header username={name}/> {/*import header */}
       <div className="layout-container">
-        <Sidebar role={role} onReloadClick={handleReloadClick} /> {/* import sidebar */}
+        <Sidebar role={role} onReloadClick={handleReloadClick} department={department} /> {/* import sidebar */}
         <div className="main-content">
 				  <Outlet key={key} /> {/*other content */}
         </div>

@@ -6,8 +6,9 @@ const { Op } = require('sequelize'); // Make sure to import Op for Sequelize ope
 
 // Mark:receptionist_add
 async function addPatient(patient) {
+
     try {
-			console.log("Patient data before creation:", patient); // Log the patient data
+
 			const newPatient = await Patient.create(patient); // إضافة المريض إلى قاعدة البيانات
         return newPatient.get({ plain: true }); // إرجاع بيانات المريض الجديد
     } catch (error) {
@@ -15,8 +16,11 @@ async function addPatient(patient) {
     }
 }
 
+
+
 // Mark: receptionist edit
 async function editPatient(id, updatedData) {
+
     try {
         const patient = await Patient.findByPk(id); // البحث عن المريض باستخدام ID
         if (!patient) {
@@ -31,12 +35,14 @@ async function editPatient(id, updatedData) {
 }
 
 
+
 // إخراج مريض (تعديل الحالة إلى 'out')
 async function dischargePatient(id) {
         // تحديث حالة المريض إلى 'out'
         await Patient.update({ status: 'out' }, { where: { id: id } });
         return true; // إرجاع true عند النجاح
 }
+
 
 
 async function findPatient(searchInput) {
@@ -75,7 +81,6 @@ async function receptionistFindOnePatient(national_id) {
         const patient = await Patient.findOne({
             where:{ national_id: national_id},
         });
-				console.log("after in search",patient);
 
 				if (!patient) {
 					return null; // Or throw an error
@@ -85,6 +90,7 @@ async function receptionistFindOnePatient(national_id) {
         throw new Error(`Error finding patients: ${error.message}`);
     }
 }
+
 
 // receptioinst search
 async function receptionistFindPatient(searchInput) {
@@ -113,6 +119,8 @@ async function receptionistFindPatient(searchInput) {
 	}
 }
 
+
+
 //patientDetail Table
 
 async function editPatientMedical(id, updatedData) {
@@ -138,6 +146,8 @@ async function editPatientMedical(id, updatedData) {
     }
 }
 
+
+
 async function getPatientsInDepartment(departmentName) {
     try {
         const patients = await Patient.findAll({
@@ -162,6 +172,8 @@ async function getPatientsInDepartment(departmentName) {
         throw error; // Handle the error
     }
 }
+
+
 
 
 async function getAllPatients() {

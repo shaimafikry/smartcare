@@ -10,10 +10,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const signinRoute = require('./routes/signinRoute');
-// const managerRoute = require('./routes/managerRoute');
-const doctorRoute = require('./routes/doctorRoute');
-const nurseRoute = require('./routes/nurseRoute');
-const receptionRoute = require('./routes/receptionRoute');
+const userRoute = require('./routes/userRoute');
 const patientRoute = require('./routes/patientRoute');
 const signoutRoute = require('./routes/signoutRoute');
 const sessionMiddleware = require('./middleware/session');
@@ -30,11 +27,7 @@ app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 // authentication and authorization
 // signin and redirect to the user dashboard
 app.use('/', signinRoute);
-app.use('/', receptionRoute);
-// app.use('/', managerRoute);
-app.use('/', doctorRoute);
-// app.use('/', nurseRoute);
-
+app.use('/', userRoute);
 app.use('/', signoutRoute);
 app.use('/', patientRoute);
 

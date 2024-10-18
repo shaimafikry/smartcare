@@ -1,6 +1,6 @@
 // dealing with patient information taken from receptionist
 // import patient data
-const { addPatient, editPatient, findPatient, receptionistFindPatient, dischargePatient, getPatientsInDepartment, editPatientMedical, getAllPatients } = require('../models/patient');
+const { addPatient, editPatient, findPatient,receptionistFindOnePatient, receptionistFindPatient, dischargePatient, getPatientsInDepartment, editPatientMedical, getAllPatients } = require('../models/patient');
 
 
 // edit patient medical
@@ -34,10 +34,9 @@ async function editExistPatient(req, res){
 
 // show one patient profile
 async function showPatient(req, res){
-	// const patientId = req.params.id; // Get patient ID from the URL
-	// const newPatient = req.body;
+
 	const patientId = parseInt(req.params.id);
-	// const newPatient = req.body;
+
 	// if patient exist
 	const patient = await findPatient(patientId);
 
@@ -54,10 +53,9 @@ async function showPatient(req, res){
 
 // show all patients in on depatrment
 async function departmentPatients(req, res){
-	user = req.user;
-	console.log(req.user)
-	// console.log(token);
-	const all = await getPatientsInDepartment(user.department);
+
+	const department = req.params.department;
+	const all = await getPatientsInDepartment(department);
 	// andle if all is null
 	if (all === null){
 		return res.json({message: "no current data"});
@@ -73,8 +71,7 @@ async function departmentPatients(req, res){
 // show all patients in on depatrment
 async function allPatients(req, res){
 	user = req.user;
-	console.log(req.user)
-	// console.log(token);
+	// console.log(req.user)
 	const all = await getAllPatients();
 	// andle if all is null
 	if (all === null){
@@ -86,4 +83,23 @@ async function allPatients(req, res){
 };
 
 
-module.exports = { editExistPatient, showPatient, departmentPatients, allPatients};
+
+
+// add patient function
+async function addNewPatient( req, res) {
+
+  const newPatient = req.body;
+	// if patient exist
+	  const patient = await receptionistFindOnePatient(newPatient.national_id);
+		// if pt exist return the data 
+		if (patient) {
+			// ask for new visit or edit pt data
+       return res.json({message: 'Pateint exist, new visit?'});
+		}
+		await addPatient(newPatient);
+		return res.json({message: 'Pateint added successfully'});
+};
+
+
+
+module.exports = { addNewPatient, editExistPatient, showPatient, departmentPatients, allPatients};
