@@ -115,7 +115,7 @@ function EditProfile({ message }) {
 
 
 	const activateDischarge = () => {
-		setIsDischargeActivated(true);
+		setIsDischargeActivated(!isDischargeActivated);
 	};
 
 
@@ -155,7 +155,7 @@ function EditProfile({ message }) {
 				{/* Conditionally render the Discharge button if user is not a nurse */}
 				 {userRole !== 'nurse' && (
           <div className="form-group">
-            <button className="button-discharge" type="button" onClick={activateDischarge}>
+            <button className={`button-discharge ${isDischargeActivated ? 'active' : ''}`} type="button" onClick={activateDischarge}>
               Discharge Permission
             </button>
           </div>
