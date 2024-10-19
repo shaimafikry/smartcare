@@ -88,9 +88,9 @@ function EditProfile({ message }) {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading user data...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading user data...</div>;
+  // }
 
   return (
     <div className="edit-profile-container">
@@ -120,7 +120,7 @@ function EditProfile({ message }) {
         ))}
         <button type="submit">Update Password</button>
 
-        {successMessage && <p className="success-message">{successMessage}</p>}
+        {successMessage && <p className="success-message-profile-page">{successMessage}</p>}
         {apiError && <p className="error-message-profile-page">{apiError}</p>}
       </form>
     </div>

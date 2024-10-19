@@ -82,12 +82,15 @@ textarea:hover {
   margin-left: 20%;
   box-shadow: rgb(6, 6, 6);
   font-size: 16px;
-  background-color: #c23232;
+  background-color: #1a54ab;
 }
 .button-discharge:hover {
-  background-color: #a92f2f;
+  background-color: #5b3b3b;
   transform: translateY(0px);
   
+}
+.button-discharge.active {
+  background-color: #c23232;; /* Change to your desired clicked color */
 }
 
 button {

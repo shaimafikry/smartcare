@@ -73,8 +73,15 @@
 }
 .error-message-profile-page {
   color: red;
-  font-size: 0.875rem;
+  font-size:16px;
   position: relative; /* Adjust error message position */
   margin-top: 5px;
   text-align: left;
+}
+
+.success-message-profile-page {
+  text-align: center;
+  color: #1a54ab;
+  margin-top: 20px;
+  font-size: 18px;
 }
