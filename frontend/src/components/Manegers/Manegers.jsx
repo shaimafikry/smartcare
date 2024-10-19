@@ -72,7 +72,7 @@ const Manegers = () => {
             setUserEmail('');
             setUserDepartment('');
         } catch (error) {
-            setApiError('Failed to register user'); 
+            setApiError(error.message || 'Failed to register user'); 
         }
     };
 

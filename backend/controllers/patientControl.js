@@ -94,10 +94,10 @@ async function addNewPatient( req, res) {
 		// if pt exist return the data 
 		if (patient) {
 			// ask for new visit or edit pt data
-       return res.json({message: 'Pateint exist, new visit?'});
+       return res.status(400).json({message: 'Pateint exist, new visit?'});
 		}
 		await addPatient(newPatient);
-		return res.json({message: 'Pateint added successfully'});
+		return res.status(200).json({message: 'Pateint added successfully'});
 };
 
 

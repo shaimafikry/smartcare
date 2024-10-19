@@ -71,3 +71,10 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
+.error-message-profile-page {
+  color: red;
+  font-size: 0.875rem;
+  position: relative; /* Adjust error message position */
+  margin-top: 5px;
+  text-align: left;
+}
