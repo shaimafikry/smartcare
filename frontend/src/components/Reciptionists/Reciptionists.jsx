@@ -41,7 +41,7 @@ function Reception({ receptionist, message }) {
 			handleReload();
       console.log('Form Data Submitted:', response);
     } catch (error) {
-      setApiError('Failed to register patient. Please try again.');
+      setApiError(error.message || 'Failed to register patient. Please try again.');
       console.error('Error:', error);
     }
   };

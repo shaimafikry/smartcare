@@ -6,8 +6,8 @@ import { decodeJWT } from '../../utils';
 function EditProfile({ message }) {
   const [formData, setFormData] = useState({
     email: '',
-    oldPassword: '', // Added oldPassword field
-    password: '',
+    old_Password: '', // Added oldPassword field
+    new_Password: '',
     role: '',
     name: '',
     age: '',
@@ -38,7 +38,7 @@ function EditProfile({ message }) {
 						email: data.user.email || '',
 						role: data.user.role || '',
 						old_Password: '', // Old password for validation
-						password: '', // Password will be blank initially for editing
+						new_Password: '', // Password will be blank initially for editing
 						name: data.user.name || '',
 						age: data.user.age || '',
 						department: data.user.department || '',
@@ -69,9 +69,10 @@ function EditProfile({ message }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const updatedFormData = {
       old_Password: formData.old_Password, // Send old password for validation
-      password: formData.password, // Send new password for update
+      password: formData.new_Password, // Send new password for update
     };
     setSuccessMessage('');
     
@@ -81,8 +82,9 @@ function EditProfile({ message }) {
       setApiError('');
       console.log('Password Updated:', response);
     } catch (error) {
-      setApiError('Failed to update password. Please try again.');
-      console.error('Error:', error);
+      setApiError(error.message || 'Failed to update password. Please try again.');
+      console.error(error);
+			console.log('apierror',apiError);
     }
   };
 
@@ -97,13 +99,13 @@ function EditProfile({ message }) {
         {Object.keys(formData).map((key) => (
           <div className="form-group" key={key}>
             <label>{key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}:</label>
-            {key === 'password' || key === 'old_Password' ? (
+            {key === 'new_Password' || key === 'old_Password' ? (
               <input
                 type="password"
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
-                placeholder={key === 'password' ? "Enter new password" : "Enter old password"}
+                placeholder={key === 'new_Password' ? "Enter new password" : "Enter old password"}
               />
             ) : (
               <input
@@ -119,7 +121,7 @@ function EditProfile({ message }) {
         <button type="submit">Update Password</button>
 
         {successMessage && <p className="success-message">{successMessage}</p>}
-        {apiError && <p className="error-message">{apiError}</p>}
+        {apiError && <p className="error-message-profile-page">{apiError}</p>}
       </form>
     </div>
   );

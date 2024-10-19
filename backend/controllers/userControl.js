@@ -13,7 +13,7 @@ async function addNewUser(req, res) {
   const user = await findUserByEmail(newUser.email);
 
 	if (user) {
-		return res.status(400).send('User already exists');
+		return res.status(400).json({message: 'User already exists!'});
 	};
 
 	try {
@@ -21,7 +21,7 @@ async function addNewUser(req, res) {
 		res.status(201).send('User registered');
 	} catch {
 		console.error('Error adding user');
-		return res.status(500).json({ message: 'An error occurred while adding user, please add all fileds' });
+		return res.status(400).json({ message: 'Please add all fileds.' });
 
 	}
 
@@ -60,14 +60,14 @@ async function updatePassword(req, res) {
 
   // Check if both old_Password and new password are provided
   if (!old_Password || !password) {
-    return res.status(400).json({ message: 'Old and new passwords are required' });
+    return res.status(400).json({ message: 'Old and new passwords are required!' });
   }
 
   try {
     const userDb = await findUserById(user_id);
 
     if (!userDb) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(400).json({ message: 'User not found.' });
     }
 
     const isValid = await validatePass(old_Password, userDb.password);
@@ -76,12 +76,12 @@ async function updatePassword(req, res) {
       const isUpdated = await updateUserPassword(userDb.email, password);
 
       if (isUpdated) {
-        return res.status(200).json({ message: 'Password updated successfully' });
+        return res.status(200).json({ message: 'Password updated successfully.' });
       } else {
-        return res.status(400).json({ message: 'Password update failed' });
+        return res.status(400).json({ message: 'Password update failed.' });
       }
     } else {
-      return res.status(400).json({ message: 'Incorrect old password' });
+      return res.status(400).json({ message: 'Incorrect old password!' });
     }
     
   } catch (error) {

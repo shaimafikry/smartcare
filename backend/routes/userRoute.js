@@ -4,8 +4,6 @@
 const express = require('express');
 const { showUser, updatePassword, getUsersData, addNewUser } = require('../controllers/userControl');
 const authToken = require('../middleware/authToken');
-const verifyRole = require('../middleware/verifyRole');
-
 const router = express.Router();
 
 
