@@ -48,7 +48,6 @@ The **Smart Care System** is designed to enhance hospital communication between 
 ## **Next Steps**
 
 - Implement real-time chat functionality between doctors and nurses.
-- Add video calling features for emergency situations.
 - Enhance the database with more entities and functionalities for better hospital management.
 - Add a payment system in the receptionist section.
 - Scale the project to accommodate larger hospitals and more users.
