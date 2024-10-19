@@ -141,7 +141,7 @@ function EditProfile({ message }) {
               />
             ) : (
               <input
-                type={key.includes('rate') || key.includes('temp') || key.includes('sugar') || key.includes('pressure') ? 'number' : 'text'}
+                type='text'
                 name={key}
                 value={formData[key] || ''}
                 onChange={handleChange}
