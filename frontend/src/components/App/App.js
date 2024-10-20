@@ -16,7 +16,7 @@ import EditPatientProfile from '../EditPatientProfile/EditPatientProfile';
 
 
 
-
+//createBrowserRouter //
 const router = createBrowserRouter([
 	{
     path: "*",
