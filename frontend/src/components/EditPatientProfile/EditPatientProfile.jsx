@@ -35,7 +35,6 @@ function EditProfile({ message }) {
     const fetchPatientData = async () => {
       try {
         const data = await fetchData(`patients/${id}/edit`);
-				// Set form fields to the data fetched (if they exist)
 				const {
 					complain,
 					treatment,
