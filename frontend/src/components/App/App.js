@@ -30,7 +30,6 @@ const router = createBrowserRouter([
 		path: "/signout",
 		element: <SignOut />,
 	},
-	//عدلت الباث عشان فتح علي الهوم غير السايد بار
 	{
     path: "/",
     element: <Home />,
