@@ -42,10 +42,8 @@
   font-family: 'Roboto', sans-serif;
 }
 
-/* Email and Password fields should be stacked vertically */
 .input-group-login {
-  /* margin-bottom: 20px; */
-  display: block; /* Ensure that fields are stacked vertically */
+  display: block;
 }
 
 .input-field-login {
