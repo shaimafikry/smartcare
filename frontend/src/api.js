@@ -26,9 +26,6 @@ export const fetchData = async (endpoint) => {
   return await response.json();
 };
 
-
-
-
 // POST request
 export const postData = async (endpoint, data) => {
 	try {
@@ -84,7 +81,6 @@ export const putData = async (endpoint, data) => {
 		}
 };
 
-
 // delete request
 export const deleteData = async (endpoint, data = null) => {
 	try {
@@ -106,7 +102,7 @@ export const deleteData = async (endpoint, data = null) => {
 			return await response.json(); // Return the parsed JSON response
 	} catch (error) {
 			// Handling Errors 
-			console.error('Error in deleteData:', error); // Log the error for debugging
+			console.error('Error in deleted Data:', error); // Log the error for debugging
 			throw new Error(`${error.message}`);
 	}
 };
