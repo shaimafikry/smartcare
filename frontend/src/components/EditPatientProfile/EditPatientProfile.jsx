@@ -35,6 +35,7 @@ function EditProfile({ message }) {
     const fetchPatientData = async () => {
       try {
         const data = await fetchData(`patients/${id}/edit`);
+				
 				const {
 					complain,
 					treatment,
