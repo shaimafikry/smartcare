@@ -34,7 +34,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />,
   },
-    // خليت لكل باث Children  خاصة بيها عشان لما نيجي نكلك علي السايد بار 
     {path: '/', element:<Layout />,
 			children:[
 				{ path: "profile", element:  <Profile />},
