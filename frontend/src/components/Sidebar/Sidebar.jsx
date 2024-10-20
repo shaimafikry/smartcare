@@ -30,7 +30,7 @@ const Sidebar = ({ role, onReloadClick, department }) => {
         setRedirectUrl('/login');
         console.log('User role is unknown');
     }
-  }, [role, department, redirectUrl]); // Only re-run this effect when role or department changes
+  }, [role, department, redirectUrl]); //re-run this effect when role or department changes
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
