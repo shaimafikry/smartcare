@@ -52,7 +52,6 @@ export const postData = async (endpoint, data) => {
 		}
 };
 
-
 // PUT request
 export const putData = async (endpoint, data) => {
 	  console.log(data);
