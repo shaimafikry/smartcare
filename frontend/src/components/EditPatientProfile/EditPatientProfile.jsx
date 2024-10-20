@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchData, putData } from '../../api';
 import './EditPatientProfile.css';
-import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useNavigate, useParams } from 'react-router-dom';
 //import { decodeJWT } from '../../utils';
 
 
