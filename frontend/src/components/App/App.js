@@ -15,7 +15,6 @@ import Doctors from '../Doctors/Doctors';
 import EditPatientProfile from '../EditPatientProfile/EditPatientProfile';
 
 
-
 const router = createBrowserRouter([
 	{
     path: "*",
