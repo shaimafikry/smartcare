@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Nurses.css';
 import { fetchData } from '../../api';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 const Nurses = () => {
   const [patients, setPatients] = useState([]);
