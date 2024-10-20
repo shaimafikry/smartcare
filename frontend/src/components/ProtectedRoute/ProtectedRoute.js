@@ -16,9 +16,9 @@ export default function ProtectedRoute({ children, allowedRoles }) {
     const user = decodeJWT(token); 
     const userRole = user.role;
 
-	  let redirectUrl = ''
+	let redirectUrl = ''
 
-	  switch (userRole) {
+	switch (userRole) {
 			case 'doctor':
 			case 'nurse':
 				redirectUrl = `/patients/${user.department}`
@@ -34,7 +34,7 @@ export default function ProtectedRoute({ children, allowedRoles }) {
 	}
     // Check if the user role is allowed
     if (allowedRoles && !allowedRoles.includes(userRole)) {
-        return <Navigate to={redirectUrl} />; // Redirect to an unauthorized page or handle it differently
+        return <Navigate to={redirectUrl} />; // Redirect to an unauthorized page or handle it differently //
     }
 
     // If everything is okay, render the children
