@@ -11,7 +11,7 @@ import SignOut from '../SignOut/SignOut';
 import AllPatients from '../AllPatients/AllPatients';
 import Manegers from '../Manegers/Manegers';
 import Doctors from '../Doctors/Doctors';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+//import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import EditPatientProfile from '../EditPatientProfile/EditPatientProfile';
 
 
