@@ -7,7 +7,6 @@ import Login from '../Login/Login';
 import Reciptionists from '../Reciptionists/Reciptionists';
 import Home from '../Home/Home';
 import Profile from '../Profile/Profile';
-import SignOut from '../SignOut/SignOut';
 import AllPatients from '../AllPatients/AllPatients';
 import Manegers from '../Manegers/Manegers';
 import Doctors from '../Doctors/Doctors';
@@ -24,10 +23,6 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-	{ 
-		path: "/signout",
-		element: <SignOut />,
-	},
 	{
     path: "/",
     element: <Home />,

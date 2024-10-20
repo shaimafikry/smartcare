@@ -18,6 +18,8 @@ const Home = () => {
       <Link to="/login">
         <button className="login-button-home"><i className="fa fa-sign-in"></i>Login</button>
       </Link>
+
+
        {/* Footer */}
        <footer className="footer">
          <h6>Contact us at smartcare@gmail.com</h6>
