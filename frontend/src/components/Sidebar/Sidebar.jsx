@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { postData } from "../../api";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-
+import { useNavigate } from 'react-router-dom';
 
 
 const Sidebar = ({ role, onReloadClick, department }) => {
