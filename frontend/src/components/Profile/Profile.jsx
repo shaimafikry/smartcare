@@ -6,7 +6,7 @@ import './Profile.css';
 function EditProfile({ message }) {
   const [formData, setFormData] = useState({
     email: '',
-    old_Password: '', // Added oldPassword field
+    old_Password: '',
     new_Password: '',
     role: '',
     name: '',
