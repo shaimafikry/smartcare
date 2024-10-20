@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchData, putData } from '../../api';
 import './EditPatientProfile.css';
 import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { decodeJWT } from '../../utils';
+//import { decodeJWT } from '../../utils';
 
 
 function EditProfile({ message }) {
@@ -74,7 +74,8 @@ function EditProfile({ message }) {
     };
 
     // GE THE TOKEN DATA
-		const user = decodeJWT(localStorage.getItem('token'))
+		//const user = decodeJWT(localStorage.getItem('token'))
+    const user = {role: "patients", department: ""};
 		setUserRole(user.role); 
 		setUserDepartment(user.department);;
 
@@ -120,9 +121,9 @@ function EditProfile({ message }) {
 
 
 
-	if (isLoading) {
-    return <div>Loading patient data...</div>; // Show a loading message while data is being fetched
-  }
+	//if (isLoading) {
+   // return <div>Loading patient data...</div>; // Show a loading message while data is being fetched
+ // }
 
 
   return (

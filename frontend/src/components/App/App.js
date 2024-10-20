@@ -2,7 +2,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import './App.css';
-import Layout from '../Layout/Layout'; 
+import Layout from '../Layout/Layout';
 import Login from '../Login/Login';
 import Reciptionists from '../Reciptionists/Reciptionists';
 import Home from '../Home/Home';
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <Home />,
   },
     // خليت لكل باث Children  خاصة بيها عشان لما نيجي نكلك علي السايد بار 
-    {path: '/', element:<Layout />, 
+    {path: '/', element:<Layout />,
 			children:[
 				{ path: "profile", element:  <Profile />},
 				{ path: "patients",

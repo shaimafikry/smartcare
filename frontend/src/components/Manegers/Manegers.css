@@ -5,12 +5,12 @@ body {
 	padding: 0;
 }
 .modal-dialog-m{
-	width: calc(70% - 30px);
+	width: calc(60% - 40px);
 	margin-left: 30%;
 	margin-top: 20px;
 	padding: 20px;
 	margin-bottom: 20px;
-	height:99vh;
+	height:90vh;
 	border-radius: 15px;
 	overflow-y: auto;
 	box-shadow: rgb(0, 0, 0);
@@ -32,7 +32,7 @@ body {
 	}
 .modal-header-m{
 	text-align: center;
-	background-color:#2f4dd4a8;
+	background-color:#3654d7db;
 	color: white;
 	}
 .close-m{
@@ -45,7 +45,7 @@ body {
 	position: absolute;
 	top: -5%;
 	right: 10px;
-	color: #fff;
+	color: #fcfcfe;
 	font-size: 1.5rem;
 	opacity: 0.5;
 }
@@ -59,13 +59,15 @@ body {
 	position: absolute;
 	top: -5%;
 	right: 10px;
-	color: #fff;
+	font-size: 1.7rem;
+	color: #102190;
 	font-size: 1.5rem;
 	opacity: 0.5;
 }
 .form-group-m label{
 	color: #000000;
 	text-align:left;
+	font-size: 18px;
 	margin-bottom: 10px;
 	font-weight: bold;
 	border-radius: 15px;
@@ -74,7 +76,7 @@ body {
 	font-family:'Times New Roman', Times, serif
 }
 .form-group-m input{
-	color: #000000;
+	color: #504f4f;
 	text-align:left;
 	margin-bottom: 10px;
 	border-radius: 10px;
@@ -85,7 +87,10 @@ body {
 	text-align: center;
 	background-color: #e7e9eb;
 	margin-bottom: 10px;
-	border:#000000
+	border:#989696;
+	margin-bottom: 10px;
+	width: 100%;
+
 }
 .form-control-m option{
 	color: #000000;
@@ -96,7 +101,7 @@ body {
 	justify-content: center;  
 }
 #userPassword {
-	width: 80%; 
+	width: 100%; 
 	text-align:left;
 	padding: 10px;
 	border-radius: 10px;
@@ -199,8 +204,8 @@ button.close:hover {
 	text-align: center;
 }
 .table th {
-	background-color: #818182;
-	color: white;
+	background-color: #e5e5e7;
+	color: rgb(81, 81, 81);
 	text-align: center;
 }
 
@@ -208,7 +213,7 @@ button.close:hover {
 	text-align: center;
 }
 .modal-footer .btn-secondary {
-	background-color: #120397;
+	background-color: #230fd9;
 	color: white;
 	border: none;
 }
@@ -246,7 +251,7 @@ button.close:hover {
 }
 
 .modal-header {
-	background-color: #565454;
+	background-color: #4279df;
 	color: #fff;
 	border-bottom: none;
 }
