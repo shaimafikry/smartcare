@@ -21,7 +21,7 @@ function EditProfile({ message }) {
     res_rate: '',
     discharge_notes: '',
   });
-	//const [isLoading, setIsLoading] = useState(true); // Add a loading state
+	const [isLoading, setIsLoading] = useState(true); // Add a loading state
 	const [isDischargeActivated, setIsDischargeActivated] = useState(false);
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
