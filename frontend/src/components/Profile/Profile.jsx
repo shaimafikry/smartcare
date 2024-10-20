@@ -126,5 +126,4 @@ function EditProfile({ message }) {
     </div>
   );
 }
-
 export default EditProfile;
