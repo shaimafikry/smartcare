@@ -47,7 +47,7 @@
 }
 
 .input-field-login {
-  width: 100%; /* Full width of the container */
+  width: 100%;
   padding: 12px;
   border-radius: 15px;
   border: 1px solid #ccc;
@@ -81,7 +81,7 @@
 .error-message {
   color: red;
   font-size: 0.875rem;
-  position: relative; /* Adjust error message position */
+  position: relative;
   margin-top: 5px;
   text-align: left;
 }
