@@ -79,16 +79,12 @@ tbody tr:nth-child(even) td {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgb(143, 137, 137);
 }
-
-/* Active row effect */
 .clickable-row:active {
   background-color: #e2e2e2;
-  transform: translateY(0); /* No lift when clicked */
-  box-shadow: none; /* Remove shadow when clicked */
+  transform: translateY(0);
+  box-shadow: none;
 }
 
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
 	.table-container {
 		width: 100%;
