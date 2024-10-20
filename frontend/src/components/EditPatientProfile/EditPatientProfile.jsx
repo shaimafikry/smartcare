@@ -48,7 +48,7 @@ function EditProfile({ message }) {
 					blood_pressure,
 					res_rate,
 					discharge_notes
-			} = data.PatientDetail || {}; // Use an empty object as a fallback if PatientDetail is undefined
+			} = data.PatientDetail || {};
 	
 			// Set the extracted fields in the form data
 			setFormData(prevFormData => ({
