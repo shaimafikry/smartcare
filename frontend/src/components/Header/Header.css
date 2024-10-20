@@ -18,11 +18,12 @@
     /* margin-left: 50%; */
     color: rgb(230, 230, 230);
     border-radius: 15px;
+    width: auto;
   }
   
   .user-info {
     margin-left: auto;
-    font-size: 18px;
+    font-size: 16px;
   }
   
   .main-content {
