@@ -6,7 +6,7 @@ const PORT = 5000;
 const express = require('express');
 // to del with cookies
 const cookieParser = require('cookie-parser');
-// مكتبة لإعداد CORS (Cross-Origin Resource Sharing) للسماح لواجهة الـ frontend بالتواصل مع backend على سيرفرات مختلفة.
+// CORS (Cross-Origin Resource Sharing) for allowing frontend to communicate with backend in different servers.
 const cors = require('cors');
 
 const authRoute = require('./routes/authRoute');
