@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { fetchData, putData } from '../../api';
 import './EditPatientProfile.css';
+<<<<<<< HEAD
 import { useNavigate, useParams } from 'react-router-dom';
 //import { decodeJWT } from '../../utils';
+=======
+import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { decodeJWT } from '../../utils';
+>>>>>>> 3fd64a7797345dece0e9d06c8c033f1df42d0fe9
 
 
 function EditProfile({ message }) {
@@ -74,8 +79,8 @@ function EditProfile({ message }) {
     };
 
     // GE THE TOKEN DATA
-		//const user = decodeJWT(localStorage.getItem('token'))
-    const user = {role: "patients", department: ""};
+		const user = decodeJWT(localStorage.getItem('token'))
+    // const user = {role: "patients", department: ""};
 		setUserRole(user.role); 
 		setUserDepartment(user.department);;
 
@@ -121,9 +126,9 @@ function EditProfile({ message }) {
 
 
 
-	//if (isLoading) {
-   // return <div>Loading patient data...</div>; // Show a loading message while data is being fetched
- // }
+	if (isLoading) {
+   return <div>Loading patient data...</div>; // Show a loading message while data is being fetched
+ }
 
 
   return (

@@ -19,6 +19,14 @@ async function findUserByEmail(email) {
 }
 
 
+async function findUserByNationalId(national_id) {
+	const user = await User.findOne({ where: { national_id } });
+	// console.log(user.password);
+
+	return user ? user.get({ plain: true }) : null; // إرجاع بيانات المستخدم بشكل بسيط
+}
+
+
 
 
 
@@ -101,7 +109,7 @@ async function getSpecificUsers(role) {
   }
   
 
-module.exports = { addUser, findUserByEmail, updateUser, deleteUser, validatePass, findUserById, updateUserPassword, getSpecificUsers };
+module.exports = { addUser, findUserByEmail, updateUser, deleteUser, validatePass, findUserById, updateUserPassword, getSpecificUsers, findUserByNationalId };
 
 
 

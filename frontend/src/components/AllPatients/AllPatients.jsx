@@ -17,7 +17,7 @@ const PatientAll = () => {
     try {
       const response = await fetchData('patients');
       setPatients(response);
-			// const user = decodeJWT(localStorage.getItem('token'))
+			// const user = decodeJWT(sessionStorage.getItem('token'))
 
 			// console.log('user in edit patient profile page', user);
 			// setDepartment(user.department);

@@ -66,7 +66,7 @@ const Sidebar = ({ role, onReloadClick, department }) => {
 		try {
 			const data = await postData('signout');
 			console.log(data);
-			localStorage.removeItem('token'); // or session storage
+			sessionStorage.removeItem('token'); // or session storage
 			// Redirect to login page or home
 			document.cookie = "token=; path=/login;";
 			navigate('/login');

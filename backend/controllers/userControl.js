@@ -1,4 +1,4 @@
-const { addUser, findUserByEmail, findUserById, updateUser, deleteUser, validatePass, updateUserPassword, getSpecificUsers } = require('../models/user');
+const { addUser, findUserByEmail, findUserById, updateUser, deleteUser, validatePass, updateUserPassword, getSpecificUsers, findUserByNationalId } = require('../models/user');
 
 
 
@@ -10,15 +10,20 @@ async function addNewUser(req, res) {
   const newUser = req.body;
 	// check if i have this user
 	// console.log(newUser);
-  const user = await findUserByEmail(newUser.email);
+  const userEmail = await findUserByEmail(newUser.email);
+	const userNationalId = await findUserByNationalId(newUser.national_id);
 
-	if (user) {
+	if (userNationalId) {
 		return res.status(400).json({message: 'User already exists!'});
+	};
+
+	if (userEmail ) {
+		return res.status(400).json({message: 'Email already exists!'});
 	};
 
 	try {
 		await addUser(newUser);
-		res.status(201).send('User registered');
+		res.status(201).json('User registered Succefully');
 	} catch {
 		console.error('Error adding user');
 		return res.status(400).json({ message: 'Please add all fileds.' });
