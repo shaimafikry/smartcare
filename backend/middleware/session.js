@@ -5,7 +5,7 @@ const secret_key = process.env.SECRET_KEY;
 
 
 const sessionMiddleware = session({
-  secret: secret_key,  // استبدلها بمفتاح سري قوي
+  secret: secret_key,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false, httpOnly: true, maxAge: 60000 }
