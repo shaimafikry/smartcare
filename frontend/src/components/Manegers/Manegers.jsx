@@ -156,10 +156,10 @@ const Manegers = () => {
                                                id="userGender"
                                                value={gender}
                                                onChange={(e) => setUserGender(e.target.value)}
-                                             >
+                                            >
                                               <option value="" disabled selected>
                                                    Select...
-                                                     </option>
+                                            </option>
                                               <option value="Male">Male</option>
                                               <option value="Female">Female</option>
                                             </select>
