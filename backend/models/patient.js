@@ -1,6 +1,6 @@
 
 // patient module
-const { Patient, PatientDetails } = require('../config/patients'); // تأكد من تحديث مسار النموذج
+const { Patient, PatientDetails } = require('../config/patients');
 const { Op } = require('sequelize'); // Make sure to import Op for Sequelize operators
 
 
@@ -9,10 +9,10 @@ async function addPatient(patient) {
 
     try {
 
-			const newPatient = await Patient.create(patient); // إضافة المريض إلى قاعدة البيانات
-        return newPatient.get({ plain: true }); // إرجاع بيانات المريض الجديد
+			const newPatient = await Patient.create(patient); 
+        return newPatient.get({ plain: true });
     } catch (error) {
-        throw new Error(`Error adding patient: ${error.message}`); // التعامل مع الأخطاء
+        throw new Error(`Error adding patient: ${error.message}`);
     }
 }
 
@@ -22,13 +22,13 @@ async function addPatient(patient) {
 async function editPatient(id, updatedData) {
 
     try {
-        const patient = await Patient.findByPk(id); // البحث عن المريض باستخدام ID
+        const patient = await Patient.findByPk(id);
         if (!patient) {
             throw new Error('Patient not found');
         }
 
         await Patient.update(updatedData, { where: { id: id } });
-        return true; // إرجاع true عند النجاح
+        return true;
     } catch (error) {
         throw new Error(`Error updating patient: ${error.message}`);
     }
@@ -36,11 +36,11 @@ async function editPatient(id, updatedData) {
 
 
 
-// إخراج مريض (تعديل الحالة إلى 'out')
+// make status 'out' when discharge patient
 async function dischargePatient(id) {
-        // تحديث حالة المريض إلى 'out'
+    
         await Patient.update({ status: 'out' }, { where: { id: id } });
-        return true; // إرجاع true عند النجاح
+        return true;
 }
 
 
@@ -155,7 +155,7 @@ async function getPatientsInDepartment(departmentName) {
                 department: departmentName, // Replace with actual department
                 status: ['new', 'resident'] // Status should be either 'new' or 'persist'
             },
-						include: [PatientDetails], // تضمين جدول PatientDetails لجلب البيانات المرتبطة
+						include: [PatientDetails], // to include ralational Patient details
             order: [
                 ['createdAt', 'DESC'] // Sort by createdAt in descending order
             ]
@@ -163,7 +163,7 @@ async function getPatientsInDepartment(departmentName) {
         // console.log(patients);
         // Check if patients array is empty
         if (patients.length === 0) {
-            return null; // يمكن إرجاع null إذا لم يوجد مرضى
+            return null;
         }
 
         return patients; // Return the array of patients
@@ -182,7 +182,7 @@ async function getAllPatients() {
 			// console.log(patients);
 			// Check if patients array is empty
 			if (patients.length === 0) {
-					return null; // يمكن إرجاع null إذا لم يوجد مرضى
+					return null;
 			}
 
 			return patients; // Return the array of patients
