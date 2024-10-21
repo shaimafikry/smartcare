@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import './App.css';
@@ -23,10 +22,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-	{ 
-		path: "/signout",
-		element: <SignOut />,
-	},
+	
 	{
     path: "/",
     element: <Home />,

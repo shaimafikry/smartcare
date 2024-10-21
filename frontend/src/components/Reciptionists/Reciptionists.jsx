@@ -66,21 +66,6 @@ function Reception({ receptionist, message }) {
 								required
               />
             </div>
-
-            <div className="form-group">
-              <label htmlFor="patientGender">Gender</label>
-              <select
-                id="patientGender"
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-								required
-              >
-                <option value="" disabled>Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
           </div>
 
           <div className="form-row">
