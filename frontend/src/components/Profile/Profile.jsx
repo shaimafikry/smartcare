@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchData, putData } from '../../api';
 import './Profile.css';
-//import { decodeJWT } from '../../utils';
+import { decodeJWT } from '../../utils';
 
 function EditProfile({ message }) {
   const [formData, setFormData] = useState({
@@ -21,8 +21,8 @@ function EditProfile({ message }) {
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorFields, setErrorFields] = useState([]);
   
-  // user = decodeJWT(localStorage.getItem('token'));
-  const userRole = "patients";
+  const user = decodeJWT(sessionStorage.getItem('token'));
+  const userRole = user.role;
 
   useEffect(() => {
 		const fetchPatientData = async () => {
@@ -88,9 +88,9 @@ function EditProfile({ message }) {
     }
   };
 
-  // if (isLoading) {
-  //   return <div>Loading user data...</div>;
-  // }
+  if (isLoading) {
+    return <div>Loading user data...</div>;
+  }
 
   return (
     <div className="edit-profile-container">

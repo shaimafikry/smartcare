@@ -65,7 +65,6 @@ function Login() {
         const data = await postData('login', user);
 				console.log(user);
 				console.log("token after signin", data.token);  // Make sure it's a valid JWT (header.payload.signature)
-				localStorage.setItem('token', data.token);
 				sessionStorage.setItem('token', data.token);
 
 				console.log('Token stored successfully:', data.token);

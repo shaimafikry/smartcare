@@ -16,28 +16,28 @@ const Layout = () => {
 
   const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	// Get the token from localStorage
-	// 	const token = localStorage.getItem('token');
-	// 	// console.log('Decoded and Verified JWT:', token);
-	// 	if (token) {
-	// 	// Decode the token
-	// 	const decoded = decodeJWT(token);
-	// 	// console.log('Decoded and Verified JWT:', decoded);
-	// 	// Access the role from the decoded token
-	// 	const role = decoded.role;
-	// 	const name = decoded.name;
-	// 	const department= decoded.department;
-	// 	// add role to the layout
-	// 	setRole(role);
-	// 	setName(name);
-	// 	setDepartment(department);
-	// 	console.log('User role:', role);  // Example: 'doctor', 'nurse', etc.
-	// 	} else {
-	// 		console.log('No token found in localStorage');
-	// 		navigate('/login');
-	// 	}
-	// }, [navigate]);
+	useEffect(() => {
+		// Get the token from localStorage
+		const token = sessionStorage.getItem('token');
+		// console.log('Decoded and Verified JWT:', token);
+		if (token) {
+		// Decode the token
+		const decoded = decodeJWT(token);
+		// console.log('Decoded and Verified JWT:', decoded);
+		// Access the role from the decoded token
+		const role = decoded.role;
+		const name = decoded.name;
+		const department= decoded.department;
+		// add role to the layout
+		setRole(role);
+		setName(name);
+		setDepartment(department);
+		console.log('User role:', role);  // Example: 'doctor', 'nurse', etc.
+		} else {
+			console.log('No token found in localStorage');
+			navigate('/login');
+		}
+	}, [navigate]);
 
 
 	
