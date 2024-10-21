@@ -121,9 +121,14 @@ function Reception({ receptionist, message }) {
               >
                 <option value="" disabled>Select department</option>
                 <option value="emergency">Emergency</option>
-                <option value="nursery">Nursery</option>
-                <option value="bones">Bones</option>
-                <option value="brain">Brain</option>
+                <option value="surgery">Surgery</option>
+                <option value="reception">Reception</option>
+                <option value="management">Management</option>
+                <option value="pediatrics">Pediatrics</option>
+                <option value="orthopedics">Orthopedics</option>
+                <option value="cardiology">Cardiology</option>
+                <option value="neurology">Neurology</option>
+                <option value="radiology">Radiology</option>
               </select>
             </div>
           </div>

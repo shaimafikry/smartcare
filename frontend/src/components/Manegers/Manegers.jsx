@@ -239,6 +239,8 @@ const Manegers = () => {
                                                     </option>
                                                     <option value="emergency">Emergency</option>
                                                     <option value="surgery">Surgery</option>
+                                                    <option value="reception">Reception</option>
+                                                    <option value="management">Management</option>
                                                     <option value="pediatrics">Pediatrics</option>
                                                     <option value="orthopedics">Orthopedics</option>
                                                     <option value="cardiology">Cardiology</option>
