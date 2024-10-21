@@ -15,7 +15,7 @@ async function findUserByEmail(email) {
     const user = await User.findOne({ where: { email } });
 		// console.log(user.password);
 
-    return user ? user.get({ plain: true }) : null; // إرجاع بيانات المستخدم بشكل بسيط
+    return user ? user.get({ plain: true }) : null;
 }
 
 
@@ -23,7 +23,7 @@ async function findUserByNationalId(national_id) {
 	const user = await User.findOne({ where: { national_id } });
 	// console.log(user.password);
 
-	return user ? user.get({ plain: true }) : null; // إرجاع بيانات المستخدم بشكل بسيط
+	return user ? user.get({ plain: true }) : null; 
 }
 
 
@@ -33,7 +33,7 @@ async function findUserByNationalId(national_id) {
 async function findUserById(id) {
 	const user = await User.findOne({ where: { id } });
 	// console.log(user.password);
-	return user ? user.get({ plain: true }) : null; // إرجاع بيانات المستخدم بشكل بسيط
+	return user ? user.get({ plain: true }) : null;
 }
 
 
@@ -47,17 +47,17 @@ async function addUser(user) {
     const hashedPass = await bcrypt.hash(user.password, 10);
     // add user to database
     const newUser = await User.create({ ...user, password: hashedPass });
-    return newUser.get({ plain: true }); // إرجاع بيانات المستخدم الجديد
+    return newUser.get({ plain: true });
 }
 
 
 
 // update user password
 async function updateUserPassword(email, newPassword) {
-	// إذا كنت تريد تحديث كلمة المرور، عليك أن تقوم بتشفيرها أولاً
+	// encrypt password before storing it
 	newPassword = await bcrypt.hash(newPassword, 10);
 	await User.update({ password: newPassword }, { where: { email } });
-	return true; // إرجاع true عند النجاح
+	return true;
 }
 
 
@@ -68,13 +68,12 @@ async function updateUser(email, updates) {
         throw new Error('User not found');
     }
 
-    // إذا كنت تريد تحديث كلمة المرور، عليك أن تقوم بتشفيرها أولاً
     if (updates.password) {
         updates.password = await bcrypt.hash(updates.password, 10);
     }
     // console.log("pass after hash", updates.password)
     await User.update(updates, { where: { email } });
-    return true; // إرجاع true عند النجاح
+    return true;
 }
 
 // delete user
@@ -85,7 +84,7 @@ async function deleteUser(email) {
     }
     
     await User.destroy({ where: { email } });
-    return true; // إرجاع true عند النجاح
+    return true;
 }
 
 // Validate password
