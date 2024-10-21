@@ -36,12 +36,3 @@ const sequelize = require('./db'); // assuming the db config file for Sequelize 
     `);
 
     module.exports = {departmentTrigger, updateTrigger}
-  // down: async (queryInterface, Sequelize) => {
-  //   await queryInterface.sequelize.query(`
-  //     DROP TRIGGER IF EXISTS update_state_on_department_change ON "Patients";
-  //     DROP FUNCTION IF EXISTS update_state_on_department_change;
-
-  //     DROP TRIGGER IF EXISTS update_patient_state_on_patientdetails_change ON "PatientDetails";
-  //     DROP FUNCTION IF EXISTS update_patient_state_on_patientdetails_change;
-  //   `);
-  // }
