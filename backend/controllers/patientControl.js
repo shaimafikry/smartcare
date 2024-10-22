@@ -70,9 +70,8 @@ async function departmentPatients(req, res){
 
 // show all patients in on depatrment
 async function allPatients(req, res){
-	user = req.user;
-	// console.log(req.user)
 	const all = await getAllPatients();
+	// console.log(all);
 	// andle if all is null
 	if (all === null){
 		return res.json({message: "no current data"});

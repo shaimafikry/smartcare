@@ -17,7 +17,7 @@ const Layout = () => {
   const navigate = useNavigate();
 
 	useEffect(() => {
-		// Get the token from localStorage
+		// Get the token from sessionStorage
 		const token = sessionStorage.getItem('token');
 		// console.log('Decoded and Verified JWT:', token);
 		if (token) {
@@ -32,9 +32,8 @@ const Layout = () => {
 		setRole(role);
 		setName(name);
 		setDepartment(department);
-		console.log('User role:', role);  // Example: 'doctor', 'nurse', etc.
 		} else {
-			console.log('No token found in localStorage');
+			console.log('No token found in sessionStorage');
 			navigate('/login');
 		}
 	}, [navigate]);

@@ -127,7 +127,7 @@ async function editPatientMedical(id, updatedData) {
     try {
 			  const { discharge, ...Data } = updatedData; // Destructure the discharge flag from the body
 
-			  // check if i has psat records
+			  // check if it has past records
 				const patientMedRecord = await PatientDetails.findOne({ where: { patient_id: id } });
 				if (patientMedRecord) {
 
@@ -153,14 +153,13 @@ async function getPatientsInDepartment(departmentName) {
         const patients = await Patient.findAll({
             where: {
                 department: departmentName, // Replace with actual department
-                status: ['new', 'resident'] // Status should be either 'new' or 'persist'
+                status: ['new', 'resident'] // Status should be either 'new' or 'resident'
             },
 						include: [PatientDetails], // to include ralational Patient details
             order: [
                 ['createdAt', 'DESC'] // Sort by createdAt in descending order
             ]
         });
-        // console.log(patients);
         // Check if patients array is empty
         if (patients.length === 0) {
             return null;
@@ -178,8 +177,12 @@ async function getPatientsInDepartment(departmentName) {
 
 async function getAllPatients() {
 	try {
-			const patients = await Patient.findAll();
-			// console.log(patients);
+		const patients = await Patient.findAll({
+			include: [PatientDetails], // to include ralational Patient details
+			order: [
+					['createdAt', 'DESC'] // Sort by createdAt in descending order
+			]
+	});
 			// Check if patients array is empty
 			if (patients.length === 0) {
 					return null;

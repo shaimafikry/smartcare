@@ -9,7 +9,6 @@ const Manegers = () => {
     const [role, setUserRole] = useState('');
     const [name, setUserName] = useState('');
     const [age, setUserAge] = useState('');
-    const [gender, setUserGender] = useState('');
     const [national_id, setUserNationalID] = useState('');
     const [password, setUserPassword] = useState('');
     const [phone, setUserPhone] = useState('');
@@ -54,7 +53,6 @@ const Manegers = () => {
             email,
             department,
             age,
-            gender,
             national_id,
         };
 
@@ -65,12 +63,12 @@ const Manegers = () => {
             setUserRole('');
             setUserName('');
             setUserAge('');
-            setUserGender('');
             setUserNationalID('');
             setUserPassword('');
             setUserPhone('');
             setUserEmail('');
             setUserDepartment('');
+						setApiError(''); 
         } catch (error) {
             setApiError(error.message || 'Failed to register user'); 
         }
@@ -149,22 +147,6 @@ const Manegers = () => {
                                                 placeholder="Enter Age"
                                             />
                                         </div>
-                                        <div className="form-group-m">
-                                            <label htmlFor="userGender">Gender</label>
-                                            <select
-                                               className="form-control-m"
-                                               id="userGender"
-                                               value={gender}
-                                               onChange={(e) => setUserGender(e.target.value)}
-                                            >
-                                              <option value="" disabled selected>
-                                                   Select...
-                                            </option>
-                                              <option value="Male">Male</option>
-                                              <option value="Female">Female</option>
-                                            </select>
-                                        </div>
-
                                         <div className="form-group-m">
                                             <label htmlFor="userId">Password</label>
                                             <input

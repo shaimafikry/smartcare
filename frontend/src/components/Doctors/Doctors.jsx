@@ -17,10 +17,6 @@ const Doctors = () => {
 			try {
 				const response = await fetchData(`patients/${department}`);
 				setPatients(response);
-				// const user = decodeJWT(localStorage.getItem('token'))
-
-				// console.log('user in edit patient profile page', user);
-				// setUserDepartment(department);
 			} catch (error) {
 				setApiError('Failed to find patients data.');
 				console.error('Error fetching patients:', error);
@@ -62,7 +58,7 @@ const Doctors = () => {
                   <td>{patient.name}</td>
                   <td>{patient.national_id}</td>
                   <td>{patient.age}</td>
-                  <td>{patient.PatientDetail?.diagnosis || "Not yet diagnosed"}</td>
+                  <td>{patient.PatientDetail?.diagnosis || "No Diagnosis"}</td>
                   <td>{patient.status}</td>
                   <td>{new Date(patient.createdAt).toLocaleDateString()}</td>
                 </tr>

@@ -2,37 +2,28 @@ import React, { useEffect, useState } from 'react';
 import './AllPatients.css';
 import { fetchData } from '../../api';
 import { useNavigate } from 'react-router-dom';
-// import { decodeJWT } from '../../utils';
 
 const PatientAll = () => {
   const [patients, setPatients] = useState([]);
   const [apiError, setApiError] = useState('');
-	// const [department, setDepartment] = useState('');
-	const navigate = useNavigate(); // Get the navigate function
-
+	const navigate = useNavigate();
 	
 
-  // API
   const getPatients = async () => {
     try {
       const response = await fetchData('patients');
       setPatients(response);
-			// const user = decodeJWT(sessionStorage.getItem('token'))
 
-			// console.log('user in edit patient profile page', user);
-			// setDepartment(user.department);
     } catch (error) {
       setApiError('Failed to find patients data.');
       console.error('Error fetching patients:', error);
     }
   };
 
-  // getPatients func
   useEffect(() => {
     getPatients();
   }, []);
 
-  // Handle row click and navigate to another page (e.g., /patients/:id)
   const handleRowClick = (patientId) => {
     navigate(`/patients/${patientId}/edit`); // Redirect to the new page using the patient ID
   };
@@ -62,7 +53,7 @@ const PatientAll = () => {
                   <td>{patient.name}</td>
                   <td>{patient.department}</td>
                   <td>{patient.age}</td>
-                  <td>{patient.PatientDetail?.diagnosis || "Not Yet Diagnosis"}</td>
+                  <td>{patient.PatientDetail?.diagnosis || "No Diagnosis"}</td>
                   <td>{patient.status}</td>
                   <td>{new Date(patient.createdAt).toLocaleDateString()}</td>
                 </tr>

@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import './Reciptionists.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { postData } from '../../api';
-import { handleReload } from '../../utils'
-
-
+import { handleReload } from '../../utils';
 
 function Reception({ receptionist, message }) {
   const [formData, setFormData] = useState({
@@ -21,13 +19,10 @@ function Reception({ receptionist, message }) {
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-		 // Clear error for this field if it was previously marked as an error
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +33,7 @@ function Reception({ receptionist, message }) {
       /* backend endpoint*/
       setSuccessMessage('Patient registered successfully!');
 
-			handleReload();
+      handleReload();
       console.log('Form Data Submitted:', response);
     } catch (error) {
       setApiError(error.message || 'Failed to register patient. Please try again.');
@@ -63,12 +58,10 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter name"
                 value={formData.name}
                 onChange={handleChange}
-								required
+                required
               />
             </div>
-          </div>
 
-          <div className="form-row">
             <div className="form-group">
               <label htmlFor="patientAge">Age</label>
               <input
@@ -78,8 +71,25 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter Age"
                 value={formData.age}
                 onChange={handleChange}
-								required
+                required
               />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="patientGender">Gender</label>
+              <select
+                id="patientGender"
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
             </div>
 
             <div className="form-group">
@@ -91,7 +101,7 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter National ID"
                 value={formData.national_id}
                 onChange={handleChange}
-								required
+                required
               />
             </div>
           </div>
@@ -106,34 +116,10 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter address"
                 value={formData.address}
                 onChange={handleChange}
-								required
+                required
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="patientDepartment">Department</label>
-              <select
-                id="patientDepartment"
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-								required
-              >
-                <option value="" disabled>Select department</option>
-                <option value="emergency">Emergency</option>
-                <option value="surgery">Surgery</option>
-                <option value="reception">Reception</option>
-                <option value="management">Management</option>
-                <option value="pediatrics">Pediatrics</option>
-                <option value="orthopedics">Orthopedics</option>
-                <option value="cardiology">Cardiology</option>
-                <option value="neurology">Neurology</option>
-                <option value="radiology">Radiology</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-row">
             <div className="form-group">
               <label htmlFor="patientPhone">Phone</label>
               <input
@@ -143,8 +129,30 @@ function Reception({ receptionist, message }) {
                 placeholder="Enter phone number"
                 value={formData.phone}
                 onChange={handleChange}
-								required
+                required
               />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="patientDepartment">Department</label>
+              <select
+                id="patientDepartment"
+                name="department"
+                value={formData.department}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Select department</option>
+                <option value="emergency">Emergency</option>
+                <option value="surgery">Surgery</option>
+                <option value="pediatrics">Pediatrics</option>
+                <option value="orthopedics">Orthopedics</option>
+                <option value="cardiology">Cardiology</option>
+                <option value="neurology">Neurology</option>
+                <option value="radiology">Radiology</option>
+              </select>
             </div>
           </div>
 

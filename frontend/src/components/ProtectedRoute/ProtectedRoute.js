@@ -5,7 +5,7 @@ import { decodeJWT  } from '../../utils';
 
 export default function ProtectedRoute({ children, allowedRoles }) {
 
-    const token = sessionStorage.getItem('token'); // Assuming you store the user's role in localStorage
+    const token = sessionStorage.getItem('token');
 		if (!token) {
         // If there's no token, redirect to the login page
 				console.log("no token");

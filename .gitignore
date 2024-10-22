@@ -1,2 +1,14 @@
 node_modules
 BACKUP
+
+
+backend/config/.env
+backend/config/node_modules
+backend/config/examples.js
+
+
+backend/test.js
+backend/node_modules
+
+
+frontend/node_modules
