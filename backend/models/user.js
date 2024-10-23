@@ -92,7 +92,17 @@ async function getSpecificUsers(role) {
   }
   
 
-module.exports = { addUser, findUserByEmail, updateUser, deleteUser, validatePass, findUserById, updateUserPassword, getSpecificUsers, findUserByNationalId };
+module.exports = { 
+  addUser,
+  findUserByEmail,
+  updateUser,
+  deleteUser,
+  validatePass, 
+  findUserById, 
+  updateUserPassword, 
+  getSpecificUsers, 
+  findUserByNationalId 
+};
 
 
 
