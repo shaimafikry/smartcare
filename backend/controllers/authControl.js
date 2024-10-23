@@ -54,13 +54,8 @@ async function signin (req, res) {
 			redirectUrl = 'login'
 	}
 
-	
-	
-
 	res.cookie('token', token,  { httpOnly: true, secure: false, sameSite: 'strict'}).json({ message: 'Login successful',token , redirectUrl: `/${redirectUrl}` });
 };
-
-
 
 
 async function signout (req, res) {
