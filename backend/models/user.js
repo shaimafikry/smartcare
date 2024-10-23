@@ -1,16 +1,7 @@
-// user functions module
-
-// user functions module
-
-// import database
 const bcrypt = require('bcryptjs');
 const { User } = require('../config/users');
-// check user 
 
-
-
-
-
+// search by email
 async function findUserByEmail(email) {
     const user = await User.findOne({ where: { email } });
 		// console.log(user.password);
@@ -19,6 +10,7 @@ async function findUserByEmail(email) {
 }
 
 
+// search by national id
 async function findUserByNationalId(national_id) {
 	const user = await User.findOne({ where: { national_id } });
 	// console.log(user.password);
@@ -27,17 +19,12 @@ async function findUserByNationalId(national_id) {
 }
 
 
-
-
-
+// retrive by id
 async function findUserById(id) {
 	const user = await User.findOne({ where: { id } });
 	// console.log(user.password);
 	return user ? user.get({ plain: true }) : null;
 }
-
-
-
 
 
 // add user (input is object)
@@ -49,7 +36,6 @@ async function addUser(user) {
     const newUser = await User.create({ ...user, password: hashedPass });
     return newUser.get({ plain: true });
 }
-
 
 
 // update user password
@@ -91,8 +77,6 @@ async function deleteUser(email) {
 async function validatePass(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
 };
-
-
 
 
 // Fetch specific users based on their role
