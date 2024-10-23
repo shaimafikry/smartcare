@@ -29,9 +29,6 @@ async function addNewUser(req, res) {
 		return res.status(400).json({ message: 'Please add all fileds.' });
 
 	}
-
-	
-	
 };
 
 
@@ -53,8 +50,6 @@ async function showUser(req, res) {
     res.status(500).json({ message: 'An error occurred while fetching user' });
   }
 }
-
-
 
 
 // Update password
@@ -94,8 +89,6 @@ async function updatePassword(req, res) {
     return res.status(500).json({ message: 'An error occurred while updating the password' });
   }
 }
-
-
 
 
 async function getUsersData (req, res) {
