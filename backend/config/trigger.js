@@ -1,7 +1,7 @@
 const sequelize = require('./db'); // assuming the db config file for Sequelize instance
 
 
- const departmentTrigger = sequelize.query(`
+const departmentTrigger = sequelize.query(`
       CREATE OR REPLACE FUNCTION update_state_on_department_change()
       RETURNS TRIGGER AS $$
       BEGIN
@@ -18,7 +18,7 @@ const sequelize = require('./db'); // assuming the db config file for Sequelize 
       EXECUTE FUNCTION update_state_on_department_change();
     `);
 
-    const updateTrigger = sequelize.query(`
+const updateTrigger = sequelize.query(`
       CREATE OR REPLACE FUNCTION update_patient_state_on_patientdetails_change()
       RETURNS TRIGGER AS $$
       BEGIN
@@ -35,4 +35,4 @@ const sequelize = require('./db'); // assuming the db config file for Sequelize 
       EXECUTE FUNCTION update_patient_state_on_patientdetails_change();
     `);
 
-    module.exports = {departmentTrigger, updateTrigger}
+module.exports = {departmentTrigger, updateTrigger}
