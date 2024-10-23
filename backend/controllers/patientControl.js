@@ -31,7 +31,6 @@ async function editExistPatient(req, res){
 		}
 };
 
-
 // show one patient profile
 async function showPatient(req, res){
 
@@ -50,7 +49,6 @@ async function showPatient(req, res){
 };
 
 
-
 // show all patients in on depatrment
 async function departmentPatients(req, res){
 
@@ -66,13 +64,11 @@ async function departmentPatients(req, res){
 };
 
 
-
-
 // show all patients in on depatrment
 async function allPatients(req, res){
 	const all = await getAllPatients();
 	// console.log(all);
-	// andle if all is null
+	// handle if all is null
 	if (all === null){
 		return res.json({message: "no current data"});
 	}
@@ -80,8 +76,6 @@ async function allPatients(req, res){
 	// console.log("in patient control",all);
    return res.json(all);
 };
-
-
 
 
 // add patient function
@@ -92,13 +86,12 @@ async function addNewPatient( req, res) {
 	  const patient = await receptionistFindOnePatient(newPatient.national_id);
 		// if pt exist return the data 
 		if (patient) {
-			// ask for new visit or edit pt data
+		// ask for new visit or edit pt data
        return res.status(400).json({message: 'Pateint exist, new visit?'});
 		}
 		await addPatient(newPatient);
 		return res.status(200).json({message: 'Pateint added successfully'});
 };
-
 
 
 module.exports = { addNewPatient, editExistPatient, showPatient, departmentPatients, allPatients};
