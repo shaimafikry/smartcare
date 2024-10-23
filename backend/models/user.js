@@ -9,7 +9,6 @@ async function findUserByEmail(email) {
     return user ? user.get({ plain: true }) : null;
 }
 
-
 // search by national id
 async function findUserByNationalId(national_id) {
 	const user = await User.findOne({ where: { national_id } });
