@@ -36,7 +36,7 @@ const Patient = sequelize.define('Patients', {
     status: { // i make it default new , trgger to residnet if updated
         type: DataTypes.STRING,
         allowNull: false,
-				defaultValue: 'new', // Set default value to 'new'
+		defaultValue: 'new', // Set default value to 'new'
     }
 }, {
     timestamps: true
