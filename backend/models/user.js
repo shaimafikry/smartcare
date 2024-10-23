@@ -46,7 +46,6 @@ async function updateUserPassword(email, newPassword) {
 	return true;
 }
 
-
 // update user
 async function updateUser(email, updates) {
     const user = await findUserByEmail(email);
