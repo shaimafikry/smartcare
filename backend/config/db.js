@@ -9,5 +9,4 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   timezone: 'Africa/Cairo'    // Set timezone to Cairo
 });
 
-
 module.exports = sequelize;
